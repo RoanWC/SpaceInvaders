@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication2"
-        Title="Window1" Height="350" Width="525">
+        Title="Window1" Height="350" Width="525" KeyDown="ShipStrafeClick">
     <Canvas Name="Canvas">
-        <Polygon x:Name="Polygon1" Points="50,0 0,100 100,100" Fill="#FF71BF61" Canvas.Left="212" Canvas.Top="211" KeyDown="keyboardpressedClick"/>
+        <Polygon x:Name="Polygon1" Points="50,0 0,100 100,100" Fill="#FF71BF61" Canvas.Left="212" Canvas.Top="211" />
     </Canvas    >
 
 </Window>

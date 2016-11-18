@@ -28,7 +28,7 @@ namespace WpfApplication2
         private Polygon shape = new Polygon();
         private System.Windows.Threading.DispatcherTimer timer;
 
-        
+
 
 
         // test first committ on VS
@@ -36,54 +36,34 @@ namespace WpfApplication2
         {
             InitializeComponent();
 
- 
-            
-            shape.Points.Add(new Point(50, 0));
-            shape.Points.Add(new Point(0, 100));
-            shape.Points.Add(new Point(100, 100));
-            shape.Fill = Brushes.LightBlue;
-            shape.Stroke = Brushes.Cyan;
-           // timer.Tick += timer1_Tick;
-
 
 
         }
 
 
 
-      
-
-      
-
-
-        private void keyboardpressedClick(object sender, KeyEventArgs e)
+        private void ShipStrafeClick(object sender, KeyEventArgs e)
         {
-
             _x = Canvas.GetLeft(Polygon1);
             _y = Canvas.GetTop(Polygon1);
-            
-            switch(e.Key)
+
+            switch (e.Key)
             {
                 case Key.Right:
-                Canvas.SetLeft(shape, _x -= 10);
+                    _x += 20;
+                    Canvas.SetLeft(Polygon1, _x);
                     break;
 
                 case Key.Left:
-                    Canvas.SetLeft(shape, _x -= 10);
-                    break;
-
-                case Key.Space:
-                    Canvas.SetTop(shape, _y += 10);
+                    _x -= 20;
+                    Canvas.SetLeft(Polygon1, _x);
                     break;
 
                 default:
                     MessageBox.Show("Nothing");
                     break;
 
-
-
             }
-            
         }
     }
 }
