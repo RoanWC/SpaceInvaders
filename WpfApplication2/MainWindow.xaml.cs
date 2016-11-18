@@ -29,7 +29,7 @@ namespace WpfApplication2
         Ellipse ellipse = null;
 
    
-
+        // test first committ on VS
         public MainWindow()
         {
             InitializeComponent();
