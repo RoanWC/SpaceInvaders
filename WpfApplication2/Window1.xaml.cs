@@ -24,9 +24,11 @@ namespace WpfApplication2
 
         private double _x;
         private double _y;
+
+        private Polygon shape = new Polygon();
         private System.Windows.Threading.DispatcherTimer timer;
 
-        Ellipse ellipse = null;
+        
 
 
         // test first committ on VS
@@ -34,54 +36,54 @@ namespace WpfApplication2
         {
             InitializeComponent();
 
-            //Initialize the timer class
-            timer = new System.Windows.Threading.DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1); //Set the interval period here.
-            ellipse = CreateAnEllipse(10, 10);
-            timer.Tick += timer1_Tick;
+ 
+            
+            shape.Points.Add(new Point(50, 0));
+            shape.Points.Add(new Point(0, 100));
+            shape.Points.Add(new Point(100, 100));
+            shape.Fill = Brushes.LightBlue;
+            shape.Stroke = Brushes.Cyan;
+           // timer.Tick += timer1_Tick;
+
+
+
         }
 
 
 
-        private void timer1_Tick(object sender, EventArgs e)
+      
+
+      
+
+
+        private void keyboardpressedClick(object sender, KeyEventArgs e)
         {
-            timer.Start();
-            _x += 10;
-            PaintCanvas.Children.Add(ellipse);
 
-
-        }
-
-        // Customize your ellipse in this method
-        public Ellipse CreateAnEllipse(int height, int width)
-        {
-            SolidColorBrush fillBrush = new SolidColorBrush() { Color = Colors.Red };
-            SolidColorBrush borderBrush = new SolidColorBrush() { Color = Colors.Black };
-
-            return new Ellipse()
+            _x = Canvas.GetLeft(Polygon1);
+            _y = Canvas.GetTop(Polygon1);
+            
+            switch(e.Key)
             {
+                case Key.Right:
+                Canvas.SetLeft(shape, _x -= 10);
+                    break;
 
-                Height = height,
-                Width = width,
-                StrokeThickness = 1,
-                Stroke = borderBrush,
-                Fill = fillBrush
-            };
-        }
+                case Key.Left:
+                    Canvas.SetLeft(shape, _x -= 10);
+                    break;
 
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
+                case Key.Space:
+                    Canvas.SetTop(shape, _y += 10);
+                    break;
 
-            if (e.Key == Key.Left)
-            {
-                Canvas.SetLeft(ellipse, _x += 10);
+                default:
+                    MessageBox.Show("Nothing");
+                    break;
+
 
 
             }
-            if (e.Key == Key.Right)
-            {
-                Canvas.SetRight(ellipse, _x -= 10);
-            }
+            
         }
     }
 }
