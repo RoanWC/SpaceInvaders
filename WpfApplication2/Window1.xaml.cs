@@ -21,29 +21,27 @@ namespace WpfApplication2
     /// </summary>
     public partial class MainWindow : Window
     {
-    
+
         private double _x;
         private double _y;
         private System.Windows.Threading.DispatcherTimer timer;
-        
+
         Ellipse ellipse = null;
 
-   
+
         // test first committ on VS
         public MainWindow()
         {
             InitializeComponent();
 
             //Initialize the timer class
-            _x = 50;
-            _y = 50;
             timer = new System.Windows.Threading.DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1); //Set the interval period here.
             ellipse = CreateAnEllipse(10, 10);
             timer.Tick += timer1_Tick;
         }
 
-        
+
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -51,7 +49,7 @@ namespace WpfApplication2
             _x += 10;
             PaintCanvas.Children.Add(ellipse);
 
-            
+
         }
 
         // Customize your ellipse in this method
@@ -73,11 +71,12 @@ namespace WpfApplication2
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-          
+
             if (e.Key == Key.Left)
             {
-                Canvas.SetLeft(ellipse, _x+=10);
-                
+                Canvas.SetLeft(ellipse, _x += 10);
+
+
             }
             if (e.Key == Key.Right)
             {
