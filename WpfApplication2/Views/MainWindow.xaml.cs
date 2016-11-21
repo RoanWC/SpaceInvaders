@@ -40,12 +40,12 @@ namespace WpfApplication2
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0,0, 30);
             
-            for (double i = 0; i < 200; i += 30)
+            for (double i = 0; i < 300; i += 50)
             {
                 Rectangle rectangle = new Rectangle(); //create the rectangle
                 rectangle.Fill = Brushes.Cyan;
-                rectangle.Width = 30;
-                rectangle.Height = 30;
+                rectangle.Width = 50;
+                rectangle.Height = 50;
 
                 Canvas.SetLeft(rectangle, ++i);
                 _rectangles.Add(rectangle);
