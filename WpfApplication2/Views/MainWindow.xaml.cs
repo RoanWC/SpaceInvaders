@@ -31,18 +31,12 @@ namespace WpfApplication2
         private double delta_x = 5.0;
         private double delta_y = 1.0;
 
-        private Polygon shape = new Polygon();
         private DispatcherTimer timer;
 
-        
-
-        // test first committ on VS
         public MainWindow()
         {
             InitializeComponent();
 
-
-            StartGame();
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0,0, 30);
             
@@ -62,23 +56,12 @@ namespace WpfApplication2
                 MainCanvas.Children.Add(rect);
             }
 
-            Canvas.SetLeft(Polygon1, 250);
-            Canvas.SetTop(Polygon1, 260);
+            Canvas.SetLeft(Ship, 250);
+            Canvas.SetTop(Ship, 260);
             timer.Tick += Timer_Tick;
             timer.Start();
         }
 
-        private void StartGame()
-        {
-            
-
-
-
-
-         
-
-
-        }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -107,27 +90,21 @@ namespace WpfApplication2
             }
 
 
-
-
-
-
-
-
         }
 
         private void ShipStrafeClick(object sender, KeyEventArgs e)
         {
-            _x = Canvas.GetLeft(Polygon1);
-            _y = Canvas.GetTop(Polygon1);
+            _x = Canvas.GetLeft(Ship);
+            _y = Canvas.GetTop(Ship);
 
             switch (e.Key)
             {
                 case Key.Right:
                     
-                    if (_x + Polygon1.ActualWidth < MainCanvas.ActualWidth)
+                    if (_x + Ship.ActualWidth < MainCanvas.ActualWidth)
                     {
                         _x += 12;
-                        Canvas.SetLeft(Polygon1, _x);
+                        Canvas.SetLeft(Ship, _x);
                         
                     }
                     break;
@@ -136,7 +113,7 @@ namespace WpfApplication2
                     if (_x > 0)
                     {
                         _x -= 12;
-                        Canvas.SetLeft(Polygon1, _x);
+                        Canvas.SetLeft(Ship, _x);
                     }
                     break;
 
