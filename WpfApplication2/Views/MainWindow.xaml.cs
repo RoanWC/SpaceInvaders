@@ -27,7 +27,7 @@ namespace WpfApplication2
 
         private double _x;
         private double _y;
-
+        //blalba
         private double delta_x = 5.0;
         private double delta_y = 1.0;
 
@@ -46,7 +46,7 @@ namespace WpfApplication2
                 rectangle.Fill = Brushes.Cyan;
                 rectangle.Width = 50;
                 rectangle.Height = 50;
-
+                
                 Canvas.SetLeft(rectangle, ++i);
                 _rectangles.Add(rectangle);
             }
