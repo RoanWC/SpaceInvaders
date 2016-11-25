@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using WpfApplication2;
 
 namespace SpaceInvaders
 {
@@ -23,56 +24,93 @@ namespace SpaceInvaders
     {
         Random rand = new Random();
         private DispatcherTimer timer;
-        private List<Rectangle> rectangles = new List<Rectangle>();
+        private List<CustomShape> enemies = new List<CustomShape>();
         int speed = 2;
         double top = 0;
+        CustomShape barrier1 = new CustomShape();
+        CustomShape barrier2 = new CustomShape();
+        CustomShape barrier3 = new CustomShape();
+        CustomShape ship = new CustomShape();
         public MainWindow()
         {
             InitializeComponent();
             timer = new DispatcherTimer();
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 50);
             for (double i = 0; i < 400; i += 50)
             {
                 string relativePath = "images/hilaryclintonface.jpg";
-                Rectangle rectangle = new Rectangle(); //create the rectangle
-                rectangle.Fill = new ImageBrush(new BitmapImage(new Uri(relativePath, UriKind.Relative)));
-                rectangle.Width = 50;
-                rectangle.Height = 50;
+                CustomShape foe = new CustomShape(); //create the rectangle
+                foe.shape = new Rectangle();
+                foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(relativePath, UriKind.Relative)));
+                foe.shape.Width = 50;
+                foe.shape.Height = 50;
 
-                Canvas.SetLeft(rectangle, i += 10);
-                rectangles.Add(rectangle);
+                Canvas.SetLeft(foe.shape, i += 10);
+                enemies.Add(foe);
                 //
             }
 
-            foreach (var rect in rectangles)
+            foreach (CustomShape foe in enemies)
             {
-                canvas.Children.Add(rect);
+                canvas.Children.Add(foe.shape);
             }
+            string barrierPath = "images/barrier.png";
+            barrier1.shape = new Rectangle();
+            barrier2.shape = new Rectangle();
+            barrier3.shape = new Rectangle();
+            barrier1.shape.Width = 100;
+            barrier1.shape.Height = 50;
+            barrier1.shape.Fill = Brushes.Cyan;
 
-            Polygon shape1 = new Polygon();
-            Polygon shape2 = new Polygon();
-            Polygon shape3 = new Polygon();
+            barrier2.shape.Width = 100;
+            barrier2.shape.Height = 50;
+            barrier2.shape.Fill = Brushes.Cyan;
 
-            //Canvas.SetBottom(shape, );
+            barrier3.shape.Width = 100;
+            barrier3.shape.Height = 50;
+            barrier3.shape.Fill = Brushes.Cyan;
+            
+            barrier1.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
+            barrier2.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
+            barrier3.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
 
 
+            Canvas.SetLeft(barrier1.shape, 10);
+            Canvas.SetBottom(barrier1.shape, 50);
+
+            Canvas.SetLeft(barrier2.shape, 200);
+            Canvas.SetBottom(barrier2.shape, 50);
+
+            Canvas.SetLeft(barrier3.shape, 400);
+            Canvas.SetBottom(barrier3.shape, 50);
+            canvas.Children.Add(barrier1.shape);
+            canvas.Children.Add(barrier2.shape);
+            canvas.Children.Add(barrier3.shape);
+            ship.shape = new Rectangle();
+            ship.shape.Width = 50;
+            ship.shape.Height = 50;
+            String shipPath = "images/ship.jpg";
+            String backGroundPath = "images/background.gif";
+            ship.shape.Fill = new ImageBrush(new BitmapImage(new Uri(shipPath, UriKind.Relative)));
+            Canvas.SetLeft(ship.shape, 200);
+            Canvas.SetBottom(ship.shape, 10);
+            canvas.Children.Add(ship.shape);
+            canvas.Background = new ImageBrush(new BitmapImage(new Uri(backGroundPath, UriKind.Relative)));
             timer.Tick += move;
             timer.Start();
         }
 
         public void move(object sender, EventArgs e)
         {
-            double left, testLeftSide, borderRight = canvas.ActualWidth, borderBottom = 100, bottom = 900, testRightSide;
-            Rectangle[] rectArr = rectangles.ToArray();
-            foreach (Rectangle rect in rectArr)
+            double left, testLeftSide, borderRight = canvas.ActualWidth, testRightSide;
+            foreach (CustomShape foe in enemies)
             {
-                Rectangle firstRect = rectArr[rectArr.Length - 1];
-                Rectangle lastRect = rectArr[0];
-                testLeftSide = Canvas.GetLeft(lastRect);
-                testRightSide = Canvas.GetLeft(firstRect);
-                left = Canvas.GetLeft(rect);
-                //top = Canvas.GetTop(firstRect);
-                if (testRightSide + firstRect.ActualWidth >= canvas.ActualWidth)
+                CustomShape lastFoe = enemies[enemies.Count - 1];
+                CustomShape firstFoe = enemies[0];
+                testLeftSide = Canvas.GetLeft(firstFoe.shape);
+                testRightSide = Canvas.GetLeft(lastFoe.shape);
+                left = Canvas.GetLeft(foe.shape);
+                if (testRightSide + lastFoe.shape.ActualWidth >= canvas.ActualWidth)
                 {
                     speed = -3;
                     top++;
@@ -80,18 +118,49 @@ namespace SpaceInvaders
                 if (testLeftSide <= 0)
                 {
                     speed = 3;
-                    Canvas.SetLeft(lastRect, Canvas.GetLeft(rectArr[1]) - rectArr[1].ActualWidth - 8);
+                    Canvas.SetLeft(firstFoe.shape, Canvas.GetLeft(enemies[1].shape) - enemies[1].shape.ActualWidth - 8);
                     top += 2;
                 }
-                Canvas.SetTop(rect, top);
-                Canvas.SetLeft(rect, left += speed);
+                Canvas.SetTop(foe.shape, top);
+                Canvas.SetLeft(foe.shape, left += speed);
             }
 
         }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        private void ShipStrafeClick(object sender, KeyEventArgs e)
         {
+            CustomShape ship = new CustomShape();
+            ship.shape = new Rectangle();
+            string relativePath = "images/hilaryclintonface.jpg";
+            ship.shape.Fill = new ImageBrush(new BitmapImage(new Uri(relativePath, UriKind.Relative)));
+            var x = Canvas.GetLeft(ship);
 
+
+            switch (e.Key)
+            {
+                case Key.Right:
+
+                    if (x + ship.shape.ActualWidth < canvas.ActualWidth)
+                    {
+                        x += 12;
+                        Canvas.SetLeft(ship, x);
+
+                    }
+                    break;
+
+                case Key.Left:
+                    if (x > 0)
+                    {
+                        x -= 12;
+                        Canvas.SetLeft(ship, x);
+                    }
+                    break;
+
+                default:
+
+                    break;
+
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ using System.Windows.Shapes;
 
 namespace WpfApplication2
 {
-    class Shape : UIElement
+    class CustomShape : UIElement
     {
         private new string Name { get; set; }
         public double PositionX { get; set; }
@@ -20,8 +20,7 @@ namespace WpfApplication2
         public double Width { get; set; }
         public double PositionY { get; set; }
         public double Health { get; set; }
-        public Rectangle fill { get; set; }
-
+        public Rectangle shape { get; set; }
 
 
     }
