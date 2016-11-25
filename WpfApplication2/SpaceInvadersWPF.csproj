@@ -105,6 +105,15 @@
   <ItemGroup>
     <None Include="Resources\Space Invaders Icon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\donaldthumb.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Donaldface.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DonaldsShip.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

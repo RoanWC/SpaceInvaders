@@ -124,7 +124,13 @@
   <data name="smirksmile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\smirksmile.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Space_Invaders_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Space Invaders Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Donaldface" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Donaldface.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DonaldsShip" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DonaldsShip.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="donaldthumb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\donaldthumb.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
