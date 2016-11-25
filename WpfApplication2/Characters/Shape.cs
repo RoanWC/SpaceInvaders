@@ -20,7 +20,8 @@ namespace WpfApplication2
         public double Width { get; set; }
         public double PositionY { get; set; }
         public double Health { get; set; }
-        public Image image { get; set; }
+        public Rectangle fill { get; set; }
+
 
 
     }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,120 +9,88 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace WpfApplication2
+namespace SpaceInvaders
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Shape> rectangles = new List<Shape>();
-
-        private double _x;
-        private double _y;
-        private double direction_x = 5.0;
-        //private double direction_y = 1.0;
-
+        Random rand = new Random();
         private DispatcherTimer timer;
-
+        private List<Rectangle> rectangles = new List<Rectangle>();
+        int speed = 2;
+        double top = 0;
         public MainWindow()
         {
             InitializeComponent();
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
-            
-           // Canvas.Left = "250" Canvas.Top = "260"
             for (double i = 0; i < 400; i += 50)
             {
-                //Rectangle rectangle = new Rectangle(); //create the rectangle
-                Shape rectangle = new Shape();
-            
-                var uri = Properties.Resources.hilaryclintonface;
-                rectangle.image.Source = new BitmapImage(uri);
-                
-                
+                string relativePath = "images/hilaryclintonface.jpg";
+                Rectangle rectangle = new Rectangle(); //create the rectangle
+                rectangle.Fill = new ImageBrush(new BitmapImage(new Uri(relativePath, UriKind.Relative)));
+                rectangle.Width = 50;
+                rectangle.Height = 50;
+
                 Canvas.SetLeft(rectangle, i += 10);
                 rectangles.Add(rectangle);
-               
             }
 
             foreach (var rect in rectangles)
             {
-                MainCanvas.Children.Add(rect);
+                canvas.Children.Add(rect);
             }
 
-            timer.Tick += Timer_Tick;
+            Polygon shape1 = new Polygon();
+            Polygon shape2 = new Polygon();
+            Polygon shape3 = new Polygon();
+
+            //Canvas.SetBottom(shape, );
+
+
+            timer.Tick += move;
             timer.Start();
         }
 
-
-        private void Timer_Tick(object sender, EventArgs e)
+        public void move(object sender, EventArgs e)
         {
-            double left, testLeftSide, top, borderRight = MainCanvas.ActualWidth, borderBottom = 100, bottom = 900, testRightSide;
-            Shape[] rectArr = rectangles.ToArray();
-            foreach (Shape rect in rectArr)
+            double left, testLeftSide, borderRight = canvas.ActualWidth, borderBottom = 100, bottom = 900, testRightSide;
+            Rectangle[] rectArr = rectangles.ToArray();
+            foreach (Rectangle rect in rectArr)
             {
-                Shape firstRect = rectArr[rectArr.Length - 1];
-                Shape lastRect = rectArr[0];
+                Rectangle firstRect = rectArr[rectArr.Length - 1];
+                Rectangle lastRect = rectArr[0];
                 testLeftSide = Canvas.GetLeft(lastRect);
                 testRightSide = Canvas.GetLeft(firstRect);
                 left = Canvas.GetLeft(rect);
-                if (testRightSide + firstRect.Width >= MainCanvas.ActualWidth)
-                    direction_x = -5;
-                if (testLeftSide < 0)
+                //top = Canvas.GetTop(firstRect);
+                if (testRightSide + firstRect.ActualWidth >= canvas.ActualWidth)
                 {
-                    direction_x = 5;
-                    Canvas.SetLeft(lastRect, Canvas.GetLeft(rectArr[1]) - rectArr[1].Width - 4);
+                    speed = -3;
+                    top++;
                 }
-
-                Canvas.SetLeft(rect, left += direction_x);
+                if (testLeftSide <= 0)
+                {
+                    speed = 3;
+                    Canvas.SetLeft(lastRect, Canvas.GetLeft(rectArr[1]) - rectArr[1].ActualWidth - 8);
+                    top += 2;
+                }
+                Canvas.SetTop(rect, top);
+                Canvas.SetLeft(rect, left += speed);
             }
 
         }
-               
 
-        private void ShipStrafeClick(object sender, KeyEventArgs e)
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Shape ship = new Shape();
-            BitmapUri uri = Properties.Resources.hilaryclintonface;
-            //Image image = new Image();
-            ship.image.Source = uri;
-            Canvas.SetLeft(ship, 250);
-            Canvas.SetTop(ship, 260);
-            _x = Canvas.GetLeft(ship);
-            _y = Canvas.GetTop(ship);
 
-            switch (e.Key)
-            {
-                case Key.Right:
-                    
-                    if (_x + ship.Width < MainCanvas.ActualWidth)
-                    {
-                        _x += 12;
-                        Canvas.SetLeft(ship, _x);
-                        
-                    }
-                    break;
-
-                case Key.Left:
-                    if (_x > 0)
-                    {
-                        _x -= 12;
-                        Canvas.SetLeft(ship, _x);
-                    }
-                    break;
-
-                default:
-                    
-                    break;
-
-            }
         }
     }
 }
