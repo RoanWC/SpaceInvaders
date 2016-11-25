@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfApplication2"
         Title="SpaceInvadersWPF" Height="350" Width="525" KeyDown="ShipStrafeClick">
     <Canvas Name="MainCanvas">
-        <Polygon x:Name="Ship" Points="30,0 0,60 60,60" Fill="#FF71BF61" Canvas.Left="250" Canvas.Top="260" />
+        
        </Canvas>
 
 </Window>

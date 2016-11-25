@@ -23,41 +23,41 @@ namespace WpfApplication2
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Rectangle> _rectangles = new List<Rectangle>();
+        private List<Shape> rectangles = new List<Shape>();
 
         private double _x;
         private double _y;
-        //blalba
-        private double delta_x = 5.0;
-        private double delta_y = 1.0;
+        private double direction_x = 5.0;
+        //private double direction_y = 1.0;
 
         private DispatcherTimer timer;
 
         public MainWindow()
         {
             InitializeComponent();
-
             timer = new DispatcherTimer();
-            timer.Interval = new TimeSpan(0, 0, 0,0, 30);
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             
-            for (double i = 0; i < 300; i += 50)
+           // Canvas.Left = "250" Canvas.Top = "260"
+            for (double i = 0; i < 400; i += 50)
             {
-                Rectangle rectangle = new Rectangle(); //create the rectangle
-                rectangle.Fill = Brushes.Cyan;
-                rectangle.Width = 50;
-                rectangle.Height = 50;
+                //Rectangle rectangle = new Rectangle(); //create the rectangle
+                Shape rectangle = new Shape();
+            
+                var uri = Properties.Resources.hilaryclintonface;
+                rectangle.image.Source = new BitmapImage(uri);
                 
-                Canvas.SetLeft(rectangle, ++i);
-                _rectangles.Add(rectangle);
+                
+                Canvas.SetLeft(rectangle, i += 10);
+                rectangles.Add(rectangle);
+               
             }
 
-            foreach (var rect in _rectangles)
+            foreach (var rect in rectangles)
             {
                 MainCanvas.Children.Add(rect);
             }
 
-            Canvas.SetLeft(Ship, 250);
-            Canvas.SetTop(Ship, 260);
             timer.Tick += Timer_Tick;
             timer.Start();
         }
@@ -65,46 +65,48 @@ namespace WpfApplication2
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-    
-
-            foreach (var shape in _rectangles)
+            double left, testLeftSide, top, borderRight = MainCanvas.ActualWidth, borderBottom = 100, bottom = 900, testRightSide;
+            Shape[] rectArr = rectangles.ToArray();
+            foreach (Shape rect in rectArr)
             {
+                Shape firstRect = rectArr[rectArr.Length - 1];
+                Shape lastRect = rectArr[0];
+                testLeftSide = Canvas.GetLeft(lastRect);
+                testRightSide = Canvas.GetLeft(firstRect);
+                left = Canvas.GetLeft(rect);
+                if (testRightSide + firstRect.Width >= MainCanvas.ActualWidth)
+                    direction_x = -5;
+                if (testLeftSide < 0)
+                {
+                    direction_x = 5;
+                    Canvas.SetLeft(lastRect, Canvas.GetLeft(rectArr[1]) - rectArr[1].Width - 4);
+                }
 
-
-                var left = Canvas.GetLeft(shape);
-
-                //move rectangle position
-                left += delta_x;
-
-                //check if border hit
-                if (left + shape.ActualWidth+1 > MainCanvas.ActualWidth)
-                    delta_x = -delta_x;
-
-                else if (left < 0)
-                    delta_x = -delta_x;
-
-
-                // set rectangle position
-                Canvas.SetLeft(shape, left);
-
+                Canvas.SetLeft(rect, left += direction_x);
             }
 
-
         }
+               
 
         private void ShipStrafeClick(object sender, KeyEventArgs e)
         {
-            _x = Canvas.GetLeft(Ship);
-            _y = Canvas.GetTop(Ship);
+            Shape ship = new Shape();
+            BitmapUri uri = Properties.Resources.hilaryclintonface;
+            //Image image = new Image();
+            ship.image.Source = uri;
+            Canvas.SetLeft(ship, 250);
+            Canvas.SetTop(ship, 260);
+            _x = Canvas.GetLeft(ship);
+            _y = Canvas.GetTop(ship);
 
             switch (e.Key)
             {
                 case Key.Right:
                     
-                    if (_x + Ship.ActualWidth < MainCanvas.ActualWidth)
+                    if (_x + ship.Width < MainCanvas.ActualWidth)
                     {
                         _x += 12;
-                        Canvas.SetLeft(Ship, _x);
+                        Canvas.SetLeft(ship, _x);
                         
                     }
                     break;
@@ -113,7 +115,7 @@ namespace WpfApplication2
                     if (_x > 0)
                     {
                         _x -= 12;
-                        Canvas.SetLeft(Ship, _x);
+                        Canvas.SetLeft(ship, _x);
                     }
                     break;
 
