@@ -97,22 +97,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\smirksmile.PNG" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\hilaryclintonface.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Space Invaders Icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\images\ship.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\images\background.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\images\barrier.png" />
+    <None Include="bin\Debug\images\smirksmile.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

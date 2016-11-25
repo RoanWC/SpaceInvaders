@@ -83,6 +83,36 @@ namespace WpfApplication2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Donaldface {
+            get {
+                object obj = ResourceManager.GetObject("Donaldface", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DonaldsShip {
+            get {
+                object obj = ResourceManager.GetObject("DonaldsShip", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap donaldthumb {
+            get {
+                object obj = ResourceManager.GetObject("donaldthumb", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap hilaryclintonface {
             get {
                 object obj = ResourceManager.GetObject("hilaryclintonface", resourceCulture);
@@ -96,26 +126,6 @@ namespace WpfApplication2.Properties {
         internal static System.Drawing.Bitmap ship {
             get {
                 object obj = ResourceManager.GetObject("ship", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap smirksmile {
-            get {
-                object obj = ResourceManager.GetObject("smirksmile", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Space_Invaders_Icon {
-            get {
-                object obj = ResourceManager.GetObject("Space_Invaders_Icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
