@@ -41,6 +41,7 @@ namespace SpaceInvaders
 
                 Canvas.SetLeft(rectangle, i += 10);
                 rectangles.Add(rectangle);
+                //
             }
 
             foreach (var rect in rectangles)
