@@ -27,7 +27,7 @@ namespace SpaceInvaders
         private List<CustomShape> enemies = new List<CustomShape>();
         int speed = 2;
         double top = 0;
-        CustomShape barrier1 = new CustomShape();
+        CustomShape barrier1 =  new CustomShape();
         CustomShape barrier2 = new CustomShape();
         CustomShape barrier3 = new CustomShape();
         CustomShape ship = new CustomShape();
@@ -129,11 +129,8 @@ namespace SpaceInvaders
 
         private void ShipStrafeClick(object sender, KeyEventArgs e)
         {
-            CustomShape ship = new CustomShape();
-            ship.shape = new Rectangle();
-            string relativePath = "images/hilaryclintonface.jpg";
-            ship.shape.Fill = new ImageBrush(new BitmapImage(new Uri(relativePath, UriKind.Relative)));
-            var x = Canvas.GetLeft(ship);
+           
+            double x = Canvas.GetLeft(ship.shape);
 
 
             switch (e.Key)
@@ -143,7 +140,7 @@ namespace SpaceInvaders
                     if (x + ship.shape.ActualWidth < canvas.ActualWidth)
                     {
                         x += 12;
-                        Canvas.SetLeft(ship, x);
+                        Canvas.SetLeft(ship.shape, x);
 
                     }
                     break;
@@ -152,7 +149,7 @@ namespace SpaceInvaders
                     if (x > 0)
                     {
                         x -= 12;
-                        Canvas.SetLeft(ship, x);
+                        Canvas.SetLeft(ship.shape, x);
                     }
                     break;
 
