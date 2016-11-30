@@ -24,9 +24,13 @@ namespace SpaceInvaders
     {
         Random rand = new Random();
         private DispatcherTimer timer;
+        private DispatcherTimer bulletTimer;
+        string bulletPath = "images/donaldthumb.jpg";
+        CustomShape bullet = new CustomShape();
+        double bulletSpeed = 15;
         private List<CustomShape> enemies = new List<CustomShape>();
         int speed = 2;
-        double top = 0;
+        double top = 0, bottom = 0;
         CustomShape barrier1 =  new CustomShape();
         CustomShape barrier2 = new CustomShape();
         CustomShape barrier3 = new CustomShape();
@@ -36,6 +40,7 @@ namespace SpaceInvaders
             InitializeComponent();
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 50);
+            bulletTimer = new DispatcherTimer();
             for (double i = 0; i < 400; i += 50)
             {
                 string relativePath = "images/hilaryclintonface.jpg";
@@ -129,10 +134,9 @@ namespace SpaceInvaders
 
         private void ShipStrafeClick(object sender, KeyEventArgs e)
         {
+            
+            double x = Canvas.GetLeft(ship.shape), i = canvas.ActualWidth;
            
-            double x = Canvas.GetLeft(ship.shape);
-
-
             switch (e.Key)
             {
                 case Key.Right:
@@ -153,10 +157,33 @@ namespace SpaceInvaders
                     }
                     break;
 
+                case Key.Space:
+                    bullet.shape = new Rectangle();
+                    bullet.shape.Fill = new ImageBrush(new BitmapImage(new Uri(bulletPath, UriKind.Relative)));
+                    bullet.shape.Width = 20;
+                    bullet.shape.Height = 50;
+                    Canvas.SetLeft(bullet.shape, Canvas.GetLeft(ship.shape));
+                    canvas.Children.Add(bullet.shape);
+                    Canvas.SetBottom(bullet.shape, 0);
+                    bulletTimer.Interval = new TimeSpan(0, 0, 0, 0, 50);
+                    bulletTimer.Tick += moveBullet;
+                    bulletTimer.Start();
+
+                    break;
                 default:
 
                     break;
 
+            }
+        }
+        public void moveBullet(object sender, EventArgs e)
+        {
+            Canvas.SetBottom(bullet.shape, bottom+=bulletSpeed);
+            if (Canvas.GetBottom(bullet.shape) >= canvas.ActualHeight)
+            {
+                canvas.Children.Remove(bullet.shape);
+                bottom = 0;
+                bulletTimer.Stop();
             }
         }
     }
