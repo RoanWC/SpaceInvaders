@@ -41,6 +41,8 @@ namespace SpaceInvaders
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 50);
             bulletTimer = new DispatcherTimer();
+            bulletTimer.Interval = new TimeSpan(0, 0, 0, 0, 50);
+            bulletTimer.Tick += moveBullet;
             for (double i = 0; i < 400; i += 50)
             {
                 string relativePath = "images/hilaryclintonface.jpg";
@@ -165,8 +167,6 @@ namespace SpaceInvaders
                     Canvas.SetLeft(bullet.shape, Canvas.GetLeft(ship.shape));
                     canvas.Children.Add(bullet.shape);
                     Canvas.SetBottom(bullet.shape, 0);
-                    bulletTimer.Interval = new TimeSpan(0, 0, 0, 0, 50);
-                    bulletTimer.Tick += moveBullet;
                     bulletTimer.Start();
 
                     break;
@@ -178,12 +178,13 @@ namespace SpaceInvaders
         }
         public void moveBullet(object sender, EventArgs e)
         {
-            Canvas.SetBottom(bullet.shape, bottom+=bulletSpeed);
+            Canvas.SetBottom(bullet.shape, bottom += bulletSpeed);
             if (Canvas.GetBottom(bullet.shape) >= canvas.ActualHeight)
             {
                 canvas.Children.Remove(bullet.shape);
                 bottom = 0;
                 bulletTimer.Stop();
+                
             }
         }
     }
