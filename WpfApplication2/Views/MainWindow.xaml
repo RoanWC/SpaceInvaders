@@ -6,5 +6,7 @@
         xmlns:local="clr-namespace:SpaceInvaders"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525" KeyDown="ShipStrafeClick" >
-    <Canvas x:Name="canvas" />
+    <Canvas x:Name="canvas" >
+        <Button x:Name="start_button" Content="CLICK HERE TO BEGIN" Height="56" Canvas.Left="10" Canvas.Top="123" Width="497" FontFamily="OCR A Std" FontSize="36" Click="start_button_Click"  />
+    </Canvas>
 </Window>

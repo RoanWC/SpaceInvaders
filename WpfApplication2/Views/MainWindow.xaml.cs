@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using WpfApplication2;
 
+
 namespace SpaceInvaders
 {
     /// <summary>
@@ -31,82 +32,18 @@ namespace SpaceInvaders
         private List<CustomShape> enemies = new List<CustomShape>();
         int speed = 2;
         double top = 0, bottom = 0;
-        CustomShape barrier1 =  new CustomShape();
+        CustomShape barrier1 = new CustomShape();
         CustomShape barrier2 = new CustomShape();
         CustomShape barrier3 = new CustomShape();
         CustomShape ship = new CustomShape();
         public MainWindow()
         {
-            InitializeComponent();
-            bullet.shape = new Rectangle();
-            Canvas.SetBottom(bullet.shape, 0);
-            timer = new DispatcherTimer();
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 50);
-            bulletTimer = new DispatcherTimer();
-            bulletTimer.Interval = new TimeSpan(0, 0, 0, 0, 50);
-            bulletTimer.Tick += moveBullet;
-            for (double i = 0; i < 400; i += 50)
-            {
-                string relativePath = "images/hilaryclintonface.png";
-                CustomShape foe = new CustomShape(); //create the rectangle
-                foe.shape = new Rectangle();
-                foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(relativePath, UriKind.Relative)));
-                foe.shape.Width = 50;
-                foe.shape.Height = 50;
-
-                Canvas.SetLeft(foe.shape, i += 10);
-                enemies.Add(foe);
-                //
-            }
-
-            foreach (CustomShape foe in enemies)
-            {
-                canvas.Children.Add(foe.shape);
-            }
-            string barrierPath = "images/barrier.png";
-            barrier1.shape = new Rectangle();
-            barrier2.shape = new Rectangle();
-            barrier3.shape = new Rectangle();
-            barrier1.shape.Width = 100;
-            barrier1.shape.Height = 50;
-            barrier1.shape.Fill = Brushes.Cyan;
-
-            barrier2.shape.Width = 100;
-            barrier2.shape.Height = 50;
-            barrier2.shape.Fill = Brushes.Cyan;
-
-            barrier3.shape.Width = 100;
-            barrier3.shape.Height = 50;
-            barrier3.shape.Fill = Brushes.Cyan;
-            
-            barrier1.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
-            barrier2.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
-            barrier3.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
+            Loaded += delegate
+                {
+                    InitializeComponent();
+                };
 
 
-            Canvas.SetLeft(barrier1.shape, 10);
-            Canvas.SetBottom(barrier1.shape, 50);
-
-            Canvas.SetLeft(barrier2.shape, 200);
-            Canvas.SetBottom(barrier2.shape, 50);
-
-            Canvas.SetLeft(barrier3.shape, 400);
-            Canvas.SetBottom(barrier3.shape, 50);
-            canvas.Children.Add(barrier1.shape);
-            canvas.Children.Add(barrier2.shape);
-            canvas.Children.Add(barrier3.shape);
-            ship.shape = new Rectangle();
-            ship.shape.Width = 50;
-            ship.shape.Height = 50;
-            String shipPath = "images/ship.png";
-            String backGroundPath = "images/background.gif";
-            ship.shape.Fill = new ImageBrush(new BitmapImage(new Uri(shipPath, UriKind.Relative)));
-            Canvas.SetLeft(ship.shape, 200);
-            Canvas.SetBottom(ship.shape, 10);
-            canvas.Children.Add(ship.shape);
-            canvas.Background = new ImageBrush(new BitmapImage(new Uri(backGroundPath, UriKind.Relative)));
-            timer.Tick += move;
-            timer.Start();
         }
 
         public void move(object sender, EventArgs e)
@@ -119,30 +56,34 @@ namespace SpaceInvaders
                 testLeftSide = Canvas.GetLeft(firstFoe.shape);
                 testRightSide = Canvas.GetLeft(lastFoe.shape);
                 left = Canvas.GetLeft(foe.shape);
+                foe.PositionY = Canvas.GetTop(foe.shape);
                 if (Canvas.GetTop(bullet.shape) <= Canvas.GetTop(foe.shape))
                     canvas.Children.Remove(foe.shape);
                 if (testRightSide + lastFoe.shape.ActualWidth >= canvas.ActualWidth)
                 {
                     speed = -3;
-                    top++;
+                    foe.PositionY++;
                 }
-                if (testLeftSide <= 0)
+                if (testLeftSide < 0)
                 {
                     speed = 3;
                     Canvas.SetLeft(firstFoe.shape, Canvas.GetLeft(enemies[1].shape) - enemies[1].shape.ActualWidth - 8);
-                    top += 2;
+                    foe.PositionY+=2;
                 }
-                Canvas.SetTop(foe.shape, top);
+                
+                Canvas.SetTop(foe.shape, foe.PositionY);
                 Canvas.SetLeft(foe.shape, left += speed);
+                
+              
             }
 
         }
 
         private void ShipStrafeClick(object sender, KeyEventArgs e)
         {
-            
+
             double x = Canvas.GetLeft(ship.shape), i = canvas.ActualWidth;
-           
+
             switch (e.Key)
             {
                 case Key.Right:
@@ -179,6 +120,114 @@ namespace SpaceInvaders
 
             }
         }
+
+        private void start_button_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow window = new MainWindow();
+
+            window.Close();
+            start_button.Visibility = Visibility.Hidden;
+            bullet.shape = new Rectangle();
+            Canvas.SetBottom(bullet.shape, 0);
+            timer = new DispatcherTimer();
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            bulletTimer = new DispatcherTimer();
+            bulletTimer.Interval = new TimeSpan(0, 0, 0, 0, 50);
+            bulletTimer.Tick += moveBullet;
+            var FoeYSpacing = 0.0;
+
+            var FoeXSpacing = 0.0;
+            for (int j = 0; j < 3; j++)
+            {
+               
+                for (double i = 0; i < 8; i++)
+                {
+                    string relativePath = "images/hilaryclintonface.png";
+                    CustomShape foe = new CustomShape(); //create the rectangle
+                    foe.shape = new Rectangle();
+                    foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(relativePath, UriKind.Relative)));
+                    foe.shape.Width = 50;
+                    foe.shape.Height = 50;
+                    FoeXSpacing += foe.shape.Width + foe.PositionX;
+                    Canvas.SetLeft(foe.shape, FoeXSpacing += 10);
+                    Canvas.SetTop(foe.shape, FoeYSpacing);
+
+                    enemies.Add(foe);
+                    /*
+                    if (i == 7 || i == 15|| i == 23)
+                    {
+                        FoeXSpacing = 0;
+                    
+                    }
+
+                    if (i > 8)
+                    {
+
+                        Canvas.SetTop(foe.shape, FoeYSpacing);
+
+                    }
+                    else
+                    {
+                       
+                    }
+              */
+
+                }
+                FoeXSpacing = 0.0;
+                FoeYSpacing += enemies[0].Height+50;
+            }
+
+            foreach (CustomShape foe in enemies)
+            {
+                canvas.Children.Add(foe.shape);
+
+            }
+            string barrierPath = "images/barrier.png";
+            barrier1.shape = new Rectangle();
+            barrier2.shape = new Rectangle();
+            barrier3.shape = new Rectangle();
+            barrier1.shape.Width = 100;
+            barrier1.shape.Height = 50;
+            barrier1.shape.Fill = Brushes.Cyan;
+
+            barrier2.shape.Width = 100;
+            barrier2.shape.Height = 50;
+            barrier2.shape.Fill = Brushes.Cyan;
+
+            barrier3.shape.Width = 100;
+            barrier3.shape.Height = 50;
+            barrier3.shape.Fill = Brushes.Cyan;
+
+            barrier1.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
+            barrier2.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
+            barrier3.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
+
+
+            Canvas.SetLeft(barrier1.shape, 10);
+            Canvas.SetBottom(barrier1.shape, 50);
+
+            Canvas.SetLeft(barrier2.shape, 200);
+            Canvas.SetBottom(barrier2.shape, 50);
+
+            Canvas.SetLeft(barrier3.shape, 400);
+            Canvas.SetBottom(barrier3.shape, 50);
+            canvas.Children.Add(barrier1.shape);
+            canvas.Children.Add(barrier2.shape);
+            canvas.Children.Add(barrier3.shape);
+            ship.shape = new Rectangle();
+            ship.shape.Width = 50;
+            ship.shape.Height = 50;
+            String shipPath = "images/ship.png";
+            String backGroundPath = "images/background.gif";
+            ship.shape.Fill = new ImageBrush(new BitmapImage(new Uri(shipPath, UriKind.Relative)));
+            Canvas.SetLeft(ship.shape, 200);
+            Canvas.SetBottom(ship.shape, 10);
+            canvas.Children.Add(ship.shape);
+            canvas.Background = new ImageBrush(new BitmapImage(new Uri(backGroundPath, UriKind.Relative)));
+            timer.Tick += move;
+            timer.Start();
+        }
+
         public void moveBullet(object sender, EventArgs e)
         {
             Canvas.SetBottom(bullet.shape, bottom += bulletSpeed);
@@ -187,8 +236,10 @@ namespace SpaceInvaders
                 canvas.Children.Remove(bullet.shape);
                 bottom = 0;
                 bulletTimer.Stop();
-                
+
             }
+
         }
     }
 }
+
