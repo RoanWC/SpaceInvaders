@@ -25,7 +25,7 @@ namespace SpaceInvaders
         Random rand = new Random();
         private DispatcherTimer timer;
         private DispatcherTimer bulletTimer;
-        string bulletPath = "images/donaldthumb.jpg";
+        string bulletPath = "images/donaldthumb.png";
         CustomShape bullet = new CustomShape();
         double bulletSpeed = 15;
         private List<CustomShape> enemies = new List<CustomShape>();
@@ -47,7 +47,7 @@ namespace SpaceInvaders
             bulletTimer.Tick += moveBullet;
             for (double i = 0; i < 400; i += 50)
             {
-                string relativePath = "images/hilaryclintonface.jpg";
+                string relativePath = "images/hilaryclintonface.png";
                 CustomShape foe = new CustomShape(); //create the rectangle
                 foe.shape = new Rectangle();
                 foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(relativePath, UriKind.Relative)));
@@ -98,7 +98,7 @@ namespace SpaceInvaders
             ship.shape = new Rectangle();
             ship.shape.Width = 50;
             ship.shape.Height = 50;
-            String shipPath = "images/ship.jpg";
+            String shipPath = "images/ship.png";
             String backGroundPath = "images/background.gif";
             ship.shape.Fill = new ImageBrush(new BitmapImage(new Uri(shipPath, UriKind.Relative)));
             Canvas.SetLeft(ship.shape, 200);
