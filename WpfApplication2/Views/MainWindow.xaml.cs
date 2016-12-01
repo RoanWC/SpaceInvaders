@@ -26,12 +26,12 @@ namespace SpaceInvaders
         Random rand = new Random();
         private DispatcherTimer timer;
         private DispatcherTimer bulletTimer;
-        string bulletPath = "images/donaldthumb.png";
+        string bulletPath = "images/donaldthumb.jpg";
         CustomShape bullet = new CustomShape();
         double bulletSpeed = 15;
         private List<CustomShape> enemies = new List<CustomShape>();
         int speed = 2;
-        double top = 0, bottom = 0;
+        double top = 0, bottom = 0, bullY, bullX, bullW, bullH, foeY, foeX, foeW, foeH;
         CustomShape barrier1 = new CustomShape();
         CustomShape barrier2 = new CustomShape();
         CustomShape barrier3 = new CustomShape();
@@ -57,8 +57,6 @@ namespace SpaceInvaders
                 testRightSide = Canvas.GetLeft(lastFoe.shape);
                 left = Canvas.GetLeft(foe.shape);
                 foe.PositionY = Canvas.GetTop(foe.shape);
-                if (Canvas.GetTop(bullet.shape) <= Canvas.GetTop(foe.shape))
-                    canvas.Children.Remove(foe.shape);
                 if (testRightSide + lastFoe.shape.ActualWidth >= canvas.ActualWidth)
                 {
                     speed = -3;
@@ -73,8 +71,6 @@ namespace SpaceInvaders
                 
                 Canvas.SetTop(foe.shape, foe.PositionY);
                 Canvas.SetLeft(foe.shape, left += speed);
-                
-              
             }
 
         }
@@ -142,7 +138,7 @@ namespace SpaceInvaders
                
                 for (double i = 0; i < 8; i++)
                 {
-                    string relativePath = "images/hilaryclintonface.png";
+                    string relativePath = "images/hilaryclintonface.jpg";
                     CustomShape foe = new CustomShape(); //create the rectangle
                     foe.shape = new Rectangle();
                     foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(relativePath, UriKind.Relative)));
@@ -217,7 +213,7 @@ namespace SpaceInvaders
             ship.shape = new Rectangle();
             ship.shape.Width = 50;
             ship.shape.Height = 50;
-            String shipPath = "images/ship.png";
+            String shipPath = "images/ship.jpg";
             String backGroundPath = "images/background.gif";
             ship.shape.Fill = new ImageBrush(new BitmapImage(new Uri(shipPath, UriKind.Relative)));
             Canvas.SetLeft(ship.shape, 200);
@@ -230,7 +226,27 @@ namespace SpaceInvaders
 
         public void moveBullet(object sender, EventArgs e)
         {
+            bullX = Canvas.GetLeft(bullet.shape); // left
+            bullY = Canvas.GetTop(bullet.shape); // top
+            bullW = bullet.shape.ActualWidth;
+            bullH = bullet.shape.ActualHeight;
+
             Canvas.SetBottom(bullet.shape, bottom += bulletSpeed);
+            foreach (CustomShape foe in enemies)
+            {
+                foeX = Canvas.GetLeft(foe.shape); // left
+                foeY = Canvas.GetTop(foe.shape); // top
+                foeW = foe.shape.ActualWidth;
+                foeH = foe.shape.ActualHeight;
+                if (bullX + bullW > foeX && bullY + bullH > foeY
+                    && bullY < foeY + foeH && bullX < foeX + foeW)
+                {
+                    canvas.Children.Remove(foe.shape);
+                    canvas.Children.Remove(bullet.shape);
+                    bottom = 0;
+                    bulletTimer.Stop();
+                }
+            }
             if (Canvas.GetBottom(bullet.shape) >= canvas.ActualHeight)
             {
                 canvas.Children.Remove(bullet.shape);
