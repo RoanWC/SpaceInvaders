@@ -38,6 +38,8 @@ namespace SpaceInvaders
         public MainWindow()
         {
             InitializeComponent();
+            bullet.shape = new Rectangle();
+            Canvas.SetBottom(bullet.shape, 0);
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 50);
             bulletTimer = new DispatcherTimer();
@@ -117,6 +119,8 @@ namespace SpaceInvaders
                 testLeftSide = Canvas.GetLeft(firstFoe.shape);
                 testRightSide = Canvas.GetLeft(lastFoe.shape);
                 left = Canvas.GetLeft(foe.shape);
+                if (Canvas.GetTop(bullet.shape) <= Canvas.GetTop(foe.shape))
+                    canvas.Children.Remove(foe.shape);
                 if (testRightSide + lastFoe.shape.ActualWidth >= canvas.ActualWidth)
                 {
                     speed = -3;
@@ -160,7 +164,6 @@ namespace SpaceInvaders
                     break;
 
                 case Key.Space:
-                    bullet.shape = new Rectangle();
                     bullet.shape.Fill = new ImageBrush(new BitmapImage(new Uri(bulletPath, UriKind.Relative)));
                     bullet.shape.Width = 20;
                     bullet.shape.Height = 50;
