@@ -50,12 +50,17 @@ namespace SpaceInvaders
         {
             double  borderRight = canvas.ActualWidth, top = 0;
             CustomShape foe;
+           
             //foreach (CustomShape foe in enemies)
             for (int i = 0; i < enemies.Count; i++)
             {
                 foe = enemies[i];
                 foe.PositionY = Canvas.GetTop(foe.shape);
-                if (foe.PositionX + foe.shape.ActualWidth >= canvas.ActualWidth)
+               
+                    
+                
+
+                if (foe.PositionX + foe.shape.ActualWidth > canvas.ActualWidth)
                 {
                     speed = -1;
                     top += 1;
@@ -75,7 +80,7 @@ namespace SpaceInvaders
 
                 }
                 
-                Canvas.SetTop(foe.shape, foe.PositionY += top);
+              
                 Canvas.SetLeft(foe.shape, foe.PositionX+=speed);
             }
 
@@ -113,9 +118,13 @@ namespace SpaceInvaders
                         bullet.shape.Fill = new ImageBrush(new BitmapImage(new Uri(bulletPath, UriKind.Relative)));
                         bullet.shape.Width = 20;
                         bullet.shape.Height = 50;
-                        Canvas.SetLeft(bullet.shape, Canvas.GetLeft(ship.shape));
+                        Canvas.SetTop(bullet.shape, canvas.ActualHeight - ship.Height);
+                        Canvas.SetLeft(bullet.shape, Canvas.GetLeft(ship.shape) + (ship.shape.ActualWidth / 2));
+                        bullet.PositionY = Canvas.GetTop(bullet.shape);
+                        bullet.PositionX = Canvas.GetLeft(bullet.shape);
+
                         canvas.Children.Add(bullet.shape);
-                        Canvas.SetBottom(bullet.shape, 0);
+                        
                         bulletTimer.Start();
                     }
                     catch (System.ArgumentException)
@@ -140,7 +149,7 @@ namespace SpaceInvaders
             bullet.shape = new Rectangle();
             Canvas.SetBottom(bullet.shape, 0);
             timer = new DispatcherTimer();
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 1);
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             bulletTimer = new DispatcherTimer();
             bulletTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
             bulletTimer.Tick += moveBullet;
@@ -228,14 +237,34 @@ namespace SpaceInvaders
             bullW = bullet.shape.ActualWidth;
             bullH = bullet.shape.ActualHeight;
 
-            Canvas.SetBottom(bullet.shape, bottom += bulletSpeed);
-            if (Canvas.GetBottom(bullet.shape) >= canvas.ActualHeight)
+            Canvas.SetTop(bullet.shape, bullet.PositionY -= bulletSpeed);
+            if (Canvas.GetTop(bullet.shape) == canvas.ActualHeight)
             {
                 canvas.Children.Remove(bullet.shape);
-                bottom = 0;
+
                 bulletTimer.Stop();
 
             }
+            CustomShape foe;
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                foe = enemies[i];
+
+                if (bullet.PositionX > enemies[i].PositionX &&
+                            bullet.PositionX < enemies[i].PositionX + enemies[i].shape.Width &&
+                            bullet.PositionY < enemies[i].PositionY + enemies[i].shape.Height)
+                {
+                   
+                    canvas.Children.Remove(bullet.shape);
+                    enemies.Remove(foe);
+                    canvas.Children.Remove(foe.shape);
+                    bulletTimer.Stop();
+
+                }
+
+
+            }
+
 
         }
     }
