@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpaceInvaders"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" KeyDown="ShipStrafeClick" >
+        Title="MainWindow" Height="350" Width="525" KeyDown="kDown" KeyUp="kUp" >
     <Canvas x:Name="canvas" >
         <Button x:Name="start_button" Content="CLICK HERE TO BEGIN" Height="56" Canvas.Left="10" Canvas.Top="123" Width="497" FontFamily="OCR A Std" FontSize="36" Click="start_button_Click"  />
     </Canvas>
