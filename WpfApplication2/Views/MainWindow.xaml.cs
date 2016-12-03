@@ -56,7 +56,7 @@ namespace SpaceInvaders
         private void start_button_Click(object sender, RoutedEventArgs e)
         {
             MainWindow window = new MainWindow();
-
+            Credits.Foreground = null;
             window.Close();
             start_button.Visibility = Visibility.Hidden;
             bullet.shape = new Rectangle();
@@ -257,7 +257,7 @@ namespace SpaceInvaders
             for (int i = 0; i < enemies.Count; i++)
             {
                 foe = enemies[i];
-                if ((bullet.PositionY < enemies[i].PositionY + enemies[i].shape.Height) 
+                if ((bullet.PositionY < enemies[i].PositionY + enemies[i].shape.Height && bullet.PositionY > enemies[i].PositionY) 
                     &&
                     (bullet.PositionX + bullet.shape.Width > enemies[i].PositionX + 8 &&
                     bullet.PositionX < enemies[i].PositionX + enemies[i].shape.Width - 8 ))
