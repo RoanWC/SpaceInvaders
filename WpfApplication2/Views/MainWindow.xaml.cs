@@ -257,9 +257,10 @@ namespace SpaceInvaders
             for (int i = 0; i < enemies.Count; i++)
             {
                 foe = enemies[i];
-                if (bullet.PositionX + bullet.shape.Width > enemies[i].PositionX + 4 &&
-                    bullet.PositionX < enemies[i].PositionX + enemies[i].shape.Width - 4 &&
-                    bullet.PositionY < enemies[i].PositionY + enemies[i].shape.Height)
+                if ((bullet.PositionY < enemies[i].PositionY + enemies[i].shape.Height) 
+                    &&
+                    (bullet.PositionX + bullet.shape.Width > enemies[i].PositionX + 8 &&
+                    bullet.PositionX < enemies[i].PositionX + enemies[i].shape.Width - 8 ))
                 {
                     enemies.Remove(foe);
                     canvas.Children.Remove(foe.shape);
@@ -292,8 +293,8 @@ namespace SpaceInvaders
                             bullet.shape.Fill = new ImageBrush(new BitmapImage(new Uri(bulletPath, UriKind.Relative)));
                             bullet.shape.Width = 10;
                             bullet.shape.Height = 20;
-                            Canvas.SetTop(bullet.shape, canvas.ActualHeight - ship.Height);
-                            Canvas.SetLeft(bullet.shape, Canvas.GetLeft(ship.shape) + (ship.shape.ActualWidth / 2));
+                            Canvas.SetTop(bullet.shape, canvas.ActualHeight - ship.shape.ActualHeight-10);
+                            Canvas.SetLeft(bullet.shape, Canvas.GetLeft(ship.shape) + (ship.shape.ActualWidth / 2.0)-5);
                             canvas.Children.Add(bullet.shape);
                             bullet.PositionY = Canvas.GetTop(bullet.shape);
                             bullet.PositionX = Canvas.GetLeft(bullet.shape);
