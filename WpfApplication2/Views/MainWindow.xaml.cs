@@ -33,7 +33,7 @@ namespace SpaceInvaders
         int speed = 1;
         bool leftPressed;
         bool rightPressed;
-        bool spacePressed;
+        bool isLockSpaceBar = true;
         bool isPaused = false;
         int killCount = 0;
 
@@ -222,7 +222,7 @@ namespace SpaceInvaders
             {
                 if (x > 0)
                 {
-                    x -= 5;
+                    x -= 3;
                     Canvas.SetLeft(ship.shape, x);
                 }
             }
@@ -230,7 +230,7 @@ namespace SpaceInvaders
             {
                 if (x + ship.shape.ActualWidth < canvas.ActualWidth)
                 {
-                    x += 5;
+                    x += 3;
                     Canvas.SetLeft(ship.shape, x);
 
                 }
@@ -250,6 +250,7 @@ namespace SpaceInvaders
             if (bullet.PositionY < 0)
             {
                 canvas.Children.Remove(bullet.shape);
+                isLockSpaceBar = true;
                 bulletTimer.Stop();
             }
             CustomShape foe;
@@ -265,6 +266,7 @@ namespace SpaceInvaders
                     canvas.Children.Remove(bullet.shape);
                     bulletTimer.Stop();
                     updateKillCount();
+                    isLockSpaceBar = true;
 
                 }
             }
@@ -284,15 +286,21 @@ namespace SpaceInvaders
                 case Key.Space:
                     try
                     {
-                        bullet.shape.Fill = new ImageBrush(new BitmapImage(new Uri(bulletPath, UriKind.Relative)));
-                        bullet.shape.Width = 10;
-                        bullet.shape.Height = 20;
-                        Canvas.SetTop(bullet.shape, canvas.ActualHeight - ship.Height);
-                        Canvas.SetLeft(bullet.shape, Canvas.GetLeft(ship.shape) + (ship.shape.ActualWidth / 2));
-                        canvas.Children.Add(bullet.shape);
-                        bullet.PositionY = Canvas.GetTop(bullet.shape);
-                        bullet.PositionX = Canvas.GetLeft(bullet.shape);
-                        bulletTimer.Start();
+                        if (isLockSpaceBar)
+                        {
+
+                            bullet.shape.Fill = new ImageBrush(new BitmapImage(new Uri(bulletPath, UriKind.Relative)));
+                            bullet.shape.Width = 10;
+                            bullet.shape.Height = 20;
+                            Canvas.SetTop(bullet.shape, canvas.ActualHeight - ship.Height);
+                            Canvas.SetLeft(bullet.shape, Canvas.GetLeft(ship.shape) + (ship.shape.ActualWidth / 2));
+                            canvas.Children.Add(bullet.shape);
+                            bullet.PositionY = Canvas.GetTop(bullet.shape);
+                            bullet.PositionX = Canvas.GetLeft(bullet.shape);
+                            bulletTimer.Start();
+                            isLockSpaceBar = false;
+                            
+                        }
                     }
                     catch (System.ArgumentException)
                     {
@@ -324,12 +332,13 @@ namespace SpaceInvaders
                 case Key.Right:
                     rightPressed = false;
                     break;
-                case Key.Space:
-                    spacePressed = false;
-                    break;
+               
+                   
             }
 
         }
+
+      
     }
 }
 
