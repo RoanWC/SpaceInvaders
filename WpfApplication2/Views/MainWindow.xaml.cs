@@ -35,6 +35,7 @@ namespace SpaceInvaders
         bool rightPressed;
         bool spacePressed;
         bool isPaused = false;
+        int killCount = 0;
 
         CustomShape barrier1 = new CustomShape();
         CustomShape barrier2 = new CustomShape();
@@ -221,7 +222,7 @@ namespace SpaceInvaders
             {
                 if (x > 0)
                 {
-                    x -= 12;
+                    x -= 5;
                     Canvas.SetLeft(ship.shape, x);
                 }
             }
@@ -229,13 +230,18 @@ namespace SpaceInvaders
             {
                 if (x + ship.shape.ActualWidth < canvas.ActualWidth)
                 {
-                    x += 12;
+                    x += 5;
                     Canvas.SetLeft(ship.shape, x);
 
                 }
 
             }
 
+        }
+        public void updateKillCount()
+        {
+            killCount++;
+            kills.Text = Convert.ToString(killCount); 
         }
 
         public void moveBullet(object sender, EventArgs e)
@@ -258,6 +264,8 @@ namespace SpaceInvaders
                     canvas.Children.Remove(foe.shape);
                     canvas.Children.Remove(bullet.shape);
                     bulletTimer.Stop();
+                    updateKillCount();
+
                 }
             }
             

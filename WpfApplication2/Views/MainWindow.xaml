@@ -9,5 +9,6 @@
 
     <Canvas x:Name="canvas" >
         <Button x:Name="start_button" Content="CLICK HERE TO BEGIN" Height="56" Canvas.Left="10" Canvas.Top="218" Width="497" FontFamily="OCR A Std" FontSize="36" Click="start_button_Click"  />
+        <TextBox x:Name="kills" Height="37" Canvas.Left="449" TextWrapping="Wrap" Text="0" Width="70" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF3AE814" SelectionBrush="{x:Null}" IsEnabled="False" FontFamily="OCR A Extended" FontSize="24"/>
     </Canvas>
 </Window>
