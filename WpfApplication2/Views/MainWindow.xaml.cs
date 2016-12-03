@@ -36,7 +36,9 @@ namespace SpaceInvaders
         bool isLockSpaceBar = true;
         bool isPaused = false;
         int killCount = 0;
-
+        int difficulty = 1;
+        int rows = 3;
+        int cols = 8;
         CustomShape barrier1 = new CustomShape();
         CustomShape barrier2 = new CustomShape();
         CustomShape barrier3 = new CustomShape();
@@ -66,15 +68,7 @@ namespace SpaceInvaders
             bulletTimer = new DispatcherTimer();
             bulletTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             bulletTimer.Tick += moveBullet;
-
-
-
-            createLevelOne();
             
-            
-
-
-
             string barrierPath = "images/barrier.png";
             barrier1.shape = new Rectangle();
             barrier2.shape = new Rectangle();
@@ -117,74 +111,62 @@ namespace SpaceInvaders
             Canvas.SetBottom(ship.shape, 10);
             canvas.Children.Add(ship.shape);
             canvas.Background = new ImageBrush(new BitmapImage(new Uri(backGroundPath, UriKind.Relative)));
+            createLevel(difficulty);
+          
+        }
+        public void createLevel(int difficulty)
+        {
+
+           
+            if (difficulty > 1)
+                rows++;
+            else if (difficulty > 3)
+                cols++;
+
+            var FoeYSpacing = 0.0;
+            var FoeXSpacing = 0.0;
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    string relativePath = "images/hilaryclintonface.png";
+                    CustomShape foe = new CustomShape(); //create the rectangle
+                    foe.shape = new Rectangle();
+                    foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(relativePath, UriKind.Relative)));
+                    foe.shape.Width = 50;
+                    foe.shape.Height = 50;
+                    foe.PositionX = FoeXSpacing;
+                    foe.PositionY = FoeYSpacing;
+                    foe.Health = 3;
+                    Canvas.SetLeft(foe.shape, FoeXSpacing);
+                    FoeXSpacing += foe.shape.Width;
+                    Canvas.SetTop(foe.shape, FoeYSpacing);
+                    enemies.Add(foe);
+                    
+                }
+                FoeXSpacing = 0.0;
+                FoeYSpacing += enemies[0].Height + 50;
+                
+            }
+            foreach (CustomShape foe in enemies)
+            {
+                canvas.Children.Add(foe.shape);
+            }
             timer.Tick += move;
             timer.Start();
         }
-        public void createLevelOne()
-        {
-            var FoeYSpacing = 0.0;
-            var FoeXSpacing = 0.0;
-            for (int j = 0; j < 3; j++)
-            {
-                for (double i = 0; i < 8; i++)
-                {
-                    string relativePath = "images/hilaryclintonface.png";
-                    CustomShape foe = new CustomShape(); //create the rectangle
-                    foe.shape = new Rectangle();
-                    foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(relativePath, UriKind.Relative)));
-                    foe.shape.Width = 50;
-                    foe.shape.Height = 50;
-                    foe.PositionX = FoeXSpacing;
-                    foe.PositionY = FoeYSpacing;
-                    foe.Health = 3;
-                    Canvas.SetLeft(foe.shape, FoeXSpacing);
-                    FoeXSpacing += foe.shape.Width;
-                    Canvas.SetTop(foe.shape, FoeYSpacing);
-                    enemies.Add(foe);
-                }
-                FoeXSpacing = 0.0;
-                FoeYSpacing += enemies[0].Height + 50;
-            }
-            foreach (CustomShape foe in enemies)
-            {
-                canvas.Children.Add(foe.shape);
-            }
-        }
-        public void createLevelTwo()
-        {
-            var FoeYSpacing = 0.0;
-            var FoeXSpacing = 0.0;
-            for (int j = 0; j < 4; j++)
-            {
-                for (double i = 0; i < 8; i++)
-                {
-                    string relativePath = "images/hilaryclintonface.png";
-                    CustomShape foe = new CustomShape(); //create the rectangle
-                    foe.shape = new Rectangle();
-                    foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(relativePath, UriKind.Relative)));
-                    foe.shape.Width = 50;
-                    foe.shape.Height = 50;
-                    foe.PositionX = FoeXSpacing;
-                    foe.PositionY = FoeYSpacing;
-                    foe.Health = 3;
-                    Canvas.SetLeft(foe.shape, FoeXSpacing);
-                    FoeXSpacing += foe.shape.Width;
-                    Canvas.SetTop(foe.shape, FoeYSpacing);
-                    enemies.Add(foe);
-                }
-                FoeXSpacing = 0.0;
-                FoeYSpacing += enemies[0].Height + 50;
-            }
-            foreach (CustomShape foe in enemies)
-            {
-                canvas.Children.Add(foe.shape);
-            }
-        }
+    
 
         public void move(object sender, EventArgs e)
         {
+
             if (enemies.Count == 0)
-                createLevelTwo();
+            {
+                timer.Stop();
+                createLevel(++difficulty);
+                
+            }
+                
             double x = Canvas.GetLeft(ship.shape);
             double q = canvas.ActualWidth;
             double borderRight = canvas.ActualWidth, top = 0;
