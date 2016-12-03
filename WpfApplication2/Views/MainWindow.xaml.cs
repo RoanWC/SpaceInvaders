@@ -27,7 +27,7 @@ namespace SpaceInvaders
         Random rand = new Random();
         private DispatcherTimer strafeTimer;
         private DispatcherTimer bulletTimer;
-        string bulletPath = "images/donaldthumb.png";
+        string bulletPath = "Resources/donaldthumb.png";
         private List<CustomShape> enemies = new List<CustomShape>();
         CustomShape bullet = new CustomShape();
         CustomShape barrier1 = new CustomShape();
@@ -45,7 +45,7 @@ namespace SpaceInvaders
         int rows = 3;
         int cols = 8;
         double top = 0.0;
-        SoundPlayer player = new System.Media.SoundPlayer("Sounds/shotSound.wav");
+        SoundPlayer player = new System.Media.SoundPlayer("Resources/shotSound.wav");
         public MainWindow()
         {
 
@@ -73,7 +73,7 @@ namespace SpaceInvaders
             bulletTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             bulletTimer.Tick += moveBullet;
             
-            string barrierPath = "images/barrier.png";
+            string barrierPath = "Resources/barrier.png";
             barrier1.shape = new Rectangle();
             barrier2.shape = new Rectangle();
             barrier3.shape = new Rectangle();
@@ -108,8 +108,8 @@ namespace SpaceInvaders
             ship.shape = new Rectangle();
             ship.shape.Width = 50;
             ship.shape.Height = 50;
-            String shipPath = "images/ship.png";
-            String backGroundPath = "images/background.gif";
+            String shipPath = "Resources/ship.png";
+            String backGroundPath = "Resources/background.gif";
             ship.shape.Fill = new ImageBrush(new BitmapImage(new Uri(shipPath, UriKind.Relative)));
             Canvas.SetLeft(ship.shape, 200);
             Canvas.SetBottom(ship.shape, 10);
@@ -133,7 +133,7 @@ namespace SpaceInvaders
             {
                 for (int j = 0; j < cols; j++)
                 {
-                    string relativePath = "images/hilaryclintonface.png";
+                    string relativePath = "Resources/hilaryclintonface.png";
                     CustomShape foe = new CustomShape(); //create the rectangle
                     foe.shape = new Rectangle();
                     foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(relativePath, UriKind.Relative)));

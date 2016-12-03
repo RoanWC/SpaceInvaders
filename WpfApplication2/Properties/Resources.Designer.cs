@@ -103,29 +103,9 @@ namespace WpfApplication2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap donaldthumb1 {
-            get {
-                object obj = ResourceManager.GetObject("donaldthumb1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap hilaryclintonface {
             get {
                 object obj = ResourceManager.GetObject("hilaryclintonface", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap hilaryclintonface1 {
-            get {
-                object obj = ResourceManager.GetObject("hilaryclintonface1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -141,12 +121,11 @@ namespace WpfApplication2.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        public static System.Drawing.Bitmap ship1 {
+        public static System.IO.UnmanagedMemoryStream shotSound {
             get {
-                object obj = ResourceManager.GetObject("ship1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetStream("shotSound", resourceCulture);
             }
         }
         
