@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using WpfApplication2;
+using System.Media;
 
 
 namespace SpaceInvaders
@@ -44,6 +45,7 @@ namespace SpaceInvaders
         int rows = 3;
         int cols = 8;
         double top = 0.0;
+        SoundPlayer player = new System.Media.SoundPlayer("Sounds/shotSound.wav");
         public MainWindow()
         {
 
@@ -302,6 +304,7 @@ namespace SpaceInvaders
                         if (isLockSpaceBar)
                         {
 
+                            player.Play();
                             bullet.shape.Fill = new ImageBrush(new BitmapImage(new Uri(bulletPath, UriKind.Relative)));
                             bullet.shape.Width = 10;
                             bullet.shape.Height = 20;
