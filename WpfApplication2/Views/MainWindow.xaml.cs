@@ -34,10 +34,8 @@ namespace SpaceInvaders
         bool leftPressed;
         bool rightPressed;
         bool spacePressed;
-      
+        bool isPaused = false;
 
-
-      
         CustomShape barrier1 = new CustomShape();
         CustomShape barrier2 = new CustomShape();
         CustomShape barrier3 = new CustomShape();
@@ -54,81 +52,6 @@ namespace SpaceInvaders
 
         }
 
-        public void move(object sender, EventArgs e)
-    {
-            double x = Canvas.GetLeft(ship.shape);
-            double q = canvas.ActualWidth;
-            double  borderRight = canvas.ActualWidth, top = 0;
-          CustomShape foe;
-         
-          for (int i = 0; i < enemies.Count; i++)
-          {
-              foe = enemies[i];
-              foe.PositionY = Canvas.GetTop(foe.shape);
-              if (foe.PositionX + foe.shape.ActualWidth > canvas.ActualWidth)
-              {
-                  speed = -1;
-                  top += 1;
-                  for (int j = 0; j < enemies.Count; j++)
-                  {
-                      Canvas.SetTop(enemies[j].shape, enemies[j].PositionY += top);
-                  }
-              }
-             if (foe.PositionX < 0)
-              {
-                  speed = 1;
-                  top += 1;
-                  for (int j = 0; j < enemies.Count; j++)
-                  {
-                      Canvas.SetTop(enemies[j].shape, enemies[j].PositionY += top);
-                  }
-
-              }
-              
-            
-              Canvas.SetLeft(foe.shape, foe.PositionX+=speed);
-          }
-
-            if (leftPressed)
-            {
-                if(x > 0)
-                {
-                    x -= 12;
-                    Canvas.SetLeft(ship.shape, x);
-                }
-            }
-            if (rightPressed)
-            {
-                if (x + ship.shape.ActualWidth < canvas.ActualWidth)
-                {
-                    x += 12;
-                    Canvas.SetLeft(ship.shape, x);
-
-                }
-               
-            }
-//           if (spacePressed)
-//           {
-//               try
-//               {
-//                   bullet.shape.Fill = new ImageBrush(new BitmapImage(new Uri(bulletPath, UriKind.Relative)));
-//                   bullet.shape.Width = 10;
-//                   bullet.shape.Height = 20;
-//                   Canvas.SetTop(bullet.shape, canvas.ActualHeight - ship.Height);
-//                   Canvas.SetLeft(bullet.shape, Canvas.GetLeft(ship.shape) + (ship.shape.ActualWidth / 2));
-//                   canvas.Children.Add(bullet.shape);
-//                   bullet.PositionY = Canvas.GetTop(bullet.shape);
-//                   bullet.PositionX = Canvas.GetLeft(bullet.shape);
-//                   bulletTimer.Start();
-//               }
-//               catch (System.ArgumentException)
-//               {
-//
-//               }
-//           }
-        }
-
-
         private void start_button_Click(object sender, RoutedEventArgs e)
         {
             MainWindow window = new MainWindow();
@@ -143,41 +66,14 @@ namespace SpaceInvaders
             bulletTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             bulletTimer.Tick += moveBullet;
 
+
+
+            createLevelOne();
+            
             
 
 
-            var FoeYSpacing = 0.0;
 
-            var FoeXSpacing = 0.0;
-            for (int j = 0; j < 3; j++)
-            {
-               
-                for (double i = 0; i < 8; i++)
-                {
-                    string relativePath = "images/hilaryclintonface.png";
-                    CustomShape foe = new CustomShape(); //create the rectangle
-                    foe.shape = new Rectangle();
-                    foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(relativePath, UriKind.Relative)));
-                    foe.shape.Width = 50;
-                    foe.shape.Height = 50;
-                    foe.PositionX = FoeXSpacing;
-                    foe.PositionY = FoeYSpacing;
-                    foe.Health = 3;
-                    Canvas.SetLeft(foe.shape, FoeXSpacing);
-                    FoeXSpacing += foe.shape.Width;
-                    Canvas.SetTop(foe.shape, FoeYSpacing);
-
-                    enemies.Add(foe);
-                }
-                FoeXSpacing = 0.0;
-                FoeYSpacing += enemies[0].Height+50;
-            }
-
-            foreach (CustomShape foe in enemies)
-            {
-                canvas.Children.Add(foe.shape);
-
-            }
             string barrierPath = "images/barrier.png";
             barrier1.shape = new Rectangle();
             barrier2.shape = new Rectangle();
@@ -223,54 +119,148 @@ namespace SpaceInvaders
             timer.Tick += move;
             timer.Start();
         }
-        
+        public void createLevelOne()
+        {
+            var FoeYSpacing = 0.0;
+            var FoeXSpacing = 0.0;
+            for (int j = 0; j < 3; j++)
+            {
+                for (double i = 0; i < 8; i++)
+                {
+                    string relativePath = "images/hilaryclintonface.png";
+                    CustomShape foe = new CustomShape(); //create the rectangle
+                    foe.shape = new Rectangle();
+                    foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(relativePath, UriKind.Relative)));
+                    foe.shape.Width = 50;
+                    foe.shape.Height = 50;
+                    foe.PositionX = FoeXSpacing;
+                    foe.PositionY = FoeYSpacing;
+                    foe.Health = 3;
+                    Canvas.SetLeft(foe.shape, FoeXSpacing);
+                    FoeXSpacing += foe.shape.Width;
+                    Canvas.SetTop(foe.shape, FoeYSpacing);
+                    enemies.Add(foe);
+                }
+                FoeXSpacing = 0.0;
+                FoeYSpacing += enemies[0].Height + 50;
+            }
+            foreach (CustomShape foe in enemies)
+            {
+                canvas.Children.Add(foe.shape);
+            }
+        }
+        public void createLevelTwo()
+        {
+            var FoeYSpacing = 0.0;
+            var FoeXSpacing = 0.0;
+            for (int j = 0; j < 4; j++)
+            {
+                for (double i = 0; i < 8; i++)
+                {
+                    string relativePath = "images/hilaryclintonface.png";
+                    CustomShape foe = new CustomShape(); //create the rectangle
+                    foe.shape = new Rectangle();
+                    foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(relativePath, UriKind.Relative)));
+                    foe.shape.Width = 50;
+                    foe.shape.Height = 50;
+                    foe.PositionX = FoeXSpacing;
+                    foe.PositionY = FoeYSpacing;
+                    foe.Health = 3;
+                    Canvas.SetLeft(foe.shape, FoeXSpacing);
+                    FoeXSpacing += foe.shape.Width;
+                    Canvas.SetTop(foe.shape, FoeYSpacing);
+                    enemies.Add(foe);
+                }
+                FoeXSpacing = 0.0;
+                FoeYSpacing += enemies[0].Height + 50;
+            }
+            foreach (CustomShape foe in enemies)
+            {
+                canvas.Children.Add(foe.shape);
+            }
+        }
+
+        public void move(object sender, EventArgs e)
+        {
+            if (enemies.Count == 0)
+                createLevelTwo();
+            double x = Canvas.GetLeft(ship.shape);
+            double q = canvas.ActualWidth;
+            double borderRight = canvas.ActualWidth, top = 0;
+            CustomShape foe;
+
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                foe = enemies[i];
+                foe.PositionY = Canvas.GetTop(foe.shape);
+                if (foe.PositionX + foe.shape.ActualWidth > canvas.ActualWidth)
+                {
+                    speed = -1;
+                    top += 5;
+                    for (int j = 0; j < enemies.Count; j++)
+                    {
+                        Canvas.SetTop(enemies[j].shape, enemies[j].PositionY += top);
+                    }
+                }
+                if (foe.PositionX < 0)
+                {
+                    speed = 1;
+                    top += 5;
+                    for (int j = 0; j < enemies.Count; j++)
+                    {
+                        Canvas.SetTop(enemies[j].shape, enemies[j].PositionY += top);
+                    }
+
+                }
+
+
+                Canvas.SetLeft(foe.shape, foe.PositionX += speed);
+            }
+
+            if (leftPressed)
+            {
+                if (x > 0)
+                {
+                    x -= 12;
+                    Canvas.SetLeft(ship.shape, x);
+                }
+            }
+            if (rightPressed)
+            {
+                if (x + ship.shape.ActualWidth < canvas.ActualWidth)
+                {
+                    x += 12;
+                    Canvas.SetLeft(ship.shape, x);
+
+                }
+
+            }
+
+        }
 
         public void moveBullet(object sender, EventArgs e)
         {
-          
             Canvas.SetTop(bullet.shape, bullet.PositionY -= bulletSpeed);
             if (bullet.PositionY < 0)
             {
                 canvas.Children.Remove(bullet.shape);
                 bulletTimer.Stop();
-
             }
             CustomShape foe;
             for (int i = 0; i < enemies.Count; i++)
             {
                 foe = enemies[i];
-
-                if (bullet.PositionX + bullet.shape.Width > enemies[i].PositionX +4 &&
-                    bullet.PositionX < enemies[i].PositionX + enemies[i].shape.Width -4 &&
+                if (bullet.PositionX + bullet.shape.Width > enemies[i].PositionX + 4 &&
+                    bullet.PositionX < enemies[i].PositionX + enemies[i].shape.Width - 4 &&
                     bullet.PositionY < enemies[i].PositionY + enemies[i].shape.Height)
-                   {
-                        
-                        enemies.Remove(foe);
-                        canvas.Children.Remove(foe.shape);
+                {
+                    enemies.Remove(foe);
+                    canvas.Children.Remove(foe.shape);
                     canvas.Children.Remove(bullet.shape);
                     bulletTimer.Stop();
-                    }
-            }
-            if (spacePressed)
-            {
-                try
-                {
-                    bullet.shape.Fill = new ImageBrush(new BitmapImage(new Uri(bulletPath, UriKind.Relative)));
-                    bullet.shape.Width = 10;
-                    bullet.shape.Height = 20;
-                    Canvas.SetTop(bullet.shape, canvas.ActualHeight - ship.Height);
-                    Canvas.SetLeft(bullet.shape, Canvas.GetLeft(ship.shape) + (ship.shape.ActualWidth / 2));
-                    canvas.Children.Add(bullet.shape);
-                    bullet.PositionY = Canvas.GetTop(bullet.shape);
-                    bullet.PositionX = Canvas.GetLeft(bullet.shape);
-                    bulletTimer.Start();
                 }
-                catch (System.ArgumentException)
-                {
-
-                }
-
             }
+            
         }
 
         private void kDown(object sender, KeyEventArgs e)
@@ -298,13 +288,22 @@ namespace SpaceInvaders
                     }
                     catch (System.ArgumentException)
                     {
-
-                    }
-
+                       
+                     }
                     break;
-            }
+                case Key.P:
+                    if (isPaused)
+                    {
+                        timer.Start();
+                        isPaused = !isPaused;
+                        break;
+                    }
+                    timer.Stop();
+                    isPaused = !isPaused;
+                        
+                    break;
 
-           
+            }
         }
 
         private void kUp(object sender, KeyEventArgs e)

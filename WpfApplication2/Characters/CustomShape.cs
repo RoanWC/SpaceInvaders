@@ -14,7 +14,7 @@ namespace WpfApplication2
 {
     class CustomShape : UIElement
     {
-        private new string Name { get; set; }
+        private string Name { get; set; }
         public double PositionX { get; set; }
         public double Height { get; set; }
         public double Width { get; set; }
