@@ -291,7 +291,14 @@ namespace SpaceInvaders
                     isPaused = !isPaused;
                     paused2.Visibility = Visibility.Visible;
                     paused.Visibility = Visibility.Visible;
-                    saveFile();
+                    if (MessageBox.Show("Save game?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                    {
+                        
+                    }
+                    else
+                    {
+                        saveFile();
+                    }
                     break;
             }
         }
@@ -388,7 +395,7 @@ namespace SpaceInvaders
             loadInfo = loadState[end].Split(':');
             difficulty = int.Parse(loadInfo[1]);
             loadInfo = loadState[end++].Split(':');
-            killCount = int.Parse(loadInfo[1]);
+            killCount = int.Parse(loadInfo[1]) + 1;
             NewGameClick(sender, e);
 
         }
