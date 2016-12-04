@@ -18,9 +18,7 @@
     <Canvas x:Name="canvas" >
 
 
-        <Button x:Name="start_button" Content="CLICK HERE TO BEGIN" Height="56" Canvas.Left="10" Canvas.Top="218" Width="497" FontFamily="OCR A Std" FontSize="36" Click="NewGameClick"  Background="{x:Null}" Foreground="#FF3AE814" BorderBrush="{x:Null}" >
-
-        </Button>
+        <Button x:Name="start_button" Content="CLICK HERE TO BEGIN" Height="56" Canvas.Left="10" Canvas.Top="218" Width="497" FontFamily="OCR A Std" FontSize="36" Click="NewGameClick"  Background="{x:Null}" Foreground="#FF3AE814" BorderBrush="{x:Null}" Opacity="0" />
 
 
 
@@ -34,5 +32,7 @@
         </TextBox>
         <TextBlock x:Name="paused" Height="45" Canvas.Left="165" TextWrapping="Wrap" Text="PAUSED" Canvas.Top="279" Width="178" Foreground="#FF12EC26" FontFamily="OCR A Extended" FontSize="48" Visibility="Hidden" />
         <TextBlock x:Name="paused2" Canvas.Left="151" TextWrapping="Wrap" Text="Press P to continue" Canvas.Top="329" Height="21" Width="213" Foreground="#FF12EC26" FontFamily="OCR A Extended" FontSize="18" Visibility="Hidden"/>
+        <TextBox x:Name="startButtonText" Height="56" Canvas.Left="22" TextWrapping="Wrap" Text="CLICK HERE TO START" Canvas.Top="223" Width="497" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF1CE407" SelectionBrush="{x:Null}" BorderThickness="0" FontFamily="OCR A Extended" FontSize="40" Focusable="False" AllowDrop="False" IsTabStop="False" IsHitTestVisible="False"/>
+
     </Canvas>
 </Window>
