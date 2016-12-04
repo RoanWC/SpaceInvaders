@@ -30,10 +30,22 @@
             FontFamily="OCR A Std"
             FontSize="36"
             Click="NewGameClick"
-            Background="{x:Null}"
+            Background="Transparent"
             Foreground="#FF3AE814"
-            BorderBrush="{x:Null}"
-            Opacity="0" />
+            BorderBrush="{x:Null}" />
+        <Button
+            x:Name="load_button"
+            Content="CLICK HERE TO LOAD"
+            Height="56"
+            Canvas.Left="10"
+            Canvas.Top="278"
+            Width="497"
+            FontFamily="OCR A Std"
+            FontSize="36"
+            Click="load_button_Click"
+            Background="Transparent"
+            Foreground="#FF3AE814"
+            BorderBrush="Transparent"/>
         <TextBox
             x:Name="kills"
             Height="37"
@@ -92,6 +104,7 @@
             FontFamily="OCR A Extended"
             FontSize="18"
             Visibility="Hidden" />
+       <!--
         <TextBox
             x:Name="startButtonText"
             Height="56"
@@ -110,5 +123,25 @@
             AllowDrop="False"
             IsHitTestVisible="False"
             IsTabStop="False" />
+
+        <TextBox
+            x:Name="loadButtonText"
+            Height="56"
+            Canvas.Left="22"
+            TextWrapping="Wrap"
+            Text="CLICK HERE TO LOAD"
+            Canvas.Top="278"
+            Width="497"
+            Background="{x:Null}"
+            BorderBrush="{x:Null}"
+            Foreground="#FF1CE407"
+            SelectionBrush="#FF29EC15"
+            BorderThickness="1"
+            FontFamily="OCR A Extended"
+            FontSize="40"
+            AllowDrop="False"
+            IsHitTestVisible="False"
+            IsTabStop="False" />
+        -->
     </Canvas>
 </Window>
