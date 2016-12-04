@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:WpfApplication2"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary Source="Styles/Theme1.xaml" />
     </Application.Resources>
 </Application>

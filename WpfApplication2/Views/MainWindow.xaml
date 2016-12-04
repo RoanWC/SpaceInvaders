@@ -20,7 +20,7 @@
     </Window.Background>
     <Canvas
         x:Name="canvas">
-        <Button
+        <Button Style="{DynamicResource TransparentStyle}"
             x:Name="start_button"
             Content="CLICK HERE TO BEGIN"
             Height="56"
@@ -30,10 +30,10 @@
             FontFamily="OCR A Std"
             FontSize="36"
             Click="NewGameClick"
-            Background="Transparent"
             Foreground="#FF3AE814"
-            BorderBrush="{x:Null}" />
+            />
         <Button
+            Style="{DynamicResource TransparentStyle}"
             x:Name="load_button"
             Content="CLICK HERE TO LOAD"
             Height="56"
@@ -43,9 +43,8 @@
             FontFamily="OCR A Std"
             FontSize="36"
             Click="load_button_Click"
-            Background="Transparent"
             Foreground="#FF3AE814"
-            BorderBrush="Transparent"/>
+          />
         <TextBox
             x:Name="kills"
             Height="37"
