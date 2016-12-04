@@ -58,6 +58,7 @@ namespace SpaceInvaders
             Credits.Foreground = null;
             window.Close();
             start_button.Visibility = Visibility.Hidden;
+            kills.Visibility = Visibility.Visible;
             strafeTimer = new DispatcherTimer();
             bulletTimer = new DispatcherTimer();
             strafeTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
@@ -274,10 +275,14 @@ namespace SpaceInvaders
                     {
                         strafeTimer.Start();
                         isPaused = !isPaused;
+                        paused2.Visibility = Visibility.Hidden;
+                        paused.Visibility = Visibility.Hidden;
                         break;
                     }
                     strafeTimer.Stop();
                     isPaused = !isPaused;
+                    paused2.Visibility = Visibility.Visible;
+                    paused.Visibility = Visibility.Visible;
                     break;
                 case Key.S:
                     saveFile();
