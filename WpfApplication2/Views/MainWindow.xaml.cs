@@ -15,8 +15,10 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using WpfApplication2;
 using System.Media;
-
-
+using System.IO;
+using Microsoft.Win32;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
 namespace SpaceInvaders
 {
     /// <summary>
@@ -364,6 +366,10 @@ namespace SpaceInvaders
                         
                     break;
 
+                case Key.S:
+                        saveFile();
+                        break;
+
             }
         }
 
@@ -383,7 +389,39 @@ namespace SpaceInvaders
 
         }
 
+        private void saveFile()
+        {
+            strafeTimer.Stop();
+            string mydocpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            List<String> state = new List<String>();
+            OpenFileDialog fileChooser = new OpenFileDialog();
+            fileChooser.ShowDialog();
+            String fileName = fileChooser.FileName;
+            state.Add("count:" + enemies.Count);
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                state.Add(i + ":" + enemies[i].PositionX + ":" + enemies[i].PositionY + ":" + enemies[i].Height + ":" + enemies[i].Width + ":" + enemies[i].Health);
+            }
+            state.Add("--End Enemies");
+            CustomShape a = enemies[1];
+
+            using (StreamWriter outputFile = new StreamWriter(fileName))
+            {
+                foreach (string line in state)
+                    outputFile.WriteLine(line);
+            }
+            strafeTimer.Start();
+
+        }
+        //Window.DialogResult result;
+        //String fileName;
+        //OpenFileDialog fileChooser = new OpenFileDialog()
+        //result = fileChooser.ShowDialog();
+        //fileName = fileChooser.FileName;
+        //FileStream file = new FileStream;
+        //StreamWriter a = new StreamWriter();
+    }
+
      
     }
-}
 
