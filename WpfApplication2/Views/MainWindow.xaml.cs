@@ -49,10 +49,10 @@ namespace SpaceInvaders
         {
 
             Loaded += delegate
-                {
-                    InitializeComponent();
-                    Credits.Text = "Writen By:\n Eric Hughes\n Roan Chamberlain\n Jon Depaz";
-                };
+            {
+                InitializeComponent();
+                Credits.Text = "Writen By:\n Eric Hughes\n Roan Chamberlain\n Jon Depaz";
+            };
         }
         private void NewGameClick(object sender, RoutedEventArgs e)
         {
@@ -60,6 +60,8 @@ namespace SpaceInvaders
             Credits.Foreground = null;
             window.Close();
             start_button.Visibility = Visibility.Hidden;
+            kills.Visibility = Visibility.Visible;
+            startButtonText.Visibility = Visibility.Hidden;
             strafeTimer = new DispatcherTimer();
             bulletTimer = new DispatcherTimer();
             strafeTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
@@ -220,7 +222,7 @@ namespace SpaceInvaders
         public void updateKillCount()
         {
             killCount++;
-            kills.Text = Convert.ToString(killCount); 
+            kills.Text = Convert.ToString(killCount);
         }
         public void moveBullet(object sender, EventArgs e)
         {
@@ -286,8 +288,8 @@ namespace SpaceInvaders
                     paused.Visibility = Visibility.Visible;
                     break;
                 case Key.S:
-                        saveFile();
-                        break;
+                    saveFile();
+                    break;
             }
         }
         private void kUp(object sender, KeyEventArgs e)
@@ -321,12 +323,11 @@ namespace SpaceInvaders
         private void saveFile()
         {
             strafeTimer.Stop();
+            string mydocpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             List<String> state = new List<String>();
-            //OpenFileDialog fileChooser = new OpenFileDialog();
-            //fileChooser.Title = "Choose a file to save the game";
-            //fileChooser.ShowDialog();
-            //String fileName = fileChooser.FileName;
-            String fileName = "gameState.txt";
+            OpenFileDialog fileChooser = new OpenFileDialog();
+            fileChooser.ShowDialog();
+            String fileName = fileChooser.FileName;
             state.Add("count:" + enemies.Count);
             for (int i = 0; i < enemies.Count; i++)
             {
@@ -334,7 +335,6 @@ namespace SpaceInvaders
             }
             state.Add("--End Enemies");
             CustomShape a = enemies[1];
-
             using (StreamWriter outputFile = new StreamWriter(fileName))
             {
                 foreach (string line in state)
@@ -342,66 +342,12 @@ namespace SpaceInvaders
             }
             strafeTimer.Start();
         }
-
-        private void loadGame()
-        {
-            List<String> loadState = new List<String>();
-            int end = -1;
-            String[] loadEnemies, loadInfo;
-            String fileName = "gameState.txt", relativePath = "Resources/hilaryclintonface.png"; ;
-
-            using (StreamReader inputFile = new StreamReader(fileName))
-            {
-                while (inputFile.Peek() >= 0) {
-                    String line = inputFile.ReadLine();
-                    loadState.Add(line);
-                }
-            }
-            for (int i = 0; i < loadState.Count; i++)
-            {
-                if (loadState[i] == "--End Enemies")
-                {
-                    end = i;
-                    break;
-                }
-            }
-            loadEnemies = loadState[0].Split(':');
-            int size = int.Parse(loadEnemies[1]);
-            for (int i = 1; i < end; i++)
-            {
-                loadEnemies = loadState[i].Split(':');
-                CustomShape foe = new CustomShape(); //create the rectangle
-                foe.shape = new Rectangle();
-                foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(relativePath, UriKind.Relative)));
-                foe.shape.Width = int.Parse(loadEnemies[4]);
-                foe.shape.Height = int.Parse(loadEnemies[3]);
-                foe.PositionX = int.Parse(loadEnemies[1]);
-                foe.PositionY = int.Parse(loadEnemies[2]);
-                foe.Health = int.Parse(loadEnemies[5]);
-                Canvas.SetLeft(foe.shape, foe.PositionX);
-                Canvas.SetTop(foe.shape, foe.PositionY);
-                enemies.Add(foe);
-            }
-
-            loadInfo = loadState[end++].Split(':');
-            difficulty = int.Parse(loadInfo[1]);
-            loadInfo = loadState[end++].Split(':');
-            killCount = int.Parse(loadInfo[1]);
-
-            // foreach (CustomShape foe in enemies)
-            //{
-            //    canvas.Children.Add(foe.shape);
-            //}
-
-            createLayout();
-            startLoadedGame(difficulty);
-        }
-
-        private void load_button_Click(object sender, RoutedEventArgs e)
-        {
-            loadGame();
+        //Window.DialogResult result;
+        //String fileName;
+        //OpenFileDialog fileChooser = new OpenFileDialog()
+        //result = fileChooser.ShowDialog();
+        //fileName = fileChooser.FileName;
+        //FileStream file = new FileStream;
+        //StreamWriter a = new StreamWriter();
     }
-
-     
-    }
-
+}
