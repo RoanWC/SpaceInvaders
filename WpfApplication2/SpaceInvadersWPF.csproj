@@ -114,7 +114,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App.config">
+    <Content Include="Views\App.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Space Invaders Icon.png">
