@@ -328,7 +328,6 @@ namespace SpaceInvaders
         }
         private void saveFile()
         {
-            string mydocpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             List<String> state = new List<String>();
             String fileName = "gameState.txt";
             state.Add("count:" + enemies.Count);
@@ -339,6 +338,7 @@ namespace SpaceInvaders
             state.Add("--End Enemies");
             state.Add("difficulty:" + difficulty);
             state.Add("Kill count:" + killCount);
+            state.Add("Speed:" + speed);
             using (StreamWriter outputFile = new StreamWriter(fileName))
             {
                 foreach (string line in state)
@@ -348,52 +348,61 @@ namespace SpaceInvaders
 
         private void load_button_Click(object sender, RoutedEventArgs e)
         {
-            List<String> loadState = new List<String>();
-            isLoadedGame = true;
-            int end = -1;
-            String[] loadEnemies, loadInfo;
-            String fileName = "gameState.txt", relativePath = "Resources/hilaryclintonface.png"; ;
+            try {
+                List<String> loadState = new List<String>();
+                isLoadedGame = true;
+                int end = -1;
+                String[] loadEnemies, loadInfo;
+                String fileName = "gameState.txt", relativePath = "Resources/hilaryclintonface.png"; ;
 
-            using (StreamReader inputFile = new StreamReader(fileName))
-            {
-                while (inputFile.Peek() >= 0)
+                using (StreamReader inputFile = new StreamReader(fileName))
                 {
-                    String line = inputFile.ReadLine();
-                    loadState.Add(line);
+                    while (inputFile.Peek() >= 0)
+                    {
+                        String line = inputFile.ReadLine();
+                        loadState.Add(line);
+                    }
                 }
-            }
-            for (int i = 0; i < loadState.Count; i++)
-            {
-                if (loadState[i].Equals("--End Enemies"))
+                for (int i = 0; i < loadState.Count; i++)
                 {
-                    end = i;
-                    break;
+                    if (loadState[i].Equals("--End Enemies"))
+                    {
+                        end = i;
+                        break;
+                    }
                 }
+                loadEnemies = loadState[0].Split(':');
+                int size = int.Parse(loadEnemies[1]);
+                for (int i = 1; i < end; i++)
+                {
+                    loadEnemies = loadState[i].Split(':');
+                    CustomShape foe = new CustomShape(); //create the rectangle
+                    foe.shape = new Rectangle();
+                    foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(relativePath, UriKind.Relative)));
+                    foe.shape.Width = int.Parse(loadEnemies[4]);
+                    foe.shape.Height = int.Parse(loadEnemies[3]);
+                    foe.PositionX = int.Parse(loadEnemies[1]);
+                    foe.PositionY = int.Parse(loadEnemies[2]);
+                    foe.Health = int.Parse(loadEnemies[5]);
+                    Canvas.SetLeft(foe.shape, foe.PositionX);
+                    Canvas.SetTop(foe.shape, foe.PositionY);
+                    enemies.Add(foe);
+                }
+                end++;
+                loadInfo = loadState[end].Split(':');
+                difficulty = int.Parse(loadInfo[1]);
+                end++;
+                loadInfo = loadState[end].Split(':');
+                killCount = int.Parse(loadInfo[1]);
+                end++;
+                loadInfo = loadState[end].Split(':');
+                speed = int.Parse(loadInfo[1]);
+                NewGameClick(sender, e);
             }
-            loadEnemies = loadState[0].Split(':');
-            int size = int.Parse(loadEnemies[1]);
-            for (int i = 1; i < end; i++)
+            catch (FileNotFoundException)
             {
-                loadEnemies = loadState[i].Split(':');
-                CustomShape foe = new CustomShape(); //create the rectangle
-                foe.shape = new Rectangle();
-                foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(relativePath, UriKind.Relative)));
-                foe.shape.Width = int.Parse(loadEnemies[4]);
-                foe.shape.Height = int.Parse(loadEnemies[3]);
-                foe.PositionX = int.Parse(loadEnemies[1]);
-                foe.PositionY = int.Parse(loadEnemies[2]);
-                foe.Health = int.Parse(loadEnemies[5]);
-                Canvas.SetLeft(foe.shape, foe.PositionX);
-                Canvas.SetTop(foe.shape, foe.PositionY);
-                enemies.Add(foe);
+                MessageBox.Show("There is no saved game", "Question", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            end++;
-            loadInfo = loadState[end].Split(':');
-            difficulty = int.Parse(loadInfo[1]);
-            end++;
-            loadInfo = loadState[end].Split(':');
-            killCount = int.Parse(loadInfo[1]);
-            NewGameClick(sender, e);
 
         }
 
@@ -402,10 +411,6 @@ namespace SpaceInvaders
             foreach (CustomShape foe in enemies)
             {
                 canvas.Children.Add(foe.shape);
-            }
-            //if (difficulty > 1)
-            {
-                speed += 0.5;
             }
             strafeTimer.Start();
             kills.Text = Convert.ToString(killCount);
