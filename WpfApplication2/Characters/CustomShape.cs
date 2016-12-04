@@ -12,16 +12,32 @@ using System.Windows.Shapes;
 
 namespace WpfApplication2
 {
-    class CustomShape : UIElement
+    class CustomShape : UIElement, IEqualityComparer<CustomShape>
     {
-        private string Name { get; set; }
+        public string Name { get; set; }
         public double PositionX { get; set; }
-        public double Height { get; set; }
-        public double Width { get; set; }
         public double PositionY { get; set; }
         public double Health { get; set; }
         public Rectangle shape { get; set; }
 
+
+        public bool Equals(CustomShape x, CustomShape y)
+        {
+            if ((x == null || GetType() != x.GetType()) || (y == null || GetType() != y.GetType()))
+            {
+                return false;
+            }
+
+            if (x.Name.Equals(y.Name))
+                return true;
+            else
+                return false;
+        }
+
+        public int GetHashCode(CustomShape obj)
+        {
+            return base.GetHashCode();
+        }
 
     }
     }
