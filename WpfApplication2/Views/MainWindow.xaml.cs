@@ -291,11 +291,7 @@ namespace SpaceInvaders
                     isPaused = !isPaused;
                     paused2.Visibility = Visibility.Visible;
                     paused.Visibility = Visibility.Visible;
-                    if (MessageBox.Show("Save game?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
-                    {
-                        
-                    }
-                    else
+                    if (MessageBox.Show("Save game?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
                         saveFile();
                     }
