@@ -5,28 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpaceInvaders"
         mc:Ignorable="d"
-        Title="MainWindow" Height="657" Width="525" KeyDown="kDown" KeyUp="kUp" ResizeMode="NoResize" >
+        Title="MainWindow" Height="657" Width="525" KeyDown="kDown" KeyUp="kUp" ResizeMode="NoResize" Icon="../Resources/ship.png" >
     <Window.Background>
         <ImageBrush ImageSource="/WpfApplication2;component/Resources/background.gif"/>
     </Window.Background>
     
 
 
+
+    
+
     <Canvas x:Name="canvas" >
-        <Button x:Name="start_button" Content="CLICK HERE TO BEGIN" Height="56" Canvas.Left="10" Canvas.Top="218" Width="497" FontFamily="OCR A Std" FontSize="36" Click="NewGameClick" Background="{x:Null}" Foreground="#FF3AE814" BorderBrush="{x:Null}"  />
+
+
+        <Button x:Name="start_button" Content="CLICK HERE TO BEGIN" Height="56" Canvas.Left="10" Canvas.Top="218" Width="497" FontFamily="OCR A Std" FontSize="36" Click="NewGameClick"  Background="{x:Null}" Foreground="#FF3AE814" BorderBrush="{x:Null}" >
+
+        </Button>
+
+
+
+
         <TextBox x:Name="kills" Height="37" Canvas.Left="449" TextWrapping="Wrap" Text="0" Width="70" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF3AE814" SelectionBrush="{x:Null}" IsEnabled="False" FontFamily="OCR A Extended" FontSize="24"/>
-        <TextBox x:Name="Credits" Height="88" Canvas.Left="165" TextWrapping="Wrap" Text="Writen By: 
+        <TextBox x:Name="Credits" Height="88" Canvas.Left="183" TextWrapping="Wrap" Text="Writen By: 
                                                                                           Eric Hughes
                                                                                           Roan Chamberlain
-                                                                                          John" Canvas.Top="312" Width="160" RenderTransformOrigin="0.5,0.5" Foreground="#FF03B223" Background="{x:Null}" FontFamily="OCR A Extended" FontSize="16" BorderBrush="{x:Null}" SelectionBrush="{x:Null}">
-            <TextBox.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-0.318"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </TextBox.RenderTransform>
+                                                                                          Jon Depaz" Canvas.Top="530" Width="160" RenderTransformOrigin="0.5,0.5" Foreground="#FF03B223" Background="{x:Null}" FontFamily="OCR A Extended" FontSize="16" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" BorderThickness="1" Cursor="No" Focusable="False" IsHitTestVisible="False" IsTabStop="False">
+
         </TextBox>
     </Canvas>
 </Window>
