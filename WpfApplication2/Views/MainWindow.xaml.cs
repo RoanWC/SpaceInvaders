@@ -390,8 +390,9 @@ namespace SpaceInvaders
             end++;
             loadInfo = loadState[end].Split(':');
             difficulty = int.Parse(loadInfo[1]);
-            loadInfo = loadState[end++].Split(':');
-            killCount = int.Parse(loadInfo[1]) + 1;
+            end++;
+            loadInfo = loadState[end].Split(':');
+            killCount = int.Parse(loadInfo[1]);
             NewGameClick(sender, e);
 
         }
