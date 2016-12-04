@@ -63,8 +63,6 @@ namespace SpaceInvaders
             start_button.Visibility = Visibility.Hidden;
             load_button.Visibility = Visibility.Hidden;
             kills.Visibility = Visibility.Visible;
-            //startButtonText.Visibility = Visibility.Hidden;
-            //loadButtonText.Visibility = Visibility.Hidden;
             strafeTimer = new DispatcherTimer();
             bulletTimer = new DispatcherTimer();
             strafeTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);

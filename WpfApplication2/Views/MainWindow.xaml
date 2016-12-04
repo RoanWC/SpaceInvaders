@@ -104,44 +104,5 @@
             FontFamily="OCR A Extended"
             FontSize="18"
             Visibility="Hidden" />
-       <!--
-        <TextBox
-            x:Name="startButtonText"
-            Height="56"
-            Canvas.Left="22"
-            TextWrapping="Wrap"
-            Text="CLICK HERE TO START"
-            Canvas.Top="223"
-            Width="497"
-            Background="{x:Null}"
-            BorderBrush="{x:Null}"
-            Foreground="#FF1CE407"
-            SelectionBrush="#FF29EC15"
-            BorderThickness="1"
-            FontFamily="OCR A Extended"
-            FontSize="40"
-            AllowDrop="False"
-            IsHitTestVisible="False"
-            IsTabStop="False" />
-
-        <TextBox
-            x:Name="loadButtonText"
-            Height="56"
-            Canvas.Left="22"
-            TextWrapping="Wrap"
-            Text="CLICK HERE TO LOAD"
-            Canvas.Top="278"
-            Width="497"
-            Background="{x:Null}"
-            BorderBrush="{x:Null}"
-            Foreground="#FF1CE407"
-            SelectionBrush="#FF29EC15"
-            BorderThickness="1"
-            FontFamily="OCR A Extended"
-            FontSize="40"
-            AllowDrop="False"
-            IsHitTestVisible="False"
-            IsTabStop="False" />
-        -->
     </Canvas>
 </Window>
