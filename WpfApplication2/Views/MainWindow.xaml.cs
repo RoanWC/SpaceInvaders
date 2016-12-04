@@ -47,9 +47,11 @@ namespace SpaceInvaders
         SoundPlayer player = new System.Media.SoundPlayer("Resources/shotSound.wav");
         public MainWindow()
         {
+
             Loaded += delegate
                 {
                     InitializeComponent();
+                    Credits.Text = "Writen By:\n Eric Hughes\n Roan Chamberlain\n Jon Depaz";
                 };
         }
         private void NewGameClick(object sender, RoutedEventArgs e)
