@@ -408,7 +408,7 @@ namespace SpaceInvaders
                 speed += 0.5;
             }
             strafeTimer.Start();
-            updateKillCount();
+            kills.Text = Convert.ToString(killCount);
         }
     }
 }
