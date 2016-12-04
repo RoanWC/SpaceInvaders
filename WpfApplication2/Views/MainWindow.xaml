@@ -21,6 +21,9 @@
         <Button x:Name="start_button" Content="CLICK HERE TO BEGIN" Height="56" Canvas.Left="10" Canvas.Top="218" Width="497" FontFamily="OCR A Std" FontSize="36" Click="NewGameClick"  Background="{x:Null}" Foreground="#FF3AE814" BorderBrush="{x:Null}" >
 
         </Button>
+        <Button x:Name="load_button" Content="CLICK HERE TO LOAD" Height="56" Canvas.Left="10" Canvas.Top="278" Width="497" FontFamily="OCR A Std" FontSize="36" Click="load_button_Click"  Background="{x:Null}" Foreground="#FF3AE814" BorderBrush="{x:Null}" >
+
+        </Button>
 
 
 

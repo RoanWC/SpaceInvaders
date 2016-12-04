@@ -66,6 +66,7 @@ namespace SpaceInvaders
             Credits.Foreground = null;
             window.Close();
             start_button.Visibility = Visibility.Hidden;
+            load_button.Visibility = Visibility.Hidden;
             strafeTimer = new DispatcherTimer();
             bulletTimer = new DispatcherTimer();
             strafeTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
@@ -392,19 +393,22 @@ namespace SpaceInvaders
         private void saveFile()
         {
             strafeTimer.Stop();
-            string mydocpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             List<String> state = new List<String>();
-            OpenFileDialog fileChooser = new OpenFileDialog();
-            fileChooser.ShowDialog();
-            String fileName = fileChooser.FileName;
+            //OpenFileDialog fileChooser = new OpenFileDialog();
+            //fileChooser.Title = "Choose a file to save the game";
+            //fileChooser.ShowDialog();
+            //String fileName = fileChooser.FileName;
+            String fileName = "gameState.txt";
             state.Add("count:" + enemies.Count);
             for (int i = 0; i < enemies.Count; i++)
             {
-                state.Add(i + ":" + enemies[i].PositionX + ":" + enemies[i].PositionY + ":" + enemies[i].Height + ":" + enemies[i].Width + ":" + enemies[i].Health);
+                state.Add(i + ":" + enemies[i].PositionX + ":" + enemies[i].PositionY + ":" + enemies[i].shape.Height + ":" + enemies[i].shape.Width + ":" + enemies[i].Health);
             }
             state.Add("--End Enemies");
-            CustomShape a = enemies[1];
-
+            //state.Add("ship:" + ship.PositionX + ":" + ship.PositionY + ":" + ship.shape.Height + ":" + ship.shape.Width + ":" + ship.Health);
+            state.Add("difficulty:" + difficulty);
+            state.Add("kill count:" + killCount);
+            
             using (StreamWriter outputFile = new StreamWriter(fileName))
             {
                 foreach (string line in state)
@@ -413,15 +417,132 @@ namespace SpaceInvaders
             strafeTimer.Start();
 
         }
-        //Window.DialogResult result;
-        //String fileName;
-        //OpenFileDialog fileChooser = new OpenFileDialog()
-        //result = fileChooser.ShowDialog();
-        //fileName = fileChooser.FileName;
-        //FileStream file = new FileStream;
-        //StreamWriter a = new StreamWriter();
+
+        private void loadGame()
+        {
+            List<String> loadState = new List<String>();
+            int end = -1;
+            String[] loadEnemies, loadInfo;
+            String fileName = "gameState.txt", relativePath = "Resources/hilaryclintonface.png"; ;
+
+            using (StreamReader inputFile = new StreamReader(fileName))
+            {
+                while (inputFile.Peek() >= 0) {
+                    String line = inputFile.ReadLine();
+                    loadState.Add(line);
+                }
+            }
+            for (int i = 0; i < loadState.Count; i++)
+            {
+                if (loadState[i] == "--End Enemies")
+                {
+                    end = i;
+                    break;
+                }
+            }
+            loadEnemies = loadState[0].Split(':');
+            int size = int.Parse(loadEnemies[1]);
+            for (int i = 1; i < end; i++)
+            {
+                loadEnemies = loadState[i].Split(':');
+                CustomShape foe = new CustomShape(); //create the rectangle
+                foe.shape = new Rectangle();
+                foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(relativePath, UriKind.Relative)));
+                foe.shape.Width = int.Parse(loadEnemies[4]);
+                foe.shape.Height = int.Parse(loadEnemies[3]);
+                foe.PositionX = int.Parse(loadEnemies[1]);
+                foe.PositionY = int.Parse(loadEnemies[2]);
+                foe.Health = int.Parse(loadEnemies[5]);
+                Canvas.SetLeft(foe.shape, foe.PositionX);
+                Canvas.SetTop(foe.shape, foe.PositionY);
+                enemies.Add(foe);
+            }
+
+            loadInfo = loadState[end++].Split(':');
+            difficulty = int.Parse(loadInfo[1]);
+            loadInfo = loadState[end++].Split(':');
+            killCount = int.Parse(loadInfo[1]);
+
+            // foreach (CustomShape foe in enemies)
+            //{
+            //    canvas.Children.Add(foe.shape);
+            //}
+
+            createLayout();
+            startLoadedGame(difficulty);
+        }
+
+        private void load_button_Click(object sender, RoutedEventArgs e)
+        {
+            loadGame();
+        }
+
+        private void createLayout()
+        {
+            MainWindow window = new MainWindow();
+            Credits.Foreground = null;
+            window.Close();
+            start_button.Visibility = Visibility.Hidden;
+            load_button.Visibility = Visibility.Hidden;
+            strafeTimer = new DispatcherTimer();
+            bulletTimer = new DispatcherTimer();
+            strafeTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
+            strafeTimer.Tick += move;
+            bulletTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
+            bulletTimer.Tick += moveBullet;
+
+            string barrierPath = "Resources/barrier.png";
+            barrier1.shape = new Rectangle();
+            barrier2.shape = new Rectangle();
+            barrier3.shape = new Rectangle();
+            barrier1.shape.Width = 100;
+            barrier1.shape.Height = 50;
+            barrier1.shape.Fill = Brushes.Cyan;
+
+            barrier2.shape.Width = 100;
+            barrier2.shape.Height = 50;
+            barrier2.shape.Fill = Brushes.Cyan;
+
+            barrier3.shape.Width = 100;
+            barrier3.shape.Height = 50;
+            barrier3.shape.Fill = Brushes.Cyan;
+
+            barrier1.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
+            barrier2.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
+            barrier3.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
+
+
+            Canvas.SetLeft(barrier1.shape, 10);
+            Canvas.SetBottom(barrier1.shape, 50);
+
+            Canvas.SetLeft(barrier2.shape, 200);
+            Canvas.SetBottom(barrier2.shape, 50);
+
+            Canvas.SetLeft(barrier3.shape, 400);
+            Canvas.SetBottom(barrier3.shape, 50);
+            canvas.Children.Add(barrier1.shape);
+            canvas.Children.Add(barrier2.shape);
+            canvas.Children.Add(barrier3.shape);
+            ship.shape = new Rectangle();
+            ship.shape.Width = 50;
+            ship.shape.Height = 50;
+            String shipPath = "Resources/ship.png";
+            String backGroundPath = "Resources/background.gif";
+            ship.shape.Fill = new ImageBrush(new BitmapImage(new Uri(shipPath, UriKind.Relative)));
+            Canvas.SetLeft(ship.shape, 200);
+            Canvas.SetBottom(ship.shape, 10);
+            canvas.Children.Add(ship.shape);
+            canvas.Background = new ImageBrush(new BitmapImage(new Uri(backGroundPath, UriKind.Relative)));
+        }
+
+        private void startLoadedGame(int difficulty)
+        {
+            foreach (CustomShape foe in enemies)
+            {
+                canvas.Children.Add(foe.shape);
+            }
+        }
+    }
     }
 
-     
-    }
 
