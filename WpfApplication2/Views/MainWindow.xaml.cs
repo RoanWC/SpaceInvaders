@@ -19,14 +19,17 @@ using System.IO;
 using Microsoft.Win32;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+using WpfApplication2.Views;
 namespace SpaceInvaders
 {
     public partial class MainWindow : Window
     {
         Boolean isLoadedGame = false;
-        Random rand = new Random();
+        Random randomNumber = new Random();
         private DispatcherTimer strafeTimer;
         private DispatcherTimer bulletTimer;
+        private DispatcherTimer enemyBulletTimer;
+        private DispatcherTimer enemyAttackTimer;
         string bulletPath = "Resources/donaldthumb.png";
         private List<CustomShape> enemies = new List<CustomShape>();
         private List<CustomShape> shipbullets = new List<CustomShape>();
@@ -48,6 +51,8 @@ namespace SpaceInvaders
         int playerLives = 3;
         double top = 0.0;
         SoundPlayer player = new System.Media.SoundPlayer("Resources/shotSound.wav");
+        
+
         public MainWindow()
         {
 
@@ -65,12 +70,21 @@ namespace SpaceInvaders
             start_button.Visibility = Visibility.Hidden;
             load_button.Visibility = Visibility.Hidden;
             kills.Visibility = Visibility.Visible;
+            Lives.Visibility = Visibility.Visible;
+            openHS.Visibility = Visibility.Hidden;
             strafeTimer = new DispatcherTimer();
             bulletTimer = new DispatcherTimer();
+            enemyBulletTimer = new DispatcherTimer();
+            enemyAttackTimer = new DispatcherTimer();
             strafeTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             strafeTimer.Tick += move;
             bulletTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
             bulletTimer.Tick += moveBullet;
+            enemyAttackTimer.Interval = new TimeSpan(0, 0, 0, 0, 2000);
+            enemyAttackTimer.Tick += enemyAttack;
+            enemyBulletTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
+            enemyBulletTimer.Tick += moveEnemyBullet;
+           
             string barrierPath = "Resources/barrier.png";
             barrier1.shape = new Rectangle();
             barrier2.shape = new Rectangle();
@@ -103,11 +117,14 @@ namespace SpaceInvaders
             ship.Name = "Ship";
             ship.shape.Width = 50;
             ship.shape.Height = 50;
+            
             String shipPath = "Resources/ship.png";
             String backGroundPath = "Resources/background.gif";
             ship.shape.Fill = new ImageBrush(new BitmapImage(new Uri(shipPath, UriKind.Relative)));
             Canvas.SetLeft(ship.shape, 200);
             Canvas.SetBottom(ship.shape, 10);
+            ship.PositionX = Canvas.GetLeft(ship.shape);
+            ship.PositionY = canvas.ActualHeight - ship.shape.Height;
             canvas.Children.Add(ship.shape);
             canvas.Background = new ImageBrush(new BitmapImage(new Uri(backGroundPath, UriKind.Relative)));
             if (isLoadedGame == false)
@@ -116,6 +133,7 @@ namespace SpaceInvaders
                 createLoadedGame(difficulty);
         }
 
+       
         public void createLevel(int difficulty)
         {
             if (difficulty > 1)
@@ -154,6 +172,8 @@ namespace SpaceInvaders
                 canvas.Children.Add(foe.shape);
             }
             strafeTimer.Start();
+            enemyAttackTimer.Start();
+            
         }
         public void move(object sender, EventArgs e)
         {
@@ -218,6 +238,7 @@ namespace SpaceInvaders
                 {
                     x -= 3;
                     Canvas.SetLeft(ship.shape, x);
+                    ship.PositionX = Canvas.GetLeft(ship.shape);
                 }
             }
             if (rightPressed)
@@ -226,6 +247,7 @@ namespace SpaceInvaders
                 {
                     x += 3;
                     Canvas.SetLeft(ship.shape, x);
+                    ship.PositionX = Canvas.GetLeft(ship.shape);
                 }
             }
         }
@@ -287,6 +309,94 @@ namespace SpaceInvaders
                 Canvas.SetTop(shipbullets[z].shape, shipbullets[z].PositionY);
             }
         }
+        
+
+        private void moveEnemyBullet(object sender, EventArgs e)
+        {
+            if (playerLives == 0)
+            {
+                enemyAttackTimer.Stop();
+                enemyBulletTimer.Stop();
+            }
+            for (int j = 0; j < enemybullets.Count; j++)
+            {
+
+                if ((enemybullets[j].PositionY + enemybullets[j].shape.Height >= ship.PositionY) &&
+                (enemybullets[j].PositionX + enemybullets[j].shape.Width > ship.PositionX &&
+                 enemybullets[j].PositionX  <= ship.PositionX + ship.PositionX + ship.shape.Width))
+                {
+                    canvas.Children.Remove(enemybullets[j].shape);
+                    enemybullets.Remove(enemybullets[j]);
+                    updateLifeCount();
+                    MessageBox.Show("You have " + playerLives+" left");
+
+                }
+                else if (enemybullets[j].PositionY > canvas.ActualHeight)
+                {
+                    canvas.Children.Remove(enemybullets[j].shape);
+                    enemybullets.Remove(enemybullets[j]);
+                }
+            }
+
+
+            for (int z = 0; z < enemybullets.Count; z++)
+            {
+                enemybullets[z].PositionY += bulletSpeed;
+                Canvas.SetTop(enemybullets[z].shape, enemybullets[z].PositionY);
+            }
+        }
+
+        private void updateLifeCount()
+        {
+            playerLives--;
+           
+        }
+
+        private void enemyAttack(object sender, EventArgs e)
+        {
+            double canvaswidth = Math.Round(canvas.ActualWidth);
+            List<CustomShape> AvailableEnemies = new List<CustomShape>();
+           
+            var enemyCount = enemies.Count;
+
+            
+            var LastEnemy = enemies[enemyCount - 1];
+            for (int i = enemyCount - 1; i >= 0; i--)
+            {
+                if (enemies[i].PositionY >= LastEnemy.PositionY)
+                {
+                    var CurrentEnemy = enemies[i];
+                    if (CurrentEnemy.shape.ActualHeight >= LastEnemy.shape.ActualHeight)
+                        AvailableEnemies.Add(CurrentEnemy);
+                }
+            }
+            if(AvailableEnemies.Count != 0)
+            {
+                var ChosenEnemyToFire = AvailableEnemies[randomNumber.Next(0, AvailableEnemies.Count - 1)];
+                CustomShape enemybullet = new CustomShape();
+                enemybullet.shape = new Rectangle();
+                enemybullet.shape.Fill = new ImageBrush(new BitmapImage(new Uri(bulletPath, UriKind.Relative)));
+                enemybullet.Name = "EnemyBullet";
+                enemybullet.shape.Width = 5;
+                enemybullet.shape.Height = 10;
+                Canvas.SetTop(enemybullet.shape, ChosenEnemyToFire.PositionY);
+                Canvas.SetLeft(enemybullet.shape, Canvas.GetLeft(ChosenEnemyToFire.shape) + (ChosenEnemyToFire.shape.ActualWidth / 2.0));
+                enemybullets.Add(enemybullet);
+                enemybullet.PositionY = Canvas.GetTop(enemybullet.shape);
+                enemybullet.PositionX = Canvas.GetLeft(enemybullet.shape);
+                canvas.Children.Add(enemybullet.shape);
+                enemyBulletTimer.Start();
+
+            }
+
+
+        }
+
+                
+            
+        
+
+
         private void kDown(object sender, KeyEventArgs e)
         {
             switch (e.Key)
@@ -437,6 +547,12 @@ namespace SpaceInvaders
             }
             strafeTimer.Start();
             kills.Text = Convert.ToString(killCount);
+        }
+
+        private void openHS_Click(object sender, RoutedEventArgs e)
+        {
+            Leaderboards leaderboard = new Leaderboards();
+            leaderboard.Show();
         }
     }
 }
