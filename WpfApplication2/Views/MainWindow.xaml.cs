@@ -50,7 +50,7 @@ namespace SpaceInvaders
         int playerLives = 3;
         double top = 0.0;
         SoundPlayer player = new System.Media.SoundPlayer("Resources/shotSound.wav");
-        private int playerLives = 3;
+        
 
         public MainWindow()
         {
@@ -70,6 +70,7 @@ namespace SpaceInvaders
             load_button.Visibility = Visibility.Hidden;
             kills.Visibility = Visibility.Visible;
             Lives.Visibility = Visibility.Visible;
+            openHS.Visibility = Visibility.Hidden;
             strafeTimer = new DispatcherTimer();
             bulletTimer = new DispatcherTimer();
             enemyBulletTimer = new DispatcherTimer();
