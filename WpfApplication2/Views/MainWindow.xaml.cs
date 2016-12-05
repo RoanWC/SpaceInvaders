@@ -19,6 +19,7 @@ using System.IO;
 using Microsoft.Win32;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+using WpfApplication2.Views;
 namespace SpaceInvaders
 {
     public partial class MainWindow : Window
@@ -64,6 +65,7 @@ namespace SpaceInvaders
             start_button.Visibility = Visibility.Hidden;
             load_button.Visibility = Visibility.Hidden;
             kills.Visibility = Visibility.Visible;
+            Lives.Visibility = Visibility.Visible;
             strafeTimer = new DispatcherTimer();
             bulletTimer = new DispatcherTimer();
             strafeTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
@@ -419,6 +421,12 @@ namespace SpaceInvaders
             }
             strafeTimer.Start();
             kills.Text = Convert.ToString(killCount);
+        }
+
+        private void openHS_Click(object sender, RoutedEventArgs e)
+        {
+            Leaderboards leaderboard = new Leaderboards();
+            leaderboard.Show();
         }
     }
 }

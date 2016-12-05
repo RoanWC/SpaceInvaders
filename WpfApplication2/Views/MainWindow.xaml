@@ -20,9 +20,10 @@
     </Window.Background>
     <Canvas
         x:Name="canvas">
-        <Button Style="{DynamicResource TransparentStyle}"
+        <Button
+            Style="{DynamicResource TransparentStyle}"
             x:Name="start_button"
-            Content="CLICK HERE TO BEGIN"
+            Content="NEW GAME"
             Height="56"
             Canvas.Left="10"
             Canvas.Top="218"
@@ -30,12 +31,11 @@
             FontFamily="OCR A Std"
             FontSize="36"
             Click="NewGameClick"
-            Foreground="#FF3AE814"
-            />
+            Foreground="#FF3AE814" />
         <Button
             Style="{DynamicResource TransparentStyle}"
             x:Name="load_button"
-            Content="CLICK HERE TO LOAD"
+            Content="LOAD GAME"
             Height="56"
             Canvas.Left="10"
             Canvas.Top="278"
@@ -43,8 +43,19 @@
             FontFamily="OCR A Std"
             FontSize="36"
             Click="load_button_Click"
+            Foreground="#FF3AE814" />
+        <Button
+            Style="{DynamicResource TransparentStyle}"
+            x:Name="openHS"
+            Content="VIEW LEADERBOARDS"
+            Height="56"
+            Canvas.Left="22"
+            Canvas.Top="329"
+            Width="485"
+            FontFamily="OCR A Std"
+            FontSize="36"
             Foreground="#FF3AE814"
-          />
+            Click="openHS_Click" />
         <TextBox
             x:Name="kills"
             Height="37"
@@ -103,5 +114,20 @@
             FontFamily="OCR A Extended"
             FontSize="18"
             Visibility="Hidden" />
+        <TextBox
+            x:Name="Lives"
+            Height="40"
+            Canvas.Left="428"
+            TextWrapping="Wrap"
+            Text="3"
+            Canvas.Top="10"
+            Width="21"
+            Background="{x:Null}"
+            BorderBrush="{x:Null}"
+            Foreground="#FF10F51B"
+            SelectionBrush="{x:Null}"
+            FontSize="36"
+            FontFamily="OCR A Extended"
+            Visibility="Hidden"/>
     </Canvas>
 </Window>
