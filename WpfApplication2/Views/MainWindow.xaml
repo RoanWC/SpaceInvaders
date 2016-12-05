@@ -119,7 +119,6 @@
             Height="40"
             Canvas.Left="428"
             TextWrapping="Wrap"
-            Text="3"
             Canvas.Top="10"
             Width="21"
             Background="{x:Null}"
