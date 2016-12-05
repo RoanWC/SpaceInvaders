@@ -19,6 +19,7 @@ using System.IO;
 using Microsoft.Win32;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+using WpfApplication2.Views;
 namespace SpaceInvaders
 {
     public partial class MainWindow : Window
@@ -46,6 +47,7 @@ namespace SpaceInvaders
         int difficulty = 1;
         int rows = 3;
         int cols = 8;
+        int playerLives = 3;
         double top = 0.0;
         SoundPlayer player = new System.Media.SoundPlayer("Resources/shotSound.wav");
         private int playerLives = 3;
@@ -67,6 +69,7 @@ namespace SpaceInvaders
             start_button.Visibility = Visibility.Hidden;
             load_button.Visibility = Visibility.Hidden;
             kills.Visibility = Visibility.Visible;
+            Lives.Visibility = Visibility.Visible;
             strafeTimer = new DispatcherTimer();
             bulletTimer = new DispatcherTimer();
             enemyBulletTimer = new DispatcherTimer();
@@ -446,6 +449,7 @@ namespace SpaceInvaders
             state.Add("difficulty:" + difficulty);
             state.Add("Kill count:" + killCount);
             state.Add("Speed:" + speed);
+            state.Add("Lives:" + playerLives);
             using (StreamWriter outputFile = new StreamWriter(fileName))
             {
                 foreach (string line in state)
@@ -458,7 +462,7 @@ namespace SpaceInvaders
             try {
                 List<String> loadState = new List<String>();
                 isLoadedGame = true;
-                int end = -1;
+                int index = -1;
                 String[] loadEnemies, loadInfo;
                 String fileName = "gameState.txt", relativePath = "Resources/hilaryclintonface.png"; ;
 
@@ -474,13 +478,13 @@ namespace SpaceInvaders
                 {
                     if (loadState[i].Equals("--End Enemies"))
                     {
-                        end = i;
+                        index = i;
                         break;
                     }
                 }
                 loadEnemies = loadState[0].Split(':');
                 int size = int.Parse(loadEnemies[1]);
-                for (int i = 1; i < end; i++)
+                for (int i = 1; i < index; i++)
                 {
                     loadEnemies = loadState[i].Split(':');
                     CustomShape foe = new CustomShape(); //create the rectangle
@@ -495,20 +499,23 @@ namespace SpaceInvaders
                     Canvas.SetTop(foe.shape, foe.PositionY);
                     enemies.Add(foe);
                 }
-                end++;
-                loadInfo = loadState[end].Split(':');
+                index++;
+                loadInfo = loadState[index].Split(':');
                 difficulty = int.Parse(loadInfo[1]);
-                end++;
-                loadInfo = loadState[end].Split(':');
+                index++;
+                loadInfo = loadState[index].Split(':');
                 killCount = int.Parse(loadInfo[1]);
-                end++;
-                loadInfo = loadState[end].Split(':');
+                index++;
+                loadInfo = loadState[index].Split(':');
                 speed = int.Parse(loadInfo[1]);
+                index++;
+                loadInfo = loadState[index].Split(':');
+                playerLives = int.Parse(loadInfo[1]);
                 NewGameClick(sender, e);
             }
             catch (FileNotFoundException)
             {
-                MessageBox.Show("There is no saved game", "Question", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("There is no saved game", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
 
         }
@@ -521,6 +528,12 @@ namespace SpaceInvaders
             }
             strafeTimer.Start();
             kills.Text = Convert.ToString(killCount);
+        }
+
+        private void openHS_Click(object sender, RoutedEventArgs e)
+        {
+            Leaderboards leaderboard = new Leaderboards();
+            leaderboard.Show();
         }
     }
 }
