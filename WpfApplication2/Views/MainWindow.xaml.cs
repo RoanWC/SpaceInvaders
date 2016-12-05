@@ -38,6 +38,7 @@ namespace SpaceInvaders
         CustomShape barrier2 = new CustomShape();
         CustomShape barrier3 = new CustomShape();
         List<CustomShape> barriers = new List<CustomShape>();
+        CustomShape[] barriersArray;
         CustomShape ship = new CustomShape();
         double bulletSpeed = 8;
         double speed = 1;
@@ -93,16 +94,16 @@ namespace SpaceInvaders
             barrier3.shape = new Rectangle();
             barrier1.shape.Width = 100;
             barrier1.shape.Height = 50;
-            barrier1.Health = 3;
+            barrier1.Health = 10;
             barrier1.shape.Fill = Brushes.Cyan;
             barrier2.shape.Width = 100;
             barrier2.shape.Height = 50;
             barrier2.shape.Fill = Brushes.Cyan;
-            barrier2.Health = 2;
+            barrier2.Health = 10;
             barrier3.shape.Width = 100;
             barrier3.shape.Height = 50;
             barrier3.shape.Fill = Brushes.Cyan;
-            barrier3.Health = 3;
+            barrier3.Health = 10;
             barrier1.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
             barrier2.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
             barrier3.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
@@ -121,9 +122,8 @@ namespace SpaceInvaders
             canvas.Children.Add(barrier1.shape);
             canvas.Children.Add(barrier2.shape);
             canvas.Children.Add(barrier3.shape);
-            barriers.Add(barrier1);
-            barriers.Add(barrier2);
-            barriers.Add(barrier3);
+            barriersArray = barriers.ToArray();
+
             ship.shape = new Rectangle();
             ship.Name = "Ship";
             ship.shape.Width = 50;
@@ -187,6 +187,7 @@ namespace SpaceInvaders
             barriers.Add(barrier1);
             barriers.Add(barrier2);
             barriers.Add(barrier3);
+            barriersArray = barriers.ToArray();
             foreach (CustomShape barrier in barriers)
             {
                 try
@@ -359,7 +360,8 @@ namespace SpaceInvaders
 
         private void moveEnemyBullet(object sender, EventArgs e)
         {
-
+           
+            Boolean hitship = false;
             for (int j = 0; j < enemybullets.Count; j++)
             {
 
@@ -371,42 +373,41 @@ namespace SpaceInvaders
                     enemybullets.Remove(enemybullets[j]);
                     playerLives--;
                     Lives.Text = playerLives.ToString();
+                    hitship = true;
+                    if (playerLives == 0)
+                        canvas.Children.Remove(ship.shape);
 
                 }
-
-               else if (barriers.Count != 0)
+                else if(!hitship)
+                for (int i = 0; i < barriersArray.Length; i++)
                 {
-
-                    for (int i = 0; i < barriers.Count; i++)
-                    {
-
-
-                        if (enemybullets[j].PositionY >= barriers[i].PositionY 
+                   
+                        if (enemybullets[j].PositionY >= barriersArray[i].PositionY
                             &&
-                            enemybullets[j].PositionX + enemybullets[j].shape.Width >= barriers[i].PositionX
+                            enemybullets[j].PositionX + enemybullets[j].shape.Width >= barriersArray[i].PositionX
                             &&
-                             enemybullets[j].PositionX <= barriers[i].PositionX + barriers[i].shape.Width)
+                             enemybullets[j].PositionX <= barriersArray[i].PositionX + barriersArray[i].shape.Width)
                         {
                             canvas.Children.Remove(enemybullets[j].shape);
                             enemybullets.Remove(enemybullets[j]);
-                            canvas.Children.Remove(barriers[i].shape);
-                            barriers[i].Health--;
-                            if (barriers[i].Health == 0)
-                                barriers.Remove(barriers[i]);
+                            barriersArray[i].Health--;
+                                if (barriersArray[i].Health == 0)
+                            {
+                                canvas.Children.Remove(barriersArray[i].shape);
+                                barriersArray[i].PositionX = 0;
+                                barriersArray[i].PositionY = 0;
+                            }
+
                             break;
                         }
-
-
-                        
-                    }
-
                 }
-                else if(enemybullets[j].PositionY > canvas.ActualHeight)
+                
+                else if (enemybullets[j].PositionY > canvas.ActualHeight)
                 {
                     canvas.Children.Remove(enemybullets[j].shape);
                     enemybullets.Remove(enemybullets[j]);
                 }
-                
+
             }
             for (int z = 0; z < enemybullets.Count; z++)
             {
@@ -415,6 +416,7 @@ namespace SpaceInvaders
             }
 
         }
+        
 
 
 
