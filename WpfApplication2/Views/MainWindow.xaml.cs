@@ -34,6 +34,7 @@ namespace SpaceInvaders
         CustomShape barrier1 = new CustomShape();
         CustomShape barrier2 = new CustomShape();
         CustomShape barrier3 = new CustomShape();
+        List<CustomShape> barriers = new List<CustomShape>();
         CustomShape ship = new CustomShape();
         double bulletSpeed = 8;
         double speed = 1;
@@ -68,7 +69,7 @@ namespace SpaceInvaders
             bulletTimer = new DispatcherTimer();
             strafeTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             strafeTimer.Tick += move;
-            bulletTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
+            bulletTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
             bulletTimer.Tick += moveBullet;
             string barrierPath = "Resources/barrier.png";
             barrier1.shape = new Rectangle();
@@ -95,6 +96,9 @@ namespace SpaceInvaders
             canvas.Children.Add(barrier1.shape);
             canvas.Children.Add(barrier2.shape);
             canvas.Children.Add(barrier3.shape);
+            barriers.Add(barrier1);
+            barriers.Add(barrier2);
+            barriers.Add(barrier3);
             ship.shape = new Rectangle();
             ship.Name = "Ship";
             ship.shape.Width = 50;
@@ -239,6 +243,16 @@ namespace SpaceInvaders
                 {
                     try
                     {
+                        foreach (CustomShape barrier in barriers)
+                        {
+                            if ((shipbullets[j].PositionY <= barrier.PositionY + barrier.shape.Height && shipbullets[j].PositionY >= barrier.PositionY)
+                            &&
+                            (shipbullets[j].PositionX + shipbullets[j].shape.Width > barrier.PositionX &&
+                             shipbullets[j].PositionX <= barrier.PositionX + barrier.shape.Width))
+                            {
+                                canvas.Children.Remove(barrier.shape);
+                            }
+                        }
                         if ((shipbullets[j].PositionY <= enemies[i].PositionY + enemies[i].shape.Height && shipbullets[j].PositionY >= enemies[i].PositionY)
                         &&
                         (shipbullets[j].PositionX + shipbullets[j].shape.Width > enemies[i].PositionX &&
@@ -256,12 +270,16 @@ namespace SpaceInvaders
                             canvas.Children.Remove(shipbullets[j].shape);
                             shipbullets.Remove(shipbullets[j]);
                         }
+                        
+                        
                     }
+                    
                     catch (ArgumentOutOfRangeException ioe)
                     {
                         continue;
                     }
                 }
+
             }
             for (int z = 0; z < shipbullets.Count; z++)
             {
