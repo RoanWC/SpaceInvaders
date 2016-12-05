@@ -107,6 +107,12 @@ namespace SpaceInvaders
             Canvas.SetBottom(barrier2.shape, 50);
             Canvas.SetLeft(barrier3.shape, 400);
             Canvas.SetBottom(barrier3.shape, 50);
+            barrier1.PositionX = Canvas.GetLeft(barrier1.shape);
+            barrier1.PositionY = Canvas.GetBottom(barrier1.shape);
+            barrier2.PositionX = Canvas.GetLeft(barrier2.shape);
+            barrier2.PositionY = Canvas.GetBottom(barrier2.shape);
+            barrier3.PositionX = Canvas.GetLeft(barrier3.shape);
+            barrier3.PositionY = Canvas.GetBottom(barrier3.shape);
             canvas.Children.Add(barrier1.shape);
             canvas.Children.Add(barrier2.shape);
             canvas.Children.Add(barrier3.shape);
@@ -173,6 +179,21 @@ namespace SpaceInvaders
             }
             strafeTimer.Start();
             enemyAttackTimer.Start();
+            barriers.Add(barrier1);
+            barriers.Add(barrier2);
+            barriers.Add(barrier3);
+            foreach (CustomShape barrier in barriers)
+            {
+                try
+                {
+
+                    canvas.Children.Add(barrier.shape);
+                }
+                catch (ArgumentException)
+                {
+
+                }
+            }
             
         }
         public void move(object sender, EventArgs e)
@@ -259,22 +280,30 @@ namespace SpaceInvaders
         public void moveBullet(object sender, EventArgs e)
         {
             int enemyCount = enemies.Count;
+            for (int j = 0; j < shipbullets.Count; j++)
+            {
+                for (  int i = 0; i < barriers.Count; i++)
+                {
+                       if (shipbullets[j].PositionY <= barriers[i].PositionY + barriers[i].shape.Height
+                        &&
+                        shipbullets[j].PositionX + shipbullets[j].shape.Width >= barriers[i].PositionX 
+                        &&
+                         shipbullets[j].PositionX <= barriers[i].PositionX + barriers[i].shape.Width)
+                        {
+                        canvas.Children.Remove(shipbullets[j].shape);
+                        shipbullets.Remove(shipbullets[j]);
+                        canvas.Children.Remove(barriers[i].shape);
+                        barriers.Remove(barriers[i]);
+                        break;
+                        }
+                    }
+            }
             for (int i = 0; i < enemyCount; i++)
             {
                 for (int j = 0; j < shipbullets.Count; j++)
                 {
                     try
                     {
-                        foreach (CustomShape barrier in barriers)
-                        {
-                            if ((shipbullets[j].PositionY <= barrier.PositionY + barrier.shape.Height && shipbullets[j].PositionY >= barrier.PositionY)
-                            &&
-                            (shipbullets[j].PositionX + shipbullets[j].shape.Width > barrier.PositionX &&
-                             shipbullets[j].PositionX <= barrier.PositionX + barrier.shape.Width))
-                            {
-                                canvas.Children.Remove(barrier.shape);
-                            }
-                        }
                         if ((shipbullets[j].PositionY <= enemies[i].PositionY + enemies[i].shape.Height && shipbullets[j].PositionY >= enemies[i].PositionY)
                         &&
                         (shipbullets[j].PositionX + shipbullets[j].shape.Width > enemies[i].PositionX &&
