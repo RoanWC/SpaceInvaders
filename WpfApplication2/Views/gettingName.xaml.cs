@@ -11,19 +11,25 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using WpfApplication2.Views;
 
 namespace WpfApplication2.Views
 {
     /// <summary>
-    /// Interaction logic for Leaderboards.xaml
+    /// Interaction logic for gettingName.xaml
     /// </summary>
-    public partial class Leaderboards : Window
+    public partial class gettingName : Window
     {
-        public Leaderboards()
+        public gettingName()
         {
             InitializeComponent();
         }
-        gettingName gettingName = new gettingName();   
+
+        private void enter(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Space)
+            {
+                textBox.Text = textBox.Text
+            }
+        }
     }
 }

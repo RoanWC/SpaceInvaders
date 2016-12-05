@@ -128,8 +128,6 @@ namespace SpaceInvaders
             else if (isLoadedGame == true)
                 createLoadedGame(difficulty);
         }
-
-       
         public void createLevel(int difficulty)
         {
             if (difficulty > 1)
@@ -291,8 +289,6 @@ namespace SpaceInvaders
                 Canvas.SetTop(shipbullets[z].shape, shipbullets[z].PositionY);
             }
         }
-        
-
         private void moveEnemyBullet(object sender, EventArgs e)
         {
             if (playerLives == 0)
@@ -327,13 +323,11 @@ namespace SpaceInvaders
                 Canvas.SetTop(enemybullets[z].shape, enemybullets[z].PositionY);
             }
         }
-
         private void updateLifeCount()
         {
             playerLives--;
            
         }
-
         private void enemyAttack(object sender, EventArgs e)
         {
             double canvaswidth = Math.Round(canvas.ActualWidth);
@@ -373,12 +367,6 @@ namespace SpaceInvaders
 
 
         }
-
-                
-            
-        
-
-
         private void kDown(object sender, KeyEventArgs e)
         {
             switch (e.Key)
@@ -457,7 +445,6 @@ namespace SpaceInvaders
                     outputFile.WriteLine(line);
             }
         }
-
         private void load_button_Click(object sender, RoutedEventArgs e)
         {
             try {
@@ -520,7 +507,6 @@ namespace SpaceInvaders
             }
 
         }
-
         private void createLoadedGame(int difficulty)
         {
             foreach (CustomShape foe in enemies)
@@ -530,11 +516,27 @@ namespace SpaceInvaders
             strafeTimer.Start();
             kills.Text = Convert.ToString(killCount);
         }
-
         private void openHS_Click(object sender, RoutedEventArgs e)
         {
             Leaderboards leaderboard = new Leaderboards();
             leaderboard.Show();
         }
-    }
+        private void gameOver()
+        {
+
+            strafeTimer.Stop();
+            bulletTimer.Stop();
+            enemyBulletTimer.Stop();
+            enemyAttackTimer.Stop();
+            List<String> people = new List<string>();
+            String playerName;
+            String playerNameAndScore;
+            gettingName getNameWindow = new gettingName();
+            getNameWindow.Show();
+            playerName = getNameWindow.textBox.Text;
+            playerNameAndScore = killCount + playerName ;
+
+
+        }   
+    }       
 }

@@ -13,6 +13,7 @@
         <ImageBrush
             ImageSource="/WpfApplication2;component/Resources/background.gif" />
     </Window.Background>
+    
     <Grid>
         <TextBlock
             x:Name="Hishscores"
@@ -29,105 +30,105 @@
             x:Name="hs1Label"
             Content="1."
             HorizontalAlignment="Left"
-            Margin="10,98,0,0"
+            Margin="10,37,0,0"
             VerticalAlignment="Top"
             Foreground="#FF10F51B" />
         <Label
             x:Name="hs2Label"
             Content="2."
             HorizontalAlignment="Left"
-            Margin="10,124,0,0"
+            Margin="10,63,0,0"
             VerticalAlignment="Top"
             Foreground="#FF10F51B" />
         <Label
             x:Name="hs3Label"
             Content="3."
             HorizontalAlignment="Left"
-            Margin="10,150,0,0"
+            Margin="10,89,0,0"
             VerticalAlignment="Top"
             Foreground="#FF10F51B" />
         <Label
             x:Name="hs4Label"
             Content="4."
             HorizontalAlignment="Left"
-            Margin="10,176,0,0"
+            Margin="10,115,0,0"
             VerticalAlignment="Top"
             Foreground="#FF10F51B" />
         <Label
             x:Name="hs5Label"
             Content="5."
             HorizontalAlignment="Left"
-            Margin="10,202,0,0"
+            Margin="10,141,0,0"
             VerticalAlignment="Top"
             Foreground="#FF10F51B" />
         <Label
             x:Name="hs6Label"
             Content="6."
             HorizontalAlignment="Left"
-            Margin="10,228,0,0"
+            Margin="10,167,0,0"
             VerticalAlignment="Top"
             Foreground="#FF10F51B" />
         <Label
             x:Name="hs7Label"
             Content="7."
             HorizontalAlignment="Left"
-            Margin="10,254,0,0"
+            Margin="10,193,0,0"
             VerticalAlignment="Top"
             Foreground="#FF10F51B" />
         <Label
             x:Name="hs8Label"
             Content="8."
             HorizontalAlignment="Left"
-            Margin="10,280,0,0"
+            Margin="10,219,0,0"
             VerticalAlignment="Top"
             Foreground="#FF10F51B" />
         <Label
             x:Name="hs9Label"
             Content="9."
             HorizontalAlignment="Left"
-            Margin="10,306,0,0"
+            Margin="10,245,0,0"
             VerticalAlignment="Top"
             Foreground="#FF10F51B" />
         <Label
             x:Name="hs10Label"
             Content="10."
             HorizontalAlignment="Left"
-            Margin="10,332,0,0"
+            Margin="10,271,0,0"
             VerticalAlignment="Top"
             Foreground="#FF10F51B" />
         <Label
             x:Name="hs11Label"
             Content="11."
             HorizontalAlignment="Left"
-            Margin="10,358,0,0"
+            Margin="10,297,0,0"
             VerticalAlignment="Top"
             Foreground="#FF10F51B" />
         <Label
             x:Name="hs12Label"
             Content="12."
             HorizontalAlignment="Left"
-            Margin="10,384,0,0"
+            Margin="10,323,0,0"
             VerticalAlignment="Top"
             Foreground="#FF10F51B" />
         <Label
             x:Name="hs14Label"
             Content="14."
             HorizontalAlignment="Left"
-            Margin="10,436,0,0"
+            Margin="10,375,0,0"
             VerticalAlignment="Top"
             Foreground="#FF10F51B" />
         <Label
             x:Name="hs13Label"
             Content="13."
             HorizontalAlignment="Left"
-            Margin="10,410,0,0"
+            Margin="10,349,0,0"
             VerticalAlignment="Top"
             Foreground="#FF10F51B" />
         <Label
             x:Name="hs15Label"
             Content="15."
             HorizontalAlignment="Left"
-            Margin="10,462,0,0"
+            Margin="10,401,0,0"
             VerticalAlignment="Top"
             Foreground="#FF10F51B" />
     </Grid>
