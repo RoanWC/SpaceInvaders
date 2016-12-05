@@ -93,28 +93,31 @@ namespace SpaceInvaders
             barrier3.shape = new Rectangle();
             barrier1.shape.Width = 100;
             barrier1.shape.Height = 50;
+            barrier1.Health = 3;
             barrier1.shape.Fill = Brushes.Cyan;
             barrier2.shape.Width = 100;
             barrier2.shape.Height = 50;
             barrier2.shape.Fill = Brushes.Cyan;
+            barrier2.Health = 2;
             barrier3.shape.Width = 100;
             barrier3.shape.Height = 50;
             barrier3.shape.Fill = Brushes.Cyan;
+            barrier3.Health = 3;
             barrier1.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
             barrier2.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
             barrier3.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
             Canvas.SetLeft(barrier1.shape, 10);
-            Canvas.SetBottom(barrier1.shape, 50);
+            Canvas.SetTop(barrier1.shape, canvas.ActualHeight - barrier1.shape.Height*2); 
             Canvas.SetLeft(barrier2.shape, 200);
-            Canvas.SetBottom(barrier2.shape, 50);
+            Canvas.SetTop(barrier2.shape, canvas.ActualHeight - barrier1.shape.Height*2);
             Canvas.SetLeft(barrier3.shape, 400);
-            Canvas.SetBottom(barrier3.shape, 50);
+            Canvas.SetTop(barrier3.shape, canvas.ActualHeight - barrier1.shape.Height*2);
             barrier1.PositionX = Canvas.GetLeft(barrier1.shape);
-            barrier1.PositionY = Canvas.GetBottom(barrier1.shape);
+            barrier1.PositionY = Canvas.GetTop(barrier1.shape);
             barrier2.PositionX = Canvas.GetLeft(barrier2.shape);
-            barrier2.PositionY = Canvas.GetBottom(barrier2.shape);
+            barrier2.PositionY = Canvas.GetTop(barrier2.shape);
             barrier3.PositionX = Canvas.GetLeft(barrier3.shape);
-            barrier3.PositionY = Canvas.GetBottom(barrier3.shape);
+            barrier3.PositionY = Canvas.GetTop(barrier3.shape);
             canvas.Children.Add(barrier1.shape);
             canvas.Children.Add(barrier2.shape);
             canvas.Children.Add(barrier3.shape);
@@ -130,7 +133,7 @@ namespace SpaceInvaders
             String backGroundPath = "Resources/background.gif";
             ship.shape.Fill = new ImageBrush(new BitmapImage(new Uri(shipPath, UriKind.Relative)));
             Canvas.SetLeft(ship.shape, 200);
-            Canvas.SetBottom(ship.shape, 10);
+            Canvas.SetTop(ship.shape, canvas.ActualHeight - ship.shape.Height);
             ship.PositionX = Canvas.GetLeft(ship.shape);
             ship.PositionY = canvas.ActualHeight - ship.shape.Height;
             canvas.Children.Add(ship.shape);
@@ -296,7 +299,7 @@ namespace SpaceInvaders
                         shipbullets.Remove(shipbullets[j]);
                         canvas.Children.Remove(barriers[i].shape);
                         barriers.Remove(barriers[i]);
-                        break;
+                        
                         }
                     }
             }
@@ -356,39 +359,64 @@ namespace SpaceInvaders
 
         private void moveEnemyBullet(object sender, EventArgs e)
         {
-            
+
             for (int j = 0; j < enemybullets.Count; j++)
             {
 
                 if ((enemybullets[j].PositionY + enemybullets[j].shape.Height >= ship.PositionY) &&
                 (enemybullets[j].PositionX + enemybullets[j].shape.Width > ship.PositionX &&
-                 enemybullets[j].PositionX  <= ship.PositionX + ship.shape.Width))
+                 enemybullets[j].PositionX <= ship.PositionX + ship.shape.Width))
                 {
                     canvas.Children.Remove(enemybullets[j].shape);
                     enemybullets.Remove(enemybullets[j]);
                     playerLives--;
                     Lives.Text = playerLives.ToString();
-                    
-                        
 
                 }
-                else if (enemybullets[j].PositionY > canvas.ActualHeight)
+
+               else if (barriers.Count != 0)
+                {
+
+                    for (int i = 0; i < barriers.Count; i++)
+                    {
+
+
+                        if (enemybullets[j].PositionY >= barriers[i].PositionY 
+                            &&
+                            enemybullets[j].PositionX + enemybullets[j].shape.Width >= barriers[i].PositionX
+                            &&
+                             enemybullets[j].PositionX <= barriers[i].PositionX + barriers[i].shape.Width)
+                        {
+                            canvas.Children.Remove(enemybullets[j].shape);
+                            enemybullets.Remove(enemybullets[j]);
+                            canvas.Children.Remove(barriers[i].shape);
+                            barriers[i].Health--;
+                            if (barriers[i].Health == 0)
+                                barriers.Remove(barriers[i]);
+                            break;
+                        }
+
+
+                        
+                    }
+
+                }
+                else if(enemybullets[j].PositionY > canvas.ActualHeight)
                 {
                     canvas.Children.Remove(enemybullets[j].shape);
                     enemybullets.Remove(enemybullets[j]);
                 }
+                
             }
-
-
             for (int z = 0; z < enemybullets.Count; z++)
             {
                 enemybullets[z].PositionY += bulletSpeed;
                 Canvas.SetTop(enemybullets[z].shape, enemybullets[z].PositionY);
             }
-      
+
         }
 
-        
+
 
         private void enemyAttack(object sender, EventArgs e)
         {
