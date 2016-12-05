@@ -28,7 +28,7 @@ namespace WpfApplication2.Views
         {
             if(e.Key == Key.Space)
             {
-                textBox.Text = textBox.Text
+                textBox.Text = textBox.Text;
             }
         }
     }
