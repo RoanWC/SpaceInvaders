@@ -91,10 +91,10 @@ namespace SpaceInvaders
            
            
             string barrierPath = "Resources/barrier.png";
+            var left = 10.0;
             for (int i = 0; i < 3; i++)
             {
-               var left = 1.0;
-               var barrier =  new CustomShape();
+                var barrier =  new CustomShape();
                 barrier.shape = new Rectangle();
                 barrier.shape.Width = 100;
                 barrier.shape.Height = 50;
@@ -102,12 +102,15 @@ namespace SpaceInvaders
                 barrier.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
                 barriers.Add(barrier);
 
-               
                 Canvas.SetTop(barrier.shape, canvas.ActualHeight - barrier.shape.Height * 2);
+                if (i > 0)
+                    left = (barrier.Health * barrier.Health) * (i + i);
+                Canvas.SetLeft(barrier.shape, left);
                 barrier.PositionX = Canvas.GetLeft(barrier.shape);
                 barrier.PositionY = Canvas.GetTop(barrier.shape);
                 canvas.Children.Add(barrier.shape);
-                left =  (barrier.Health * i+1) * barrier.Health;
+                
+
             }
            
             barriersArray = barriers.ToArray();
@@ -172,22 +175,6 @@ namespace SpaceInvaders
             }
             strafeTimer.Start();
             enemyAttackTimer.Start();
-            barriers.Add(barrier1);
-            barriers.Add(barrier2);
-            barriers.Add(barrier3);
-            barriersArray = barriers.ToArray();
-            foreach (CustomShape barrier in barriers)
-            {
-                try
-                {
-
-                    canvas.Children.Add(barrier.shape);
-                }
-                catch (ArgumentException)
-                {
-
-                }
-            }
             
         }
         public void move(object sender, EventArgs e)
@@ -593,7 +580,7 @@ namespace SpaceInvaders
                 killCount = int.Parse(loadInfo[1]);
                 index++;
                 loadInfo = loadState[index].Split(':');
-                speed = int.Parse(loadInfo[1]);
+                speed = Double.Parse(loadInfo[1]);
                 index++;
                 loadInfo = loadState[index].Split(':');
                 playerLives = int.Parse(loadInfo[1]);
