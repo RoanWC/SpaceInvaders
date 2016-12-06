@@ -34,9 +34,7 @@ namespace SpaceInvaders
         private List<CustomShape> enemies = new List<CustomShape>();
         private List<CustomShape> shipbullets = new List<CustomShape>();
         private List<CustomShape> enemybullets = new List<CustomShape>();
-        CustomShape barrier1 = new CustomShape();
-        CustomShape barrier2 = new CustomShape();
-        CustomShape barrier3 = new CustomShape();
+        
         List<CustomShape> barriers = new List<CustomShape>();
         CustomShape[] barriersArray;
         CustomShape ship = new CustomShape();
@@ -91,42 +89,28 @@ namespace SpaceInvaders
             enemyBulletTimer.Interval = new TimeSpan(0, 0, 0, 0, 5);
             enemyBulletTimer.Tick += moveEnemyBullet;
            
+           
             string barrierPath = "Resources/barrier.png";
-            barrier1.shape = new Rectangle();
-            barrier2.shape = new Rectangle();
-            barrier3.shape = new Rectangle();
-            barrier1.shape.Width = 100;
-            barrier1.shape.Height = 50;
-            barrier1.Health = 10;
-            barrier1.shape.Fill = Brushes.Cyan;
-            barrier2.shape.Width = 100;
-            barrier2.shape.Height = 50;
-            barrier2.shape.Fill = Brushes.Cyan;
-            barrier2.Health = 10;
-            barrier3.shape.Width = 100;
-            barrier3.shape.Height = 50;
-            barrier3.shape.Fill = Brushes.Cyan;
-            barrier3.Health = 10;
-            barrier1.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
-            barrier2.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
-            barrier3.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
-            Canvas.SetLeft(barrier1.shape, 10);
-            Canvas.SetTop(barrier1.shape, canvas.ActualHeight - barrier1.shape.Height*2); 
-            Canvas.SetLeft(barrier2.shape, 200);
-            Canvas.SetTop(barrier2.shape, canvas.ActualHeight - barrier1.shape.Height*2);
-            Canvas.SetLeft(barrier3.shape, 400);
-            Canvas.SetTop(barrier3.shape, canvas.ActualHeight - barrier1.shape.Height*2);
-            barrier1.PositionX = Canvas.GetLeft(barrier1.shape);
-            barrier1.PositionY = Canvas.GetTop(barrier1.shape);
-            barrier2.PositionX = Canvas.GetLeft(barrier2.shape);
-            barrier2.PositionY = Canvas.GetTop(barrier2.shape);
-            barrier3.PositionX = Canvas.GetLeft(barrier3.shape);
-            barrier3.PositionY = Canvas.GetTop(barrier3.shape);
-            canvas.Children.Add(barrier1.shape);
-            canvas.Children.Add(barrier2.shape);
-            canvas.Children.Add(barrier3.shape);
-            barriersArray = barriers.ToArray();
+            for (int i = 0; i < 3; i++)
+            {
+               var left = 1.0;
+               var barrier =  new CustomShape();
+                barrier.shape = new Rectangle();
+                barrier.shape.Width = 100;
+                barrier.shape.Height = 50;
+                barrier.Health = 10;
+                barrier.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
+                barriers.Add(barrier);
 
+               
+                Canvas.SetTop(barrier.shape, canvas.ActualHeight - barrier.shape.Height * 2);
+                barrier.PositionX = Canvas.GetLeft(barrier.shape);
+                barrier.PositionY = Canvas.GetTop(barrier.shape);
+                canvas.Children.Add(barrier.shape);
+                left =  (barrier.Health * i+1) * barrier.Health;
+            }
+           
+            barriersArray = barriers.ToArray();
             ship.shape = new Rectangle();
             ship.Name = "Ship";
             ship.shape.Width = 50;
@@ -140,6 +124,7 @@ namespace SpaceInvaders
             ship.PositionX = Canvas.GetLeft(ship.shape);
             ship.PositionY = canvas.ActualHeight - ship.shape.Height;
             canvas.Children.Add(ship.shape);
+
             canvas.Background = new ImageBrush(new BitmapImage(new Uri(backGroundPath, UriKind.Relative)));
             if (isLoadedGame == false)
                 createLevel(difficulty);
