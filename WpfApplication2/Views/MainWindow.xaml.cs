@@ -382,7 +382,8 @@ namespace SpaceInvaders
                         canvas.Children.Remove(ship.shape);
                         GameOver();
                     }
-                }
+             
+                }// moveEnemyBullet(enemmiesList)
                 else if (!hitship)
                     for (int i = 0; i < barriersArray.Length; i++)
                     {
@@ -459,10 +460,10 @@ namespace SpaceInvaders
                     enemybullet.PositionX = Canvas.GetLeft(enemybullet.shape);
                     canvas.Children.Add(enemybullet.shape);
                     enemyBulletTimer.Start();
-                    if (delay > 100)
+                    if (delay > 500)
                         delay -= 50;
                     else
-                        delay = 10;
+                        delay = 500;
                     enemyAttackTimer.Interval = TimeSpan.FromMilliseconds(delay);
                 }
             }
@@ -514,7 +515,7 @@ namespace SpaceInvaders
                 case Key.Space:
                     CustomShape bullet = new CustomShape();
                     bullet.shape = new Rectangle();
-                   //player.Play();
+                   player.Play();
                     bullet.shape.Fill = new ImageBrush(new BitmapImage(new Uri(bulletPath, UriKind.Relative)));
                     bullet.Name = "Bullet";
                     bullet.shape.Width = 10;
