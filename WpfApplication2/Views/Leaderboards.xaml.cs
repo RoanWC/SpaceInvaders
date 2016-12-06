@@ -24,6 +24,6 @@ namespace WpfApplication2.Views
         {
             InitializeComponent();
         }
-        GameOverWindow GameOverWindow = new GameOverWindow();   
+          
     }
 }
