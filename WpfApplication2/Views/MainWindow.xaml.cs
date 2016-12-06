@@ -359,10 +359,10 @@ namespace SpaceInvaders
                     Lives.Text = playerLives.ToString();
                     hitship = true;
                     if (playerLives == 0)
+                    { 
                         canvas.Children.Remove(ship.shape);
-                    GameOver();
-
-                }
+                        GameOver();   
+                     }
                 else if(!hitship)
                 for (int i = 0; i < barriersArray.Length; i++)
                 {
