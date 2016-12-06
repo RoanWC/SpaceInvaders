@@ -24,6 +24,8 @@ namespace SpaceInvaders
 {
     public partial class MainWindow : Window
     {
+        string barrierPath = "Resources/barrier.png";
+
         Boolean isLoadedGame = false;
         Random randomNumber = new Random();
         private DispatcherTimer strafeTimer;
@@ -88,32 +90,6 @@ namespace SpaceInvaders
             enemyAttackTimer.Tick += enemyAttack;
             enemyBulletTimer.Interval = new TimeSpan(0, 0, 0, 0, 5);
             enemyBulletTimer.Tick += moveEnemyBullet;
-           
-           
-            string barrierPath = "Resources/barrier.png";
-            var left = 10.0;
-            for (int i = 0; i < 3; i++)
-            {
-                var barrier =  new CustomShape();
-                barrier.shape = new Rectangle();
-                barrier.shape.Width = 100;
-                barrier.shape.Height = 50;
-                barrier.Health = 10;
-                barrier.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
-                barriers.Add(barrier);
-
-                Canvas.SetTop(barrier.shape, canvas.ActualHeight - barrier.shape.Height * 2);
-                if (i > 0)
-                    left = (barrier.Health * barrier.Health) * (i + i);
-                Canvas.SetLeft(barrier.shape, left);
-                barrier.PositionX = Canvas.GetLeft(barrier.shape);
-                barrier.PositionY = Canvas.GetTop(barrier.shape);
-                canvas.Children.Add(barrier.shape);
-                
-
-            }
-           
-            barriersArray = barriers.ToArray();
             ship.shape = new Rectangle();
             ship.Name = "Ship";
             ship.shape.Width = 50;
@@ -129,9 +105,31 @@ namespace SpaceInvaders
             canvas.Children.Add(ship.shape);
 
             canvas.Background = new ImageBrush(new BitmapImage(new Uri(backGroundPath, UriKind.Relative)));
-            if (isLoadedGame == false)
+            if (!isLoadedGame)
+            {
+                var left = 10.0;
+                for (int i = 0; i < 3; i++)
+                {
+                    var barrier = new CustomShape();
+                    barrier.shape = new Rectangle();
+                    barrier.shape.Width = 100;
+                    barrier.shape.Height = 50;
+                    barrier.Health = 10;
+                    barrier.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
+                    barriers.Add(barrier);
+
+                    Canvas.SetTop(barrier.shape, canvas.ActualHeight - barrier.shape.Height * 2);
+                    if (i > 0)
+                        left = (barrier.Health * barrier.Health) * (i + i);
+                    Canvas.SetLeft(barrier.shape, left);
+                    barrier.PositionX = Canvas.GetLeft(barrier.shape);
+                    barrier.PositionY = Canvas.GetTop(barrier.shape);
+                    canvas.Children.Add(barrier.shape);
+                }
+                barriersArray = barriers.ToArray();
                 createLevel(difficulty);
-            else if (isLoadedGame == true)
+            }
+            else if (isLoadedGame)
                 createLoadedGame(difficulty);
         }
 
@@ -173,6 +171,28 @@ namespace SpaceInvaders
             {
                 canvas.Children.Add(foe.shape);
             }
+            var left = 10.0;
+            for (int i = 0; i < 3; i++)
+            {
+                var barrier = new CustomShape();
+                barrier.shape = new Rectangle();
+                barrier.shape.Width = 100;
+                barrier.shape.Height = 50;
+                barrier.Health = 10;
+                barrier.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
+                barriers.Add(barrier);
+
+                Canvas.SetTop(barrier.shape, canvas.ActualHeight - barrier.shape.Height * 2);
+                if (i > 0)
+                    left = (barrier.Health * barrier.Health) * (i + i);
+                Canvas.SetLeft(barrier.shape, left);
+                barrier.PositionX = Canvas.GetLeft(barrier.shape);
+                barrier.PositionY = Canvas.GetTop(barrier.shape);
+                canvas.Children.Add(barrier.shape);
+            }
+            barriersArray = barriers.ToArray();
+
+
             strafeTimer.Start();
             enemyAttackTimer.Start();
             
