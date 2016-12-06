@@ -348,14 +348,13 @@ namespace SpaceInvaders
 
         private void GameOver()
         {
-            
-            
-                enemyAttackTimer.Stop();
-                enemyBulletTimer.Stop();
-                strafeTimer.Stop();
-                bulletTimer.Stop();
-                GameOverWindow GameOverWindow = new GameOverWindow(killCount);
-                GameOverWindow.Show();
+            enemyAttackTimer.Stop();
+            enemyBulletTimer.Stop();
+            strafeTimer.Stop();
+            bulletTimer.Stop();
+            GameOverWindow GameOverWindow = new GameOverWindow(killCount);
+            GameOverWindow.Show();
+            this.Close();
         }
 
         private void moveEnemyBullet(object sender, EventArgs e)
@@ -383,49 +382,48 @@ namespace SpaceInvaders
                         canvas.Children.Remove(ship.shape);
                         GameOver();
                     }
-                    else if (!hitship)
-                        for (int i = 0; i < barriersArray.Length; i++)
-                        {
-
-                            if (enemybullets[j].PositionY >= barriersArray[i].PositionY
-                                &&
-                                enemybullets[j].PositionX + enemybullets[j].shape.Width >= barriersArray[i].PositionX
-                                &&
-                                 enemybullets[j].PositionX <= barriersArray[i].PositionX + barriersArray[i].shape.Width)
-                            {
-                                canvas.Children.Remove(enemybullets[j].shape);
-                                enemybullets.Remove(enemybullets[j]);
-                                barriersArray[i].Health--;
-                                if (barriersArray[i].Health == 0)
-                                {
-                                    canvas.Children.Remove(barriersArray[i].shape);
-                                    barriersArray[i].PositionX = 0;
-                                    barriersArray[i].PositionY = 0;
-                                }
-
-                                break;
-                            }
-                        }
                 }
+                else if (!hitship)
+                    for (int i = 0; i < barriersArray.Length; i++)
+                    {
+
+                        if (enemybullets[j].PositionY >= barriersArray[i].PositionY
+                            &&
+                            enemybullets[j].PositionX + enemybullets[j].shape.Width >= barriersArray[i].PositionX
+                            &&
+                             enemybullets[j].PositionX <= barriersArray[i].PositionX + barriersArray[i].shape.Width)
+                        {
+                            canvas.Children.Remove(enemybullets[j].shape);
+                            enemybullets.Remove(enemybullets[j]);
+                            barriersArray[i].Health--;
+                            if (barriersArray[i].Health == 0)
+                            {
+                                canvas.Children.Remove(barriersArray[i].shape);
+                                barriersArray[i].PositionX = 0;
+                                barriersArray[i].PositionY = 0;
+                            }
+
+                            break;
+                        }
+                    }
+
+
                 else if (enemybullets[j].PositionY > canvas.ActualHeight)
                 {
                     canvas.Children.Remove(enemybullets[j].shape);
                     enemybullets.Remove(enemybullets[j]);
                 }
 
-                
+            }
                 for (int z = 0; z < enemybullets.Count; z++)
                 {
                     enemybullets[z].PositionY += bulletSpeed;
                     Canvas.SetTop(enemybullets[z].shape, enemybullets[z].PositionY);
                 }
 
-            }
+            
         }
         
-
-
-
         private void enemyAttack(object sender, EventArgs e)
         {
             double canvaswidth = Math.Round(canvas.ActualWidth);
