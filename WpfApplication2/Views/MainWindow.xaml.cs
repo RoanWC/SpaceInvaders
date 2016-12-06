@@ -365,9 +365,13 @@ namespace SpaceInvaders
             for (int j = 0; j < enemybullets.Count; j++)
             {
 
-                if ((enemybullets[j].PositionY + enemybullets[j].shape.Height >= ship.PositionY) &&
-                (enemybullets[j].PositionX + enemybullets[j].shape.Width > ship.PositionX &&
-                 enemybullets[j].PositionX <= ship.PositionX + ship.shape.Width))
+                if ((enemybullets[j].PositionY + enemybullets[j].shape.Height > ship.PositionY
+                    && enemybullets[j].PositionY + enemybullets[j].shape.Height < ship.PositionY + ship.shape.Height)
+                        
+                    &&
+
+                    (enemybullets[j].PositionX + enemybullets[j].shape.Width > ship.PositionX  
+                    && enemybullets[j].PositionX <= ship.PositionX + ship.shape.Width))
                 {
                     canvas.Children.Remove(enemybullets[j].shape);
                     enemybullets.Remove(enemybullets[j]);
