@@ -131,10 +131,136 @@
             VerticalAlignment="Top"
             Foreground="#FF10F51B" />
         <TextBlock
-            x:Name="HStextBlock"
+            x:Name="HStextBlock1"
             HorizontalAlignment="Left"
             Height="27"
             Margin="36,36,0,0"
+            TextWrapping="Wrap"
+            Text="TextBlock"
+            VerticalAlignment="Top"
+            Width="324" />
+        <TextBlock
+            x:Name="HStextBlock2"
+            HorizontalAlignment="Left"
+            Height="27"
+            Margin="36,63,0,0"
+            TextWrapping="Wrap"
+            Text="TextBlock"
+            VerticalAlignment="Top"
+            Width="324" />
+        <TextBlock
+            x:Name="HStextBlock3"
+            HorizontalAlignment="Left"
+            Height="27"
+            Margin="36,88,0,0"
+            TextWrapping="Wrap"
+            Text="TextBlock"
+            VerticalAlignment="Top"
+            Width="324" />
+        <TextBlock
+            x:Name="HStextBlock4"
+            HorizontalAlignment="Left"
+            Height="27"
+            Margin="36,115,0,0"
+            TextWrapping="Wrap"
+            Text="TextBlock"
+            VerticalAlignment="Top"
+            Width="324" />
+        <TextBlock
+            x:Name="HStextBlock5"
+            HorizontalAlignment="Left"
+            Height="27"
+            Margin="36,140,0,0"
+            TextWrapping="Wrap"
+            Text="TextBlock"
+            VerticalAlignment="Top"
+            Width="324" />
+        <TextBlock
+            x:Name="HStextBlock6"
+            HorizontalAlignment="Left"
+            Height="27"
+            Margin="36,166,0,0"
+            TextWrapping="Wrap"
+            Text="TextBlock"
+            VerticalAlignment="Top"
+            Width="324" />
+        <TextBlock
+            x:Name="HStextBlock7"
+            HorizontalAlignment="Left"
+            Height="27"
+            Margin="34,192,0,0"
+            TextWrapping="Wrap"
+            Text="TextBlock"
+            VerticalAlignment="Top"
+            Width="324" />
+        <TextBlock
+            x:Name="HStextBlock8"
+            HorizontalAlignment="Left"
+            Height="27"
+            Margin="36,218,0,0"
+            TextWrapping="Wrap"
+            Text="TextBlock"
+            VerticalAlignment="Top"
+            Width="324" />
+        <TextBlock
+            x:Name="HStextBlock9"
+            HorizontalAlignment="Left"
+            Height="27"
+            Margin="36,245,0,0"
+            TextWrapping="Wrap"
+            Text="TextBlock"
+            VerticalAlignment="Top"
+            Width="324" />
+        <TextBlock
+            x:Name="HStextBlock10"
+            HorizontalAlignment="Left"
+            Height="27"
+            Margin="34,271,0,0"
+            TextWrapping="Wrap"
+            Text="TextBlock"
+            VerticalAlignment="Top"
+            Width="324" />
+        <TextBlock
+            x:Name="HStextBlock11"
+            HorizontalAlignment="Left"
+            Height="27"
+            Margin="34,296,0,0"
+            TextWrapping="Wrap"
+            Text="TextBlock"
+            VerticalAlignment="Top"
+            Width="324" />
+        <TextBlock
+            x:Name="HStextBlock12"
+            HorizontalAlignment="Left"
+            Height="27"
+            Margin="36,322,0,0"
+            TextWrapping="Wrap"
+            Text="TextBlock"
+            VerticalAlignment="Top"
+            Width="324" />
+        <TextBlock
+            x:Name="HStextBlock13"
+            HorizontalAlignment="Left"
+            Height="27"
+            Margin="36,348,0,0"
+            TextWrapping="Wrap"
+            Text="TextBlock"
+            VerticalAlignment="Top"
+            Width="324" />
+        <TextBlock
+            x:Name="HStextBlock14"
+            HorizontalAlignment="Left"
+            Height="27"
+            Margin="34,374,0,0"
+            TextWrapping="Wrap"
+            Text="TextBlock"
+            VerticalAlignment="Top"
+            Width="324" />
+        <TextBlock
+            x:Name="HStextBlock15"
+            HorizontalAlignment="Left"
+            Height="27"
+            Margin="34,400,0,0"
             TextWrapping="Wrap"
             Text="TextBlock"
             VerticalAlignment="Top"

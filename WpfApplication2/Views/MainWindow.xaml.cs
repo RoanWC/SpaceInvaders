@@ -18,7 +18,7 @@ using System.Media;
 using System.IO;
 using Microsoft.Win32;
 using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
+
 using WpfApplication2.Views;
 namespace SpaceInvaders
 {
@@ -340,17 +340,17 @@ namespace SpaceInvaders
 
         private void moveEnemyBullet(object sender, EventArgs e)
         {
-           
+
             Boolean hitship = false;
             for (int j = 0; j < enemybullets.Count; j++)
             {
 
                 if ((enemybullets[j].PositionY + enemybullets[j].shape.Height > ship.PositionY
                     && enemybullets[j].PositionY + enemybullets[j].shape.Height < ship.PositionY + ship.shape.Height)
-                        
+
                     &&
 
-                    (enemybullets[j].PositionX + enemybullets[j].shape.Width > ship.PositionX  
+                    (enemybullets[j].PositionX + enemybullets[j].shape.Width > ship.PositionX
                     && enemybullets[j].PositionX <= ship.PositionX + ship.shape.Width))
                 {
                     canvas.Children.Remove(enemybullets[j].shape);
@@ -359,47 +359,48 @@ namespace SpaceInvaders
                     Lives.Text = playerLives.ToString();
                     hitship = true;
                     if (playerLives == 0)
-                    { 
+                    {
                         canvas.Children.Remove(ship.shape);
-                        GameOver();   
-                     }
-                else if(!hitship)
-                for (int i = 0; i < barriersArray.Length; i++)
-                {
-                   
-                        if (enemybullets[j].PositionY >= barriersArray[i].PositionY
-                            &&
-                            enemybullets[j].PositionX + enemybullets[j].shape.Width >= barriersArray[i].PositionX
-                            &&
-                             enemybullets[j].PositionX <= barriersArray[i].PositionX + barriersArray[i].shape.Width)
+                        GameOver();
+                    }
+                    else if (!hitship)
+                        for (int i = 0; i < barriersArray.Length; i++)
                         {
-                            canvas.Children.Remove(enemybullets[j].shape);
-                            enemybullets.Remove(enemybullets[j]);
-                            barriersArray[i].Health--;
-                                if (barriersArray[i].Health == 0)
-                            {
-                                canvas.Children.Remove(barriersArray[i].shape);
-                                barriersArray[i].PositionX = 0;
-                                barriersArray[i].PositionY = 0;
-                            }
 
-                            break;
+                            if (enemybullets[j].PositionY >= barriersArray[i].PositionY
+                                &&
+                                enemybullets[j].PositionX + enemybullets[j].shape.Width >= barriersArray[i].PositionX
+                                &&
+                                 enemybullets[j].PositionX <= barriersArray[i].PositionX + barriersArray[i].shape.Width)
+                            {
+                                canvas.Children.Remove(enemybullets[j].shape);
+                                enemybullets.Remove(enemybullets[j]);
+                                barriersArray[i].Health--;
+                                if (barriersArray[i].Health == 0)
+                                {
+                                    canvas.Children.Remove(barriersArray[i].shape);
+                                    barriersArray[i].PositionX = 0;
+                                    barriersArray[i].PositionY = 0;
+                                }
+
+                                break;
+                            }
                         }
                 }
-                
                 else if (enemybullets[j].PositionY > canvas.ActualHeight)
                 {
                     canvas.Children.Remove(enemybullets[j].shape);
                     enemybullets.Remove(enemybullets[j]);
                 }
 
-            }
-            for (int z = 0; z < enemybullets.Count; z++)
-            {
-                enemybullets[z].PositionY += bulletSpeed;
-                Canvas.SetTop(enemybullets[z].shape, enemybullets[z].PositionY);
-            }
+                
+                for (int z = 0; z < enemybullets.Count; z++)
+                {
+                    enemybullets[z].PositionY += bulletSpeed;
+                    Canvas.SetTop(enemybullets[z].shape, enemybullets[z].PositionY);
+                }
 
+            }
         }
         
 

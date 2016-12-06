@@ -35,6 +35,7 @@ namespace WpfApplication2.Views
                 {
                     String line = inputfile.ReadLine();
                     loadHS.Add(line);
+                    loadHS.Sort();
                 }
             }
 
