@@ -19,17 +19,32 @@ namespace WpfApplication2.Views
     /// </summary>
     public partial class gettingName : Window
     {
+        List<String> people = new List<string>();
+        String playerName;
+        String playerNameAndScore;
+        string filename = "leaderboards.txt";
+        int killCount;
+
+
         public gettingName()
         {
             InitializeComponent();
         }
 
+
+
         private void enter(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Space)
-            {
-                textBox.Text = textBox.Text;
-            }
+        
+            String filename = "leaderboards.txt";
+            
+           
+
+          playerName = getNameTextbox.Text;
+            playerNameAndScore = killCount + playerName;
+            people.Add(playerNameAndScore);
+            people.Sort();
         }
+
     }
 }

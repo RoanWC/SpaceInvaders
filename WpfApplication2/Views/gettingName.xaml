@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:WpfApplication2.Views"
     mc:Ignorable="d"
-    Title="gettingName"
+    Title="Game Over"
     Height="300"
     Width="300">
     <Window.Background>
@@ -18,7 +18,7 @@
             x:Name="gettingNameTextBlock"
             HorizontalAlignment="Left"
             Height="30"
-            Margin="10,34,0,0"
+            Margin="10,50,0,0"
             TextWrapping="Wrap"
             Text="Please enter your name so we can save your score"
             VerticalAlignment="Top"
@@ -27,10 +27,10 @@
             FontFamily="OCR A Extended"
             FontSize="14" />
         <TextBox
-            x:Name="textBox"
+            x:Name="getNameTextbox"
             HorizontalAlignment="Left"
             Height="18"
-            Margin="10,69,0,0"
+            Margin="10,85,0,0"
             TextWrapping="Wrap"
             Text="TextBox"
             VerticalAlignment="Top"
@@ -38,5 +38,42 @@
             Background="#FF10F51B"
             FontFamily="OCR A Extended"
             KeyDown="enter" />
+        <TextBlock
+            x:Name="gameOverText"
+            HorizontalAlignment="Left"
+            Margin="42,10,0,0"
+            TextWrapping="Wrap"
+            Text="GAME OVER"
+            VerticalAlignment="Top"
+            Height="35"
+            Width="210"
+            Foreground="#FF10F51B"
+            FontFamily="OCR A Extended"
+            FontSize="36" />
+        <Button
+            Style="{DynamicResource TransparentStyle}"
+            x:Name="backToMenu"
+            Content="Back to Main Menu"
+            HorizontalAlignment="Left"
+            Height="27"
+            Margin="10,115,0,0"
+            VerticalAlignment="Top"
+            Width="263"
+            Foreground="#FF10F51B"
+            FontFamily="OCR A Extended"
+            FontSize="24" />
+        <Button
+            Style="{DynamicResource TransparentStyle}"
+            x:Name="quitButton"
+            Content="QUIT"
+            HorizontalAlignment="Left"
+            Margin="86,179,0,0"
+            VerticalAlignment="Top"
+            Width="116"
+            Foreground="#FF10F51B"
+            FontFamily="OCR A Extended"
+            FontSize="48"
+            Height="45"
+             />
     </Grid>
 </Window>
