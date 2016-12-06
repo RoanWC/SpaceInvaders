@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,10 +21,27 @@ namespace WpfApplication2.Views
     /// </summary>
     public partial class Leaderboards : Window
     {
+        List<String> loadHS = new List<string>();
+        string filename = "leaderboards.txt";
+        
+
+
         public Leaderboards()
         {
             InitializeComponent();
+            using(StreamReader inputfile = new StreamReader("leaderboards.txt"))
+            {
+                while (inputfile.Peek() >= 0)
+                {
+                    String line = inputfile.ReadLine();
+                    loadHS.Add(line);
+                }
+            }
+
         }
+        
+
+
           
     }
 }

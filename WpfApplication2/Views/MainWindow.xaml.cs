@@ -388,6 +388,7 @@ namespace SpaceInvaders
                     hitship = true;
                     if (playerLives == 0)
                         canvas.Children.Remove(ship.shape);
+                    GameOver();
 
                 }
                 else if(!hitship)
