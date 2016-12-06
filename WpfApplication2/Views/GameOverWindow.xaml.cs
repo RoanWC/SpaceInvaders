@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,23 +13,26 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SpaceInvaders;
 
 namespace WpfApplication2.Views
 {
     /// <summary>
     /// Interaction logic for gettingName.xaml
     /// </summary>
-    public partial class gettingName : Window
+    public partial class GameOverWindow : Window
     {
         List<String> people = new List<string>();
         String playerName;
         String playerNameAndScore;
         string filename = "leaderboards.txt";
         int killCount;
+        private StreamWriter fileWriter;
 
 
-        public gettingName()
+        public GameOverWindow(int kills)
         {
+            this.killCount = kills;
             InitializeComponent();
         }
 
@@ -46,5 +51,14 @@ namespace WpfApplication2.Views
             people.Sort();
         }
 
+        private void saveHighscore_Click(object sender, RoutedEventArgs e)
+        {
+
+            using (StreamWriter outputFile = new StreamWriter(filename))
+            {
+                playerNameAndScore = playerName + " " + killCount; 
+                outputFile.WriteLine(playerNameAndScore);
+            }
+        }
     }
 }

@@ -40,12 +40,15 @@ namespace SpaceInvaders
         List<CustomShape> barriers = new List<CustomShape>();
         CustomShape[] barriersArray;
         CustomShape ship = new CustomShape();
+
+
+
         double bulletSpeed = 8;
         double speed = 1;
         bool leftPressed;
         bool rightPressed;
         bool isPaused = false;
-        int killCount = 0;
+        public int killCount = 0;
         int difficulty = 1;
         int rows = 3;
         int cols = 8;
@@ -345,17 +348,16 @@ namespace SpaceInvaders
             }
         }
 
-        private Boolean GameOver()
+        private void GameOver()
         {
-            if (playerLives == 0)
-            {
+            
+            
                 enemyAttackTimer.Stop();
                 enemyBulletTimer.Stop();
                 strafeTimer.Stop();
                 bulletTimer.Stop();
-                return false;
-            }
-            return true;
+                GameOverWindow GameOverWindow = new GameOverWindow(killCount);
+                GameOverWindow.Show();
         }
 
         private void moveEnemyBullet(object sender, EventArgs e)

@@ -77,8 +77,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\gettingName.xaml.cs">
-      <DependentUpon>gettingName.xaml</DependentUpon>
+    <Compile Include="Views\GameOverWindow.xaml.cs">
+      <DependentUpon>GameOverWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Leaderboards.xaml.cs">
       <DependentUpon>Leaderboards.xaml</DependentUpon>
@@ -94,7 +94,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\gettingName.xaml">
+    <Page Include="Views\GameOverWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,5 +1,5 @@
 ﻿<Window
-    x:Class="WpfApplication2.Views.gettingName"
+    x:Class="WpfApplication2.Views.GameOverWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -75,5 +75,17 @@
             FontSize="48"
             Height="45"
              />
+        <Button
+            Style="{DynamicResource TransparentStyle}"
+            x:Name="saveHighscore"
+            Content="Enter"
+            HorizontalAlignment="Left"
+            Margin="207,85,0,0"
+            VerticalAlignment="Top"
+            Width="75"
+            Foreground="#FF10F51B"
+            FontFamily="OCR A Extended"
+            FontSize="14"
+            Click="saveHighscore_Click" />
     </Grid>
 </Window>
