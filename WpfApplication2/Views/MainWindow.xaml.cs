@@ -356,6 +356,7 @@ namespace SpaceInvaders
                 bulletTimer.Stop();
                 GameOverWindow GameOverWindow = new GameOverWindow(killCount);
                 GameOverWindow.Show();
+            this.Close();
         }
 
         private void moveEnemyBullet(object sender, EventArgs e)
@@ -367,10 +368,10 @@ namespace SpaceInvaders
 
                 if ((enemybullets[j].PositionY + enemybullets[j].shape.Height > ship.PositionY
                     && enemybullets[j].PositionY + enemybullets[j].shape.Height < ship.PositionY + ship.shape.Height)
-                        
+
                     &&
 
-                    (enemybullets[j].PositionX + enemybullets[j].shape.Width > ship.PositionX  
+                    (enemybullets[j].PositionX + enemybullets[j].shape.Width > ship.PositionX
                     && enemybullets[j].PositionX <= ship.PositionX + ship.shape.Width))
                 {
                     canvas.Children.Remove(enemybullets[j].shape);
@@ -379,14 +380,15 @@ namespace SpaceInvaders
                     Lives.Text = playerLives.ToString();
                     hitship = true;
                     if (playerLives == 0)
-                    { 
+                    {
                         canvas.Children.Remove(ship.shape);
-                        GameOver();   
-                     }
-                else if(!hitship)
-                for (int i = 0; i < barriersArray.Length; i++)
-                {
-                   
+                        GameOver();
+                    }
+                }
+                else if (!hitship)
+                    for (int i = 0; i < barriersArray.Length; i++)
+                    {
+
                         if (enemybullets[j].PositionY >= barriersArray[i].PositionY
                             &&
                             enemybullets[j].PositionX + enemybullets[j].shape.Width >= barriersArray[i].PositionX
@@ -396,7 +398,7 @@ namespace SpaceInvaders
                             canvas.Children.Remove(enemybullets[j].shape);
                             enemybullets.Remove(enemybullets[j]);
                             barriersArray[i].Health--;
-                                if (barriersArray[i].Health == 0)
+                            if (barriersArray[i].Health == 0)
                             {
                                 canvas.Children.Remove(barriersArray[i].shape);
                                 barriersArray[i].PositionX = 0;
@@ -405,8 +407,8 @@ namespace SpaceInvaders
 
                             break;
                         }
-                }
-                
+                    }
+
                 else if (enemybullets[j].PositionY > canvas.ActualHeight)
                 {
                     canvas.Children.Remove(enemybullets[j].shape);
