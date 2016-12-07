@@ -704,7 +704,9 @@ namespace SpaceInvaders
         private void openHS_Click(object sender, RoutedEventArgs e)
         {
             Leaderboards leaderboard = new Leaderboards();
+            this.Close();
             leaderboard.Show();
+            
         }
     }
 }

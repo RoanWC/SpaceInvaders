@@ -85,34 +85,40 @@ namespace WpfApplication2.Views
             LeaderBoardGrid.Children.Add(Names);
             LeaderBoardGrid.Children.Add(HighScores);
             
-            for (int i = 1; i < 16; i++)
+            for (int i = 1; i < 17; i++)
             {
                 RowDefinition gridRow1 = new RowDefinition();
                 
                 LeaderBoardGrid.RowDefinitions.Add(gridRow1);
-                TextBlock names = new TextBlock();
-                names.Height = 20;
-                names.VerticalAlignment = VerticalAlignment.Center;
-                names.HorizontalAlignment = HorizontalAlignment.Left;
-                names.Text = (i).ToString();
-                names.Foreground = Brushes.Lime;
-                names.FontSize = 20;
-                names.FontFamily = new FontFamily("OCR A Extended");
-                Grid.SetRow(names, i);
-                Grid.SetColumn(names, 0);
-            LeaderBoardGrid.Children.Add(names);
+                TextBlock rank = new TextBlock();
+                rank.Height = 20;
+                rank.VerticalAlignment = VerticalAlignment.Center;
+                rank.HorizontalAlignment = HorizontalAlignment.Left;
+                if (i > 14)
+                    rank.Text = "15";
+                else
+                    rank.Text = i.ToString();
+               
+                rank.Foreground = Brushes.Lime;
+                rank.FontSize = 20;
+                rank.FontFamily = new FontFamily("OCR A Extended");
+                Grid.SetRow(rank, i);
+                Grid.SetColumn(rank, 0);
 
                 TextBlock highscores = new TextBlock();
                 highscores.Height = 20;
                 highscores.VerticalAlignment = VerticalAlignment.Center;
                 highscores.HorizontalAlignment = HorizontalAlignment.Left;
-                highscores.Text = loadHS[i-1];
+                if (i > 14)
+                    highscores.Text = loadHS[14];
+                else
+                    highscores.Text = loadHS[i-1];
                 highscores.Foreground = Brushes.Lime;
                 highscores.FontSize = 20;
                 highscores.FontFamily = new FontFamily("OCR A Extended");
                 Grid.SetRow(highscores, i);
                 Grid.SetColumn(highscores, 1);
-                    
+                LeaderBoardGrid.Children.Add(rank);
                 LeaderBoardGrid.Children.Add(highscores);
 
                 
