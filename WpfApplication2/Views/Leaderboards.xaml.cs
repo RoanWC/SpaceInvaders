@@ -63,7 +63,7 @@ namespace WpfApplication2.Views
             
             // Add first column header
             TextBlock Names = new TextBlock();
-            Names.Text = "Names";
+            Names.Text = "Rank";
             Names.Foreground = Brushes.Lime;
             Names.FontSize = 30;
             Names.FontFamily = new FontFamily("OCR A Extended");
