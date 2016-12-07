@@ -56,8 +56,8 @@ namespace SpaceInvaders
         int delay = 2000;
         double top = 0.0;
        
-        SoundPlayer player = new System.Media.SoundPlayer("Resources/shotSound.wav");
-        SoundPlayer player = new System.Media.SoundPlayer("Resources/shotSound.wav");
+        //SoundPlayer player = new System.Media.SoundPlayer("Resources/shotSound.wav");
+        //SoundPlayer player = new System.Media.SoundPlayer("Resources/shotSound.wav");
 
 
         public MainWindow()
@@ -151,16 +151,19 @@ namespace SpaceInvaders
             var PicturesArray = str.Split(',');
             var enemyNamesArray = enemyNames.Split(',');
             var health = rows;
+            var counter = 0;
             for (int i = 0; i < rows; i++)
             {
-                
+                counter = i;
                 for (int j = 0; j < cols; j++)
                 {
                    
                     CustomShape foe = new CustomShape(); //create the rectangle
                     foe.shape = new Rectangle();
-                    foe.Name = enemyNamesArray[i];
-                    foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(PicturesArray[i], UriKind.Relative)));
+                    if (i > 2)
+                        counter = 0;
+                    foe.Name = enemyNamesArray[counter];
+                    foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(PicturesArray[counter], UriKind.Relative)));
                     foe.shape.Width = 50.0;
                     foe.shape.Height = 50.0;
                     foe.Health = rows;
@@ -170,8 +173,10 @@ namespace SpaceInvaders
                     Canvas.SetLeft(foe.shape, FoeXSpacing);
                     FoeXSpacing += foe.shape.Width;
                     Canvas.SetTop(foe.shape, FoeYSpacing);
+
                     enemies.Add(foe);
                 }
+                counter++;
                 health--;
                 FoeXSpacing = 0.0;
                 FoeYSpacing += enemies[i].shape.Height;
@@ -516,6 +521,8 @@ namespace SpaceInvaders
                         break;
                     }
                     strafeTimer.Stop();
+                    bulletTimer.Stop();
+
                     isPaused = !isPaused;
                     paused2.Visibility = Visibility.Visible;
                     paused.Visibility = Visibility.Visible;
@@ -539,7 +546,7 @@ namespace SpaceInvaders
                 case Key.Space:
                     CustomShape bullet = new CustomShape();
                     bullet.shape = new Rectangle();
-                   player.Play();
+                   //player.Play();
                     bullet.shape.Fill = new ImageBrush(new BitmapImage(new Uri(bulletPath, UriKind.Relative)));
                     bullet.Name = "Bullet";
                     bullet.shape.Width = 10;
