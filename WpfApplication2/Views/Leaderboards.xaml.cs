@@ -130,13 +130,15 @@ namespace WpfApplication2.Views
             int biggest;
             for (int i = 0; i < list.Count; i++)
             {
-                biggest = i; // set first element as smallest
-                var biggestscore = list[biggest].Substring(list[i].LastIndexOf(" ")+1);
+                biggest = i; 
+                
 
                 for (int j = i + 1; j < list.Count; j++)
-                { // find smallest
-                    var current = list[j].Substring(list[biggest].LastIndexOf(" ") + 1);
-                    if (int.Parse(current) > int.Parse(biggestscore))
+                {
+                    var current = list[j].Substring(list[j].LastIndexOf(" ") + 1);
+                    var biggestscore = list[biggest].Substring(list[biggest].LastIndexOf(" ") + 1);
+                   
+                    if (int.Parse(current).CompareTo(int.Parse(biggestscore)) >0)
                     {
                         biggest = j;
                     }
