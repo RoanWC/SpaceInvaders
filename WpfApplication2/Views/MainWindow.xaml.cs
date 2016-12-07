@@ -56,9 +56,10 @@ namespace SpaceInvaders
         int delay = 2000;
         double top = 0.0;
        
-        SoundPlayer player = new System.Media.SoundPlayer("Resources/shotSound.wav");
-        SoundPlayer song = new System.Media.SoundPlayer("Resources/oyvey.wav");
-
+        //SoundPlayer player = new System.Media.SoundPlayer("Resources/shotSound.wav");
+        //SoundPlayer song = new System.Media.SoundPlayer("Resources/oyvey.wav");
+        MediaPlayer player = new System.Windows.Media.MediaPlayer();
+        MediaPlayer song = new System.Windows.Media.MediaPlayer();
 
         public MainWindow()
         {
@@ -104,7 +105,8 @@ namespace SpaceInvaders
             ship.PositionX = Canvas.GetLeft(ship.shape);
             ship.PositionY = canvas.ActualHeight - ship.shape.Height;
             canvas.Children.Add(ship.shape);
-            song.PlayLooping();
+            song.Open(new Uri("Resources/oyvey.wav", UriKind.Relative)); //Open the file for a media playback
+            song.Play();
             canvas.Background = new ImageBrush(new BitmapImage(new Uri(backGroundPath, UriKind.Relative)));
             if (!isLoadedGame)
             {
@@ -543,7 +545,10 @@ namespace SpaceInvaders
                 case Key.Space:
                     CustomShape bullet = new CustomShape();
                     bullet.shape = new Rectangle();
+                    player.Open(new Uri("Resources/shotsound.wav", UriKind.Relative)); //Open the file for a media playback
+                    player.Volume = 100;
                     player.Play();
+                    player.Stop();
                     bullet.shape.Fill = new ImageBrush(new BitmapImage(new Uri(bulletPath, UriKind.Relative)));
                     bullet.Name = "Bullet";
                     bullet.shape.Width = 10;
