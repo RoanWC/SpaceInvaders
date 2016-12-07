@@ -36,13 +36,14 @@ namespace WpfApplication2.Views
                 {
                     String line = inputfile.ReadLine();
                     loadHS.Add(line);
-                    loadHS.Sort();
+                    
                 }
             }
                     while (loadHS.Capacity <= top15)
             {
                 loadHS.Add("unavailable");
             }
+            sortScores(loadHS);
 
             Grid LeaderBoardGrid = new Grid();
             LeaderBoardGrid.Width = 657;
@@ -119,14 +120,49 @@ namespace WpfApplication2.Views
 
             LeaderBoardWindow.Content =LeaderBoardGrid;
             
-                    
-                
-            
-
         }
-        
 
+        private static void sortScores(List<String> list)
+        {
+            if (list == null)
+                throw new ArgumentNullException("List is null for " + list.ToString());
+            
+            int biggest;
+            for (int i = 0; i < list.Count; i++)
+            {
+                biggest = i; // set first element as smallest
+                var biggestscore = list[biggest].Substring(list[i].LastIndexOf(" ")+1);
 
-          
-    }
+                for (int j = i + 1; j < list.Count; j++)
+                { // find smallest
+                    var current = list[j].Substring(list[biggest].LastIndexOf(" ") + 1);
+                    if (int.Parse(current) > int.Parse(biggestscore))
+                    {
+                        biggest = j;
+                    }
+                  
+                }
+                if (biggest != i)
+                    swap(list, biggest, i);
+            }
+        }
+
+        static void swap(List<String>array, int index1, int index2)
+        {
+            String temp = array[index1];
+            array[index1] = array[index2];
+            array[index2] = temp;
+        }
+
+        private static Boolean isNullElement(String[] list)
+        {
+
+            for (int i = 0; i < list.Length; i++)
+                if (list[i] == null)
+                    return false;
+            return true;
+        }
+
+    }      
+    
 }
