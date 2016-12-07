@@ -61,7 +61,8 @@
             Width="263"
             Foreground="#FF10F51B"
             FontFamily="OCR A Extended"
-            FontSize="24" />
+            FontSize="24"
+            Click="backToMenu_Click" />
         <Button
             Style="{DynamicResource TransparentStyle}"
             x:Name="quitButton"
@@ -74,7 +75,7 @@
             FontFamily="OCR A Extended"
             FontSize="48"
             Height="45"
-             />
+            Click="quitButton_Click" />
         <Button
             Style="{DynamicResource TransparentStyle}"
             x:Name="saveHighscore"
