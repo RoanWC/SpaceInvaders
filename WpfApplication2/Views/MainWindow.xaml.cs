@@ -169,8 +169,8 @@ namespace SpaceInvaders
                         counter = 0;
                     CustomShape foe = new CustomShape(); //create the rectangle
                     foe.shape = new Rectangle();
-                    foe.Name = enemyNamesArray[i];
-                    foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(PicturesArray[i], UriKind.Relative)));
+                    foe.Name = enemyNamesArray[counter];
+                    foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(PicturesArray[counter], UriKind.Relative)));
                     foe.shape.Width = 50.0;
                     foe.shape.Height = 50.0;
                     foe.Health = rows;
