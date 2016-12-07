@@ -106,6 +106,7 @@ namespace SpaceInvaders
             ship.PositionY = canvas.ActualHeight - ship.shape.Height;
             canvas.Children.Add(ship.shape);
             song.Open(new Uri("Resources/oyvey.wav", UriKind.Relative)); //Open the file for a media playback
+            song.MediaEnded += song_MediaEnded;
             song.Play();
             canvas.Background = new ImageBrush(new BitmapImage(new Uri(backGroundPath, UriKind.Relative)));
             if (!isLoadedGame)
@@ -136,7 +137,12 @@ namespace SpaceInvaders
                 createLoadedGame(difficulty);
         }
 
-       
+        void song_MediaEnded(object sender, EventArgs e)
+        {
+            song.Position = TimeSpan.FromSeconds(0);
+            song.Play();
+        }
+
         public void createLevel(int difficulty)
         {
             if (difficulty > 1)
