@@ -515,6 +515,9 @@ namespace SpaceInvaders
                     if (isPaused)
                     {
                         strafeTimer.Start();
+                        bulletTimer.Start();
+                        enemyAttackTimer.Start();
+                        enemyBulletTimer.Start();
                         isPaused = !isPaused;
                         paused2.Visibility = Visibility.Hidden;
                         paused.Visibility = Visibility.Hidden;
@@ -522,7 +525,8 @@ namespace SpaceInvaders
                     }
                     strafeTimer.Stop();
                     bulletTimer.Stop();
-
+                    enemyAttackTimer.Stop();
+                    enemyBulletTimer.Stop();
                     isPaused = !isPaused;
                     paused2.Visibility = Visibility.Visible;
                     paused.Visibility = Visibility.Visible;
