@@ -56,9 +56,10 @@ namespace SpaceInvaders
         int delay = 2000;
         double top = 0.0;
        
-        //SoundPlayer player = new System.Media.SoundPlayer("Resources/shotSound.wav");
-        //SoundPlayer player = new System.Media.SoundPlayer("Resources/shotSound.wav");
-
+        SoundPlayer player = new System.Media.SoundPlayer("Resources/shotSound.wav");
+        //SoundPlayer song = new System.Media.SoundPlayer("Resources/oyvey.wav");
+        //MediaPlayer player = new System.Windows.Media.MediaPlayer();
+        MediaPlayer song = new System.Windows.Media.MediaPlayer();
 
         public MainWindow()
         {
@@ -104,7 +105,9 @@ namespace SpaceInvaders
             ship.PositionX = Canvas.GetLeft(ship.shape);
             ship.PositionY = canvas.ActualHeight - ship.shape.Height;
             canvas.Children.Add(ship.shape);
-
+            song.Open(new Uri("Resources/oyvey.wav", UriKind.Relative)); //Open the file for a media playback
+            song.MediaEnded += song_MediaEnded;
+            song.Play();
             canvas.Background = new ImageBrush(new BitmapImage(new Uri(backGroundPath, UriKind.Relative)));
             if (!isLoadedGame)
             {
@@ -134,7 +137,12 @@ namespace SpaceInvaders
                 createLoadedGame(difficulty);
         }
 
-       
+        void song_MediaEnded(object sender, EventArgs e)
+        {
+            song.Position = TimeSpan.FromSeconds(0);
+            song.Play();
+        }
+
         public void createLevel(int difficulty)
         {
             if (difficulty > 1)
@@ -157,11 +165,10 @@ namespace SpaceInvaders
                 counter = i;
                 for (int j = 0; j < cols; j++)
                 {
-                   
-                    CustomShape foe = new CustomShape(); //create the rectangle
-                    foe.shape = new Rectangle();
                     if (i > 2)
                         counter = 0;
+                    CustomShape foe = new CustomShape(); //create the rectangle
+                    foe.shape = new Rectangle();
                     foe.Name = enemyNamesArray[counter];
                     foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(PicturesArray[counter], UriKind.Relative)));
                     foe.shape.Width = 50.0;
@@ -515,18 +522,12 @@ namespace SpaceInvaders
                     if (isPaused)
                     {
                         strafeTimer.Start();
-                        bulletTimer.Start();
-                        enemyAttackTimer.Start();
-                        enemyBulletTimer.Start();
                         isPaused = !isPaused;
                         paused2.Visibility = Visibility.Hidden;
                         paused.Visibility = Visibility.Hidden;
                         break;
                     }
                     strafeTimer.Stop();
-                    bulletTimer.Stop();
-                    enemyAttackTimer.Stop();
-                    enemyBulletTimer.Stop();
                     isPaused = !isPaused;
                     paused2.Visibility = Visibility.Visible;
                     paused.Visibility = Visibility.Visible;
@@ -550,7 +551,7 @@ namespace SpaceInvaders
                 case Key.Space:
                     CustomShape bullet = new CustomShape();
                     bullet.shape = new Rectangle();
-                   //player.Play();
+                    player.Play();
                     bullet.shape.Fill = new ImageBrush(new BitmapImage(new Uri(bulletPath, UriKind.Relative)));
                     bullet.Name = "Bullet";
                     bullet.shape.Width = 10;
@@ -572,13 +573,18 @@ namespace SpaceInvaders
             state.Add("count:" + enemies.Count);
             for (int i = 0; i < enemies.Count; i++)
             {
-                state.Add(i + ":" + enemies[i].PositionX + ":" + enemies[i].PositionY + ":" + enemies[i].shape.Height + ":" + enemies[i].shape.Width + ":" + enemies[i].Health);
+                state.Add(i + ":" + enemies[i].PositionX + ":" + enemies[i].PositionY + ":" + enemies[i].shape.Height + ":" + enemies[i].shape.Width + ":" + enemies[i].Health + ":" + enemies[i].Name);
             }
             state.Add("--End Enemies");
             state.Add("difficulty:" + difficulty);
             state.Add("Kill count:" + killCount);
             state.Add("Speed:" + speed);
             state.Add("Lives:" + playerLives);
+            for (int i = 0; i < barriersArray.Length; i++)
+            {
+                state.Add("Barrier" + i + ":" + barriersArray[i].Health + ":" + barriersArray[i].PositionX + ":" +
+                    barriersArray[i].PositionY + ":" + Canvas.GetTop(barriersArray[i].shape) + ":" + Canvas.GetLeft(barriersArray[i].shape));
+            }
             using (StreamWriter outputFile = new StreamWriter(fileName))
             {
                 foreach (string line in state)
@@ -613,17 +619,26 @@ namespace SpaceInvaders
                 }
                 loadEnemies = loadState[0].Split(':');
                 int size = int.Parse(loadEnemies[1]);
+                String hPath = "Resources/hilaryclintonface.png", 
+                       bPath = "Resources/billclinton.png", 
+                       oPath = "Resources/obama.png";
                 for (int i = 1; i < index; i++)
                 {
                     loadEnemies = loadState[i].Split(':');
                     CustomShape foe = new CustomShape(); //create the rectangle
                     foe.shape = new Rectangle();
-                    foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(relativePath, UriKind.Relative)));
                     foe.shape.Width = int.Parse(loadEnemies[4]);
                     foe.shape.Height = int.Parse(loadEnemies[3]);
                     foe.PositionX = int.Parse(loadEnemies[1]);
                     foe.PositionY = int.Parse(loadEnemies[2]);
                     foe.Health = int.Parse(loadEnemies[5]);
+                    foe.Name = loadEnemies[6];
+                    if (foe.Name.Equals("Hilary"))
+                        foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(hPath, UriKind.Relative)));
+                    else if (foe.Name.Equals("Bill"))
+                        foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(bPath, UriKind.Relative)));
+                    else
+                        foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(oPath, UriKind.Relative)));
                     Canvas.SetLeft(foe.shape, foe.PositionX);
                     Canvas.SetTop(foe.shape, foe.PositionY);
                     enemies.Add(foe);
@@ -640,6 +655,33 @@ namespace SpaceInvaders
                 index++;
                 loadInfo = loadState[index].Split(':');
                 playerLives = int.Parse(loadInfo[1]);
+                index++;
+                int k = 0;
+                for (int i = 0; i < 3; i++)
+                {
+                    var barrier = new CustomShape();
+                    barrier.shape = new Rectangle();
+                    barrier.shape.Width = 100;
+                    barrier.shape.Height = 50;
+                    barrier.Health = 10;
+                    barrier.shape.Fill = new ImageBrush(new BitmapImage(new Uri(barrierPath, UriKind.Relative)));
+                    barriers.Add(barrier);
+                }
+                while (k < barriers.Count)
+                {
+                    loadInfo = loadState[index].Split(':');
+                    barriers[k].Health = double.Parse(loadInfo[1]);
+                    barriers[k].PositionX = double.Parse(loadInfo[2]);
+                    barriers[k].PositionY = double.Parse(loadInfo[3]);
+                    Canvas.SetTop(barriers[k].shape, double.Parse(loadInfo[4]));
+                    Canvas.SetLeft(barriers[k].shape, double.Parse(loadInfo[5]));
+                    if (barriers[k].Health > 0)
+                        canvas.Children.Add(barriers[k].shape);
+                    k++;
+                    index++;
+                    //
+                }
+                barriersArray = barriers.ToArray();
                 NewGameClick(sender, e);
             }
             catch (FileNotFoundException)
