@@ -83,6 +83,16 @@ namespace WpfApplication2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap billclinton {
+            get {
+                object obj = ResourceManager.GetObject("billclinton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap DonaldsShip {
             get {
                 object obj = ResourceManager.GetObject("DonaldsShip", resourceCulture);
@@ -106,6 +116,16 @@ namespace WpfApplication2.Properties {
         public static System.Drawing.Bitmap hilaryclintonface {
             get {
                 object obj = ResourceManager.GetObject("hilaryclintonface", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap obama {
+            get {
+                object obj = ResourceManager.GetObject("obama", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

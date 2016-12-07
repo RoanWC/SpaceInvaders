@@ -57,7 +57,8 @@ namespace SpaceInvaders
         double top = 0.0;
        
         SoundPlayer player = new System.Media.SoundPlayer("Resources/shotSound.wav");
-        
+        SoundPlayer player = new System.Media.SoundPlayer("Resources/shotSound.wav");
+
 
         public MainWindow()
         {
@@ -145,25 +146,33 @@ namespace SpaceInvaders
                 cols++;
             var FoeYSpacing = 0.0;
             var FoeXSpacing = 1.0;
+            var str = "Resources/hilaryclintonface.png," + "Resources/billclinton.png," + "Resources/obama.png";
+            var enemyNames = "Hilary,Bill,Obama";
+            var PicturesArray = str.Split(',');
+            var enemyNamesArray = enemyNames.Split(',');
+            var health = rows;
             for (int i = 0; i < rows; i++)
             {
+                
                 for (int j = 0; j < cols; j++)
                 {
-                    string relativePath = "Resources/hilaryclintonface.png";
+                   
                     CustomShape foe = new CustomShape(); //create the rectangle
                     foe.shape = new Rectangle();
-                    foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(relativePath, UriKind.Relative)));
-                    foe.Name = "Enemy row" + i + " col " + j;
+                    foe.Name = enemyNamesArray[i];
+                    foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(PicturesArray[i], UriKind.Relative)));
                     foe.shape.Width = 50.0;
                     foe.shape.Height = 50.0;
+                    foe.Health = rows;
                     foe.PositionX = FoeXSpacing;
                     foe.PositionY = FoeYSpacing;
-                    foe.Health = 3;
+                    foe.Health = health;
                     Canvas.SetLeft(foe.shape, FoeXSpacing);
                     FoeXSpacing += foe.shape.Width;
                     Canvas.SetTop(foe.shape, FoeYSpacing);
                     enemies.Add(foe);
                 }
+                health--;
                 FoeXSpacing = 0.0;
                 FoeYSpacing += enemies[i].shape.Height;
             }
@@ -273,9 +282,16 @@ namespace SpaceInvaders
                 }
             }
         }
-        public void updateKillCount()
+        public void updateKillCount(String name)
         {
-            killCount++;
+            var score = 0;
+            if (name.Equals("Hilary"))
+                score = 3;
+            else if (name.Equals("Bill"))
+                score = 2;
+            else if (name.Equals("Obama"))
+                score = 1;
+            killCount += score;
             kills.Text = Convert.ToString(killCount);
         }
         public void moveBullet(object sender, EventArgs e)
@@ -316,12 +332,20 @@ namespace SpaceInvaders
                         (shipbullets[j].PositionX + shipbullets[j].shape.Width > enemies[i].PositionX &&
                          shipbullets[j].PositionX <= enemies[i].PositionX + enemies[i].shape.Width))
                         {
-                            canvas.Children.Remove(enemies[i].shape);
+                            enemies[i].Health--;
                             canvas.Children.Remove(shipbullets[j].shape);
-                            enemies.Remove(enemies[i]);
                             shipbullets.Remove(shipbullets[j]);
-                            enemyCount = enemies.Count;
-                            updateKillCount();
+
+                            if (enemies[i].Health == 0)
+                            {
+                                canvas.Children.Remove(enemies[i].shape);
+                               
+                                enemies.Remove(enemies[i]);
+                               
+                                enemyCount = enemies.Count;
+                                updateKillCount(enemies[i].Name);
+                            }
+                                
                         }
                         else if (shipbullets[j].PositionY < 0)
                         {
@@ -383,7 +407,7 @@ namespace SpaceInvaders
                         GameOver();
                     }
              
-                }// moveEnemyBullet(enemmiesList)
+                }
                 else if (!hitship)
                     for (int i = 0; i < barriersArray.Length; i++)
                     {
