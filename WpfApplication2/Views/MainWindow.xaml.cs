@@ -55,7 +55,7 @@ namespace SpaceInvaders
         int playerLives = 3;
         int delay = 2000;
         double top = 0.0;
-       
+        int counter = 0;
         SoundPlayer player = new System.Media.SoundPlayer("Resources/shotSound.wav");
         //SoundPlayer song = new System.Media.SoundPlayer("Resources/oyvey.wav");
         //MediaPlayer player = new System.Windows.Media.MediaPlayer();
@@ -145,12 +145,14 @@ namespace SpaceInvaders
 
         public void createLevel(int difficulty)
         {
+           
             if (difficulty > 1)
             {
                 rows++;
                 speed += 0.5;
+                
             }
-            else if (difficulty > 3)
+            if (difficulty > 3)
                 cols++;
             var FoeYSpacing = 0.0;
             var FoeXSpacing = 1.0;
@@ -159,32 +161,35 @@ namespace SpaceInvaders
             var PicturesArray = str.Split(',');
             var enemyNamesArray = enemyNames.Split(',');
             var health = rows;
-            var counter = 0;
             for (int i = 0; i < rows; i++)
             {
-                counter = i;
+
+                if (counter > 2)
+                    counter = 0; 
+              
                 for (int j = 0; j < cols; j++)
                 {
-                    if (i > 2)
-                        counter = 0;
+                    
                     CustomShape foe = new CustomShape(); //create the rectangle
                     foe.shape = new Rectangle();
                     foe.Name = enemyNamesArray[counter];
                     foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(PicturesArray[counter], UriKind.Relative)));
                     foe.shape.Width = 50.0;
                     foe.shape.Height = 50.0;
-                    foe.Health = rows;
+                    foe.Health = 1;
                     foe.PositionX = FoeXSpacing;
                     foe.PositionY = FoeYSpacing;
-                    foe.Health = health;
+                   //foe.Health = health;
                     Canvas.SetLeft(foe.shape, FoeXSpacing);
                     FoeXSpacing += foe.shape.Width;
                     Canvas.SetTop(foe.shape, FoeYSpacing);
 
                     enemies.Add(foe);
                 }
+              
                 counter++;
-                health--;
+         
+                //ealth--;
                 FoeXSpacing = 0.0;
                 FoeYSpacing += enemies[i].shape.Height;
             }
