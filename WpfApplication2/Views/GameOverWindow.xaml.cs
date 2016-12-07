@@ -60,5 +60,17 @@ namespace WpfApplication2.Views
                 outputFile.WriteLine(playerNameAndScore);
             }
         }
+
+        private void backToMenu_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow MainWindow = new MainWindow();
+            MainWindow.Show();
+            this.Close();
+        }
+
+        private void quitButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
