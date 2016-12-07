@@ -54,7 +54,7 @@ namespace WpfApplication2.Views
         private void saveHighscore_Click(object sender, RoutedEventArgs e)
         {
 
-            using (StreamWriter outputFile = new StreamWriter(filename))
+            using (StreamWriter outputFile = new StreamWriter(filename, true))
             {
                 playerNameAndScore = playerName + " " + killCount; 
                 outputFile.WriteLine(playerNameAndScore);
