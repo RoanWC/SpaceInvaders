@@ -524,12 +524,20 @@ namespace SpaceInvaders
                     if (isPaused)
                     {
                         strafeTimer.Start();
+                        enemyAttackTimer.Start();
+                        enemyBulletTimer.Start();
+                        bulletTimer.Start();
+                        song.Play();
                         isPaused = !isPaused;
                         paused2.Visibility = Visibility.Hidden;
                         paused.Visibility = Visibility.Hidden;
                         break;
                     }
                     strafeTimer.Stop();
+                    enemyAttackTimer.Stop();
+                    enemyBulletTimer.Stop();
+                    bulletTimer.Stop();
+                    song.Pause();
                     isPaused = !isPaused;
                     paused2.Visibility = Visibility.Visible;
                     paused.Visibility = Visibility.Visible;
