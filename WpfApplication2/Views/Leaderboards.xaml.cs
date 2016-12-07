@@ -39,43 +39,85 @@ namespace WpfApplication2.Views
                     loadHS.Sort();
                 }
             }
-                    while (loadHS.Capacity < top15)
+                    while (loadHS.Capacity <= top15)
             {
                 loadHS.Add("unavailable");
             }
-            var marginTop = 30;
 
-            for (int i = 0; i < top15; i++)
+            Grid LeaderBoardGrid = new Grid();
+            LeaderBoardGrid.Width = 657;
+            LeaderBoardGrid.HorizontalAlignment = HorizontalAlignment.Left;
+            LeaderBoardGrid.VerticalAlignment = VerticalAlignment.Top;
+            LeaderBoardGrid.ShowGridLines = false;
+            LeaderBoardGrid.Background = new SolidColorBrush(Colors.Transparent);
+
+            ColumnDefinition gridCol1 = new ColumnDefinition();
+            ColumnDefinition gridCol2 = new ColumnDefinition();
+            gridCol1.Width = new GridLength(25, GridUnitType.Star);
+            gridCol2.Width = new GridLength(75, GridUnitType.Star);
+            LeaderBoardGrid.ColumnDefinitions.Add(gridCol1);
+            LeaderBoardGrid.ColumnDefinitions.Add(gridCol2);
+
+            
+            // Add first column header
+            TextBlock Names = new TextBlock();
+            Names.Text = "Names";
+            Names.Foreground = Brushes.Lime;
+            Names.FontSize = 30;
+            Names.FontFamily = new FontFamily("OCR A Extended");
+            Names.VerticalAlignment = VerticalAlignment.Top;
+            Names.HorizontalAlignment = HorizontalAlignment.Left;
+            Grid.SetRow(Names, 0);
+            Grid.SetColumn(Names, 0);
+
+            // Add second column header
+            TextBlock HighScores = new TextBlock();
+            HighScores.Text = "HighScores";
+            HighScores.Foreground = Brushes.Lime;
+            HighScores.FontSize = 30;
+            HighScores.FontFamily = new FontFamily("OCR A Extended");
+            HighScores.VerticalAlignment = VerticalAlignment.Top;
+            HighScores.HorizontalAlignment = HorizontalAlignment.Left;
+            Grid.SetRow(HighScores, 0);
+            Grid.SetColumn(HighScores, 1);
+            // add column headers to grid
+            LeaderBoardGrid.Children.Add(Names);
+            LeaderBoardGrid.Children.Add(HighScores);
+            
+            for (int i = 1; i < 16; i++)
             {
-                Label lb = new Label();
-                lb.Height = 25;
-                lb.Margin = new Thickness(10, marginTop, 0, 0);
-                marginTop += 10;
-                lb.VerticalAlignment = VerticalAlignment.Center;
-                lb.Width = 20;
-                lb.Content = i.ToString();
-                lb.Foreground = Brushes.Lime;
-                lb.FontSize = 25;
-                lb.FontFamily = new FontFamily("OCR A Extended");
-                LeaderBoardGrid.Children.Add(lb);
-            }
-            marginTop = 30;
-            for (int i = 0; i < top15; i++)
-            {
-                TextBlock tb = new TextBlock();
-                tb.Height = 20;
-                tb.Margin = new Thickness(36, marginTop, 0,0);
-                marginTop += 30;
-                tb.VerticalAlignment = VerticalAlignment.Center;
-                tb.Width = 300;
-                tb.Text = loadHS[i];
-                tb.Foreground = Brushes.Lime;
-                tb.FontSize = 20;
-                tb.FontFamily = new FontFamily("OCR A Extended");
-                LeaderBoardGrid.Children.Add(tb);
+                RowDefinition gridRow1 = new RowDefinition();
+                
+                LeaderBoardGrid.RowDefinitions.Add(gridRow1);
+                TextBlock names = new TextBlock();
+                names.Height = 20;
+                names.VerticalAlignment = VerticalAlignment.Center;
+                names.HorizontalAlignment = HorizontalAlignment.Left;
+                names.Text = (i).ToString();
+                names.Foreground = Brushes.Lime;
+                names.FontSize = 20;
+                names.FontFamily = new FontFamily("OCR A Extended");
+                Grid.SetRow(names, i);
+                Grid.SetColumn(names, 0);
+            LeaderBoardGrid.Children.Add(names);
 
+                TextBlock highscores = new TextBlock();
+                highscores.Height = 20;
+                highscores.VerticalAlignment = VerticalAlignment.Center;
+                highscores.HorizontalAlignment = HorizontalAlignment.Left;
+                highscores.Text = loadHS[i-1];
+                highscores.Foreground = Brushes.Lime;
+                highscores.FontSize = 20;
+                highscores.FontFamily = new FontFamily("OCR A Extended");
+                Grid.SetRow(highscores, i);
+                Grid.SetColumn(highscores, 1);
+                    
+                LeaderBoardGrid.Children.Add(highscores);
+
+                
             }
 
+            LeaderBoardWindow.Content =LeaderBoardGrid;
             
                     
                 

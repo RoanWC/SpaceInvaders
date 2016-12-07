@@ -8,26 +8,14 @@
     mc:Ignorable="d"
     Title="Leaderboards"
     Height="657"
-    Width="525">
+    Width="525"
+    Name="LeaderBoardWindow">
     <Window.Background>
         <ImageBrush
             ImageSource="/WpfApplication2;component/Resources/background.gif" />
     </Window.Background>
     <Grid
         Name="LeaderBoardGrid">
-        <TextBlock
-            x:Name="Hishscores"
-            HorizontalAlignment="Left"
-            Margin="10,10,0,0"
-            TextWrapping="Wrap"
-            Text="Highscores:"
-            VerticalAlignment="Top"
-            Width="133"
-            Foreground="Lime"
-            FontFamily="OCR A Extended"
-            FontSize="20" />
- 
-       
        
     </Grid>
 </Window>
