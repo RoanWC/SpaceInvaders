@@ -104,7 +104,7 @@ namespace SpaceInvaders
             ship.PositionX = Canvas.GetLeft(ship.shape);
             ship.PositionY = canvas.ActualHeight - ship.shape.Height;
             canvas.Children.Add(ship.shape);
-            song.Play();
+            song.PlayLooping();
             canvas.Background = new ImageBrush(new BitmapImage(new Uri(backGroundPath, UriKind.Relative)));
             if (!isLoadedGame)
             {
