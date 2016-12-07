@@ -56,9 +56,9 @@ namespace SpaceInvaders
         int delay = 2000;
         double top = 0.0;
        
-        //SoundPlayer player = new System.Media.SoundPlayer("Resources/shotSound.wav");
+        SoundPlayer player = new System.Media.SoundPlayer("Resources/shotSound.wav");
         //SoundPlayer song = new System.Media.SoundPlayer("Resources/oyvey.wav");
-        MediaPlayer player = new System.Windows.Media.MediaPlayer();
+        //MediaPlayer player = new System.Windows.Media.MediaPlayer();
         MediaPlayer song = new System.Windows.Media.MediaPlayer();
 
         public MainWindow()
@@ -545,10 +545,7 @@ namespace SpaceInvaders
                 case Key.Space:
                     CustomShape bullet = new CustomShape();
                     bullet.shape = new Rectangle();
-                    player.Open(new Uri("Resources/shotsound.wav", UriKind.Relative)); //Open the file for a media playback
-                    player.Volume = 100;
                     player.Play();
-                    player.Stop();
                     bullet.shape.Fill = new ImageBrush(new BitmapImage(new Uri(bulletPath, UriKind.Relative)));
                     bullet.Name = "Bullet";
                     bullet.shape.Width = 10;
