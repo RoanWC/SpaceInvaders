@@ -29,6 +29,7 @@ namespace WpfApplication2.Views
         public Leaderboards()
         {
             InitializeComponent();
+            var top15 = 15;
             using (StreamReader inputfile = new StreamReader("leaderboards.txt"))
             {
                 while (inputfile.Peek() >= 0)
@@ -38,26 +39,45 @@ namespace WpfApplication2.Views
                     loadHS.Sort();
                 }
             }
-                    while (loadHS.Capacity < 15)
+                    while (loadHS.Capacity < top15)
             {
                 loadHS.Add("unavailable");
             }
+            var marginTop = 30;
 
-                    HStextBlock1.Text = loadHS[1];
-                    HStextBlock2.Text = loadHS[2];
-                    HStextBlock3.Text = loadHS[3];
-                    HStextBlock4.Text = loadHS[4];
-                    HStextBlock5.Text = loadHS[5];
-                    HStextBlock6.Text = loadHS[6];
-                    HStextBlock7.Text = loadHS[7];
-                    HStextBlock8.Text = loadHS[8];
-                    HStextBlock9.Text = loadHS[9];
-                    HStextBlock10.Text = loadHS[10];
-                    HStextBlock11.Text = loadHS[11];
-                    HStextBlock12.Text = loadHS[12];
-                    HStextBlock13.Text = loadHS[13];
-                    HStextBlock14.Text = loadHS[14];
-                    HStextBlock15.Text = loadHS[15];
+            for (int i = 0; i < top15; i++)
+            {
+                Label lb = new Label();
+                lb.Height = 25;
+                lb.Margin = new Thickness(10, marginTop, 0, 0);
+                marginTop += 10;
+                lb.VerticalAlignment = VerticalAlignment.Center;
+                lb.Width = 20;
+                lb.Content = i.ToString();
+                lb.Foreground = Brushes.Lime;
+                lb.FontSize = 25;
+                lb.FontFamily = new FontFamily("OCR A Extended");
+                LeaderBoardGrid.Children.Add(lb);
+            }
+            marginTop = 30;
+            for (int i = 0; i < top15; i++)
+            {
+                TextBlock tb = new TextBlock();
+                tb.Height = 20;
+                tb.Margin = new Thickness(36, marginTop, 0,0);
+                marginTop += 30;
+                tb.VerticalAlignment = VerticalAlignment.Center;
+                tb.Width = 300;
+                tb.Text = loadHS[i];
+                tb.Foreground = Brushes.Lime;
+                tb.FontSize = 20;
+                tb.FontFamily = new FontFamily("OCR A Extended");
+                LeaderBoardGrid.Children.Add(tb);
+
+            }
+
+            
+                    
                 
             
 
