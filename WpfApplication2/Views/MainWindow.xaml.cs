@@ -672,6 +672,7 @@ namespace SpaceInvaders
                         canvas.Children.Add(barriers[k].shape);
                     k++;
                     index++;
+                    //
                 }
                 barriersArray = barriers.ToArray();
                 NewGameClick(sender, e);
