@@ -42,7 +42,6 @@ namespace SpaceInvaders
         CustomShape ship = new CustomShape();
 
 
-
         double bulletSpeed = 8;
         double speed = 1;
         bool leftPressed;
@@ -54,8 +53,8 @@ namespace SpaceInvaders
         int cols = 8;
         int playerLives = 3;
         int delay = 2000;
-        double top = 0.0;
         int counter = 0;
+        double top = 3.0;
         SoundPlayer player = new System.Media.SoundPlayer("Resources/shotSound.wav");
         //SoundPlayer song = new System.Media.SoundPlayer("Resources/oyvey.wav");
         //MediaPlayer player = new System.Windows.Media.MediaPlayer();
@@ -160,7 +159,7 @@ namespace SpaceInvaders
             var enemyNames = "Hilary,Bill,Obama";
             var PicturesArray = str.Split(',');
             var enemyNamesArray = enemyNames.Split(',');
-            var health = rows;
+            var health = 3;
             for (int i = 0; i < rows; i++)
             {
 
@@ -176,10 +175,9 @@ namespace SpaceInvaders
                     foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(PicturesArray[counter], UriKind.Relative)));
                     foe.shape.Width = 50.0;
                     foe.shape.Height = 50.0;
-                    foe.Health = 1;
                     foe.PositionX = FoeXSpacing;
                     foe.PositionY = FoeYSpacing;
-                   //foe.Health = health;
+                    foe.Health = health;
                     Canvas.SetLeft(foe.shape, FoeXSpacing);
                     FoeXSpacing += foe.shape.Width;
                     Canvas.SetTop(foe.shape, FoeYSpacing);
@@ -189,7 +187,7 @@ namespace SpaceInvaders
               
                 counter++;
          
-                //ealth--;
+                //health--;
                 FoeXSpacing = 0.0;
                 FoeYSpacing += enemies[i].shape.Height;
             }
@@ -227,13 +225,18 @@ namespace SpaceInvaders
         {
             if (enemies.Count == 0)
             {
-                strafeTimer.Stop();
-                top = 0.0;
+               
                 foreach (var item in shipbullets)
                 {
                     canvas.Children.Remove(item.shape);
                 }
+                strafeTimer.Stop();
+                top = 0.0;
                 bulletTimer.Stop();
+                enemyAttackTimer.Stop();
+                enemyBulletTimer.Stop();
+                enemies.Clear();
+                enemybullets.Clear();
                 shipbullets.Clear();
                 createLevel(++difficulty);
             }
@@ -244,7 +247,7 @@ namespace SpaceInvaders
                 if (enemies[i].PositionX + enemies[i].shape.Width >= canvaswidth)
                 {
                     speed = -speed;
-                    top = 2;
+                   
                     diretionChanged = true;
                     for (int j = 0; j < enemies.Count; j++)
                     {
@@ -255,7 +258,7 @@ namespace SpaceInvaders
                 else if (enemies[i].PositionX < 0)
                 {
                     speed = -speed;
-                    top = 2.0;
+                  
                     diretionChanged = true;
                     for (int j = 0; j < enemies.Count; j++)
                     {
@@ -263,6 +266,8 @@ namespace SpaceInvaders
                         Canvas.SetTop(enemies[j].shape, enemies[j].PositionY);
                     }
                 }
+                else if (enemies[i].PositionY + enemies[i].shape.ActualHeight > ship.PositionY)
+                    GameOver();
                 if (diretionChanged)
                 {
                     for (int k = 0; k < enemies.Count; k++)
@@ -303,11 +308,11 @@ namespace SpaceInvaders
         {
             var score = 0;
             if (name.Equals("Hilary"))
-                score = 3;
+                score = 3*difficulty;
             else if (name.Equals("Bill"))
-                score = 2;
+                score = 2*difficulty;
             else if (name.Equals("Obama"))
-                score = 1;
+                score = 1* difficulty;
             killCount += score;
             kills.Text = Convert.ToString(killCount);
         }
