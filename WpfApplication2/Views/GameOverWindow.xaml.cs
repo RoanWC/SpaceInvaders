@@ -56,7 +56,7 @@ namespace WpfApplication2.Views
 
             using (StreamWriter outputFile = new StreamWriter(filename, true))
             {
-                playerNameAndScore = playerName + " " + killCount; 
+                playerNameAndScore = "\n" + playerName + " " + killCount;
                 outputFile.WriteLine(playerNameAndScore);
             }
         }

@@ -35,7 +35,8 @@ namespace WpfApplication2.Views
                 while (inputfile.Peek() >= 0)
                 {
                     String line = inputfile.ReadLine();
-                    loadHS.Add(line);
+                    if (!line.Equals(""))
+                        loadHS.Add(line);
                     
                 }
             }
@@ -143,7 +144,6 @@ namespace WpfApplication2.Views
                 {
                     var current = list[j].Substring(list[j].LastIndexOf(" ") + 1);
                     var biggestscore = list[biggest].Substring(list[biggest].LastIndexOf(" ") + 1);
-                   
                     if (int.Parse(current).CompareTo(int.Parse(biggestscore)) >0)
                     {
                         biggest = j;
