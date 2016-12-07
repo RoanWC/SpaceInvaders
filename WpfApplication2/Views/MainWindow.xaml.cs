@@ -385,6 +385,8 @@ namespace SpaceInvaders
         private void GameOver()
         {
             enemyAttackTimer.Stop();
+            song.Stop();
+            song.Position = TimeSpan.FromSeconds(0);
             enemyBulletTimer.Stop();
             strafeTimer.Stop();
             bulletTimer.Stop();
