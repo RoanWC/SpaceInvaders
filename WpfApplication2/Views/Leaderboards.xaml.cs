@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpaceInvaders;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -132,6 +133,7 @@ namespace WpfApplication2.Views
             Button BackToMainMenuBtn = new Button();
             BackToMainMenuBtn.Height = 40;
             BackToMainMenuBtn.Width = 100;
+            BackToMainMenuBtn.Click += BackToMainMenuBtn_Click;
             BackToMainMenuBtn.Background = Brushes.Transparent;
             BackToMainMenuBtn.VerticalAlignment = VerticalAlignment.Center;
             BackToMainMenuBtn.HorizontalAlignment = HorizontalAlignment.Left;
@@ -146,6 +148,14 @@ namespace WpfApplication2.Views
             LeaderBoardGrid.Children.Add(BackToMainMenuBtn);
             LeaderBoardWindow.Content =LeaderBoardGrid;
             
+        }
+
+        private void BackToMainMenuBtn_Click(object sender, RoutedEventArgs e)
+        {
+            
+            MainWindow window = new MainWindow();
+            window.Show();
+            this.Close();
         }
 
         private static void sortScores(List<String> list)
