@@ -84,7 +84,7 @@ namespace SpaceInvaders
         bool rightPressed;
         bool isPaused = false;
         public int killCount = 0;
-        int difficulty = 1;
+        int difficulty = 2;
         int rows = 3;
         int cols = 8;
         int playerLives = 3;
@@ -204,7 +204,7 @@ namespace SpaceInvaders
             var enemyNames = "Hilary,Bill,Obama";
             var PicturesArray = str.Split(',');
             var enemyNamesArray = enemyNames.Split(',');
-            var health = 3;
+            var health = 1;
             // rows are dependent on difficulty
             // build list of enemies
             for (int i = 0; i < rows; i++)
@@ -234,7 +234,7 @@ namespace SpaceInvaders
                 // restart counter for resources array
                 counter++;
 
-                health--;
+               
                 FoeXSpacing = 0.0;
                 // once outer loop is finished increase the PositionY of enemy so they dont overlap
                 FoeYSpacing += enemies[i].shape.Height;
@@ -264,7 +264,6 @@ namespace SpaceInvaders
                     canvas.Children.Remove(item.shape);
                 }
                 strafeTimer.Stop();
-                top = 0.0;
                 bulletTimer.Stop();
                 enemyAttackTimer.Stop();
                 enemyBulletTimer.Stop();
@@ -387,7 +386,6 @@ namespace SpaceInvaders
                     }
                 }
             }
-            //(int i = size-1; i >= 0; i--
             for (int i = 0; i < enemies.Count; i++)
             {
                 for (int j = 0; j < shipbullets.Count; j++)
@@ -403,7 +401,7 @@ namespace SpaceInvaders
                             canvas.Children.Remove(shipbullets[j].shape);
                             shipbullets.Remove(shipbullets[j]);
 
-                            if (enemies[i].Health == 0)
+                                 if (enemies[i].Health == 0)
                             {
                                 canvas.Children.Remove(enemies[i].shape);
                                 updateKillCount(enemies[i].Name);
