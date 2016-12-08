@@ -85,7 +85,7 @@ namespace SpaceInvaders
         bool isPaused = false;
         public int killCount = 0;
         int difficulty = 1;
-        int rows = 3;
+        int rows = 5;
         int cols = 8;
         int playerLives = 3;
         int delay = 2000;
@@ -196,7 +196,7 @@ namespace SpaceInvaders
                 speed += 0.5;
 
             }
-            if (difficulty > 3) {
+            if (difficulty > 3 && cols < 8) {
                 speed += 0.5;
                 cols++;
             }
@@ -271,11 +271,14 @@ namespace SpaceInvaders
                 {
                     canvas.Children.Remove(item.shape);
                 }
+                foreach (var item in enemybullets)
+                {
+                    canvas.Children.Remove(item.shape);
+                }
                 strafeTimer.Stop();
                 bulletTimer.Stop();
                 enemyAttackTimer.Stop();
                 enemyBulletTimer.Stop();
-                enemies.Clear();
                 enemybullets.Clear();
                 shipbullets.Clear();
                 createLevel(++difficulty);
