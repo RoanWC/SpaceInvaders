@@ -79,12 +79,12 @@ namespace SpaceInvaders
 
 
         double bulletSpeed = 8;
-        double speed = 1;
+        double speed = 2;
         bool leftPressed;
         bool rightPressed;
         bool isPaused = false;
         public int killCount = 0;
-        int difficulty = 2;
+        int difficulty = 1;
         int rows = 3;
         int cols = 8;
         int playerLives = 3;
@@ -196,22 +196,29 @@ namespace SpaceInvaders
                 speed += 0.5;
 
             }
-            if (difficulty > 3)
+            if (difficulty > 3) {
+                speed += 0.5;
                 cols++;
+            }
+              
             var FoeYSpacing = 0.0;
             var FoeXSpacing = 1.0;
             var str = "Resources/hilaryclintonface.png," + "Resources/billclinton.png," + "Resources/obama.png";
             var enemyNames = "Hilary,Bill,Obama";
             var PicturesArray = str.Split(',');
             var enemyNamesArray = enemyNames.Split(',');
-            var health = 1;
+            var health = 3;
             // rows are dependent on difficulty
             // build list of enemies
             for (int i = 0; i < rows; i++)
             {
 
                 if (counter > 2)
+                {
                     counter = 0;
+                    health = 3;
+                }
+                    
 
                 for (int j = 0; j < cols; j++)
                 {
@@ -231,6 +238,7 @@ namespace SpaceInvaders
 
                     enemies.Add(foe);
                 }
+                health--;
                 // restart counter for resources array
                 counter++;
 
