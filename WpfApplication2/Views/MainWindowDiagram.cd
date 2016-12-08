@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SpaceInvaders.MainWindow">
+    <Position X="0.75" Y="1" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>S4JAjAABgAAIAADAAQBAYAkAIECNAQUBkCIAADAAIBE=</HashCode>
+      <FileName>Views\MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="WpfApplication2.Views.Leaderboards">
+    <Position X="3.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAIAAAAAAAAAAAAAEQAAAAAAIAA=</HashCode>
+      <FileName>Views\Leaderboards.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="WpfApplication2.Views.GameOverWindow">
+    <Position X="5.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAgABhAAAAAAAABAEAAEAAAAAAAAAAFAAAAAAAAAA=</HashCode>
+      <FileName>Views\GameOverWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="WpfApplication2.CustomShape">
+    <Position X="8.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAggAAAAAQAAAAAAIAAAAAAAAAABAA=</HashCode>
+      <FileName>Characters\CustomShape.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
