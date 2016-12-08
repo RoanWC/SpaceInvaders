@@ -624,18 +624,23 @@ namespace SpaceInvaders
         }
         private void saveFile()
         {
+            // List hold all the info needed to save
             List<String> state = new List<String>();
+            // File to save the game info
             String fileName = "gameState.txt";
             state.Add("count:" + enemies.Count);
+            // Adds each enemies health, coordinates, dimensions and name to the list
             for (int i = 0; i < enemies.Count; i++)
             {
                 state.Add(i + ":" + enemies[i].PositionX + ":" + enemies[i].PositionY + ":" + enemies[i].shape.Height + ":" + enemies[i].shape.Width + ":" + enemies[i].Health + ":" + enemies[i].Name);
             }
+            // End of enemy info
             state.Add("--End Enemies");
-            state.Add("difficulty:" + difficulty);
-            state.Add("Kill count:" + killCount);
-            state.Add("Speed:" + speed);
-            state.Add("Lives:" + playerLives);
+            state.Add("difficulty:" + difficulty); // saves the difficulty
+            state.Add("Kill count:" + killCount); // saves the user score
+            state.Add("Speed:" + speed); // saves the speed for enemies
+            state.Add("Lives:" + playerLives); // save remaining lives
+            // Adds each barrier health and coordinates to the list
             for (int i = 0; i < barriersArray.Length; i++)
             {
                 state.Add("Barrier" + i + ":" + barriersArray[i].Health + ":" + barriersArray[i].PositionX + ":" +
@@ -643,6 +648,7 @@ namespace SpaceInvaders
             }
             using (StreamWriter outputFile = new StreamWriter(fileName))
             {
+                // for every element in the list, write it to it's own line in the file
                 foreach (string line in state)
                     outputFile.WriteLine(line);
             }
@@ -652,22 +658,26 @@ namespace SpaceInvaders
         {
             try
             {
+                // list to hold data
                 List<String> loadState = new List<String>();
                 isLoadedGame = true;
                 int index = -1;
+                // loadEnemies for enemy info, loadInfo for other info
                 String[] loadEnemies, loadInfo;
-                String fileName = "gameState.txt", relativePath = "Resources/hilaryclintonface.png"; ;
+                String fileName = "gameState.txt";
 
                 using (StreamReader inputFile = new StreamReader(fileName))
                 {
                     while (inputFile.Peek() >= 0)
                     {
+                        // add every line to the loadState list
                         String line = inputFile.ReadLine();
                         loadState.Add(line);
                     }
                 }
                 for (int i = 0; i < loadState.Count; i++)
                 {
+                    // find the index where the enemy info ends
                     if (loadState[i].Equals("--End Enemies"))
                     {
                         index = i;
@@ -681,14 +691,17 @@ namespace SpaceInvaders
                        oPath = "Resources/obama.png";
                 for (int i = 1; i < index; i++)
                 {
+                    // split the line by a delimiter 
                     loadEnemies = loadState[i].Split(':');
                     CustomShape foe = new CustomShape(); //create the rectangle
                     foe.shape = new Rectangle();
+                    // load needed info to properly "re-draw" the enemies on the canvas
                     foe.shape.Width = int.Parse(loadEnemies[4]);
                     foe.shape.Height = int.Parse(loadEnemies[3]);
                     foe.PositionX = int.Parse(loadEnemies[1]);
                     foe.PositionY = int.Parse(loadEnemies[2]);
                     foe.Health = int.Parse(loadEnemies[5]);
+                    // depending on the name of the enemy, a different picture will be used
                     foe.Name = loadEnemies[6];
                     if (foe.Name.Equals("Hilary"))
                         foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(hPath, UriKind.Relative)));
@@ -698,8 +711,9 @@ namespace SpaceInvaders
                         foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(oPath, UriKind.Relative)));
                     Canvas.SetLeft(foe.shape, foe.PositionX);
                     Canvas.SetTop(foe.shape, foe.PositionY);
-                    enemies.Add(foe);
+                    enemies.Add(foe); // add each enemy to the list
                 }
+                // split the next line with delimiter, load the data and increment index
                 index++;
                 loadInfo = loadState[index].Split(':');
                 difficulty = int.Parse(loadInfo[1]);
@@ -714,6 +728,7 @@ namespace SpaceInvaders
                 playerLives = int.Parse(loadInfo[1]);
                 index++;
                 int k = 0;
+                // build barrier list
                 for (int i = 0; i < 3; i++)
                 {
                     var barrier = new CustomShape();
@@ -732,9 +747,11 @@ namespace SpaceInvaders
                     barriers[k].PositionY = double.Parse(loadInfo[3]);
                     Canvas.SetTop(barriers[k].shape, double.Parse(loadInfo[4]));
                     Canvas.SetLeft(barriers[k].shape, double.Parse(loadInfo[5]));
+                    // only draw the barrier on the canvas if the health is > 0, when health = 0, the barrier is destroyed
                     if (barriers[k].Health > 0)
                         canvas.Children.Add(barriers[k].shape);
                     k++;
+                    // increment index so we can load info from the next line
                     index++;
                     //
                 }
@@ -750,11 +767,14 @@ namespace SpaceInvaders
 
         private void createLoadedGame(int difficulty)
         {
+            // adds each enemy based on their coordinates so the enemies are in their proper positions prior to the save
             foreach (CustomShape foe in enemies)
             {
                 canvas.Children.Add(foe.shape);
             }
+            // start the enemy move timer
             strafeTimer.Start();
+            // update kill count
             kills.Text = Convert.ToString(killCount);
         }
 
