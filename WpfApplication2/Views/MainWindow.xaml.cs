@@ -392,7 +392,8 @@ namespace SpaceInvaders
             {
                 for (int j = shipbullets.Count-1; j >=0; j--)
                 {
-                    
+                    try
+                    {
                         if ((shipbullets[j].PositionY <= enemies[i].PositionY + enemies[i].shape.Height && shipbullets[j].PositionY >= enemies[i].PositionY)
                         &&
                         (shipbullets[j].PositionX + shipbullets[j].shape.Width > enemies[i].PositionX &&
@@ -404,11 +405,11 @@ namespace SpaceInvaders
 
                             if (enemies[i].Health == 0)
                             {
-                               canvas.Children.Remove(enemies[i].shape);
+                                canvas.Children.Remove(enemies[i].shape);
                                 updateKillCount(enemies[i].Name);
                                 enemies.Remove(enemies[i]);
-                            
-                           
+
+
                             }
 
                         }
@@ -417,7 +418,8 @@ namespace SpaceInvaders
                             canvas.Children.Remove(shipbullets[j].shape);
                             shipbullets.Remove(shipbullets[j]);
                         }
-
+                    }
+                    catch (ArgumentException) { }
                 }
 
             }
