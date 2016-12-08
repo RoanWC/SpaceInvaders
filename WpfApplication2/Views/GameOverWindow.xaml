@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="Game Over"
         Height="657"
-        Width="525">
+        Width="525"
+    Icon="../Resources/ship.png">
     <Window.Background>
         <ImageBrush ImageSource="/WpfApplication2;component/Resources/background.gif" />
     </Window.Background>

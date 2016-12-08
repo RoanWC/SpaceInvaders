@@ -9,7 +9,8 @@
     Title="Leaderboards"
     Height="657"
     Width="525"
-    Name="LeaderBoardWindow">
+    Name="LeaderBoardWindow"
+    Icon="../Resources/ship.png">
     <Window.Background>
         <ImageBrush
             ImageSource="/WpfApplication2;component/Resources/background.gif" />
