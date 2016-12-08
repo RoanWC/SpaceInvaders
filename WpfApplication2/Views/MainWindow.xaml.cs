@@ -709,11 +709,11 @@ namespace SpaceInvaders
                     CustomShape foe = new CustomShape(); //create the rectangle
                     foe.shape = new Rectangle();
                     // load needed info to properly "re-draw" the enemies on the canvas
-                    foe.shape.Width = int.Parse(loadEnemies[4]);
-                    foe.shape.Height = int.Parse(loadEnemies[3]);
-                    foe.PositionX = int.Parse(loadEnemies[1]);
-                    foe.PositionY = int.Parse(loadEnemies[2]);
-                    foe.Health = int.Parse(loadEnemies[5]);
+                    foe.shape.Width = double.Parse(loadEnemies[4]);
+                    foe.shape.Height = double.Parse(loadEnemies[3]);
+                    foe.PositionX = double.Parse(loadEnemies[1]);
+                    foe.PositionY = double.Parse(loadEnemies[2]);
+                    foe.Health = double.Parse(loadEnemies[5]);
                     // depending on the name of the enemy, a different picture will be used
                     foe.Name = loadEnemies[6];
                     if (foe.Name.Equals("Hilary"))
