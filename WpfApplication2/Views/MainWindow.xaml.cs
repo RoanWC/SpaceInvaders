@@ -388,9 +388,9 @@ namespace SpaceInvaders
                 }
             }
             //(int i = size-1; i >= 0; i--
-            for (int i = enemies.Count-1; i >= 0; i--)
+            for (int i = 0; i < enemies.Count; i++)
             {
-                for (int j = shipbullets.Count-1; j >=0; j--)
+                for (int j = 0; j < shipbullets.Count; j++)
                 {
                     try
                     {
