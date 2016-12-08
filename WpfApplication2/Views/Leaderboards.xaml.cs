@@ -86,11 +86,11 @@ namespace WpfApplication2.Views
             LeaderBoardGrid.Children.Add(Names);
             LeaderBoardGrid.Children.Add(HighScores);
             
-            for (int i = 1; i < 17; i++)
+            for (int i = 1; i < 16; i++)
             {
-                RowDefinition gridRow1 = new RowDefinition();
+                RowDefinition row = new RowDefinition();
                 
-                LeaderBoardGrid.RowDefinitions.Add(gridRow1);
+                LeaderBoardGrid.RowDefinitions.Add(row);
                 TextBlock rank = new TextBlock();
                 rank.Height = 20;
                 rank.VerticalAlignment = VerticalAlignment.Center;
@@ -105,7 +105,7 @@ namespace WpfApplication2.Views
                 rank.FontFamily = new FontFamily("OCR A Extended");
                 Grid.SetRow(rank, i);
                 Grid.SetColumn(rank, 0);
-
+                                 
                 TextBlock highscores = new TextBlock();
                 highscores.Height = 20;
                 highscores.VerticalAlignment = VerticalAlignment.Center;
@@ -125,6 +125,25 @@ namespace WpfApplication2.Views
                 
             }
 
+            RowDefinition menuRow1 = new RowDefinition();
+            RowDefinition menuRow2 = new RowDefinition();
+            LeaderBoardGrid.RowDefinitions.Add(menuRow1);
+            LeaderBoardGrid.RowDefinitions.Add(menuRow2);
+            Button BackToMainMenuBtn = new Button();
+            BackToMainMenuBtn.Height = 40;
+            BackToMainMenuBtn.Width = 100;
+            BackToMainMenuBtn.Background = Brushes.Transparent;
+            BackToMainMenuBtn.VerticalAlignment = VerticalAlignment.Center;
+            BackToMainMenuBtn.HorizontalAlignment = HorizontalAlignment.Left;
+            BackToMainMenuBtn.Content = "MainMenu";
+            BackToMainMenuBtn.Foreground = Brushes.Lime;
+            BackToMainMenuBtn.FontSize = 20;
+            BackToMainMenuBtn.SetValue(Grid.RowProperty, 16);
+            BackToMainMenuBtn.SetValue(Grid.ColumnProperty, 0);
+            BackToMainMenuBtn.FontFamily = new FontFamily("OCR A Extended");
+            Grid.SetRow(BackToMainMenuBtn, 18);
+            Grid.SetColumn(BackToMainMenuBtn, 0);
+            LeaderBoardGrid.Children.Add(BackToMainMenuBtn);
             LeaderBoardWindow.Content =LeaderBoardGrid;
             
         }

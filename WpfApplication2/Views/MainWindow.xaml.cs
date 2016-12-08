@@ -79,6 +79,7 @@ namespace SpaceInvaders
 
 
         double bulletSpeed = 8;
+        // direction of enemy strafe
         double speed = 2;
         bool leftPressed;
         bool rightPressed;
@@ -90,6 +91,7 @@ namespace SpaceInvaders
         int playerLives = 3;
         int delay = 2000;
         int counter = 0;
+
         double top = 3.0;
         SoundPlayer player = new System.Media.SoundPlayer("Resources/shotSound.wav");
         MediaPlayer song = new System.Windows.Media.MediaPlayer();
