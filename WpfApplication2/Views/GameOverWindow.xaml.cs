@@ -25,7 +25,7 @@ namespace WpfApplication2.Views
         List<String> people = new List<string>();
         String playerName;
         String playerNameAndScore;
-        string filename = "leaderboards.txt";
+        string filename = @"Files/leaderboards.txt";
         int killCount;
         private StreamWriter fileWriter;
 
@@ -41,7 +41,7 @@ namespace WpfApplication2.Views
         private void enter(object sender, KeyEventArgs e)
         {
         
-            String filename = "leaderboards.txt";
+            String filename = @"Files/leaderboards.txt";
             
            
 

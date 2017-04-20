@@ -121,23 +121,26 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Content Include="bin\Debug\leaderboards.txt">
+    <Resource Include="Files\leaderboards.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
+    <Resource Include="bin\Debug\leaderboards.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </Content>
-    <Content Include="Resources\billclinton.png">
+    <Content Include="Resources\alien1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Views\MainWindowDiagram.cd" />
-    <Resource Include="Resources\leaderboards.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Content Include="Resources\obama.png">
+    <Content Include="Resources\leaderboards.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\alien3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\oyvey.wav">
@@ -162,7 +165,7 @@
     <Content Include="Resources\ship.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\hilaryclintonface.png">
+    <Content Include="Resources\alien2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\donaldthumb.png">

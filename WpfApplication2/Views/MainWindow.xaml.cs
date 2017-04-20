@@ -205,8 +205,8 @@ namespace SpaceInvaders
               
             var FoeYSpacing = 0.0;
             var FoeXSpacing = 1.0;
-            var str = "Resources/hilaryclintonface.png," + "Resources/billclinton.png," + "Resources/obama.png";
-            var enemyNames = "Hilary,Bill,Obama";
+            var str = "Resources/alien1.png," + "Resources/alien2.png," + "Resources/alien3.png";
+            var enemyNames = "alien1,alien2,alien3";
             var PicturesArray = str.Split(',');
             var enemyNamesArray = enemyNames.Split(',');
             var health = 3;
@@ -361,11 +361,11 @@ namespace SpaceInvaders
         public void updateKillCount(String name)
         {
             var score = 0;
-            if (name.Equals("Hilary"))
+            if (name.Equals("alien1"))
                 score = 3 * difficulty;
-            else if (name.Equals("Bill"))
+            else if (name.Equals("alien2"))
                 score = 2 * difficulty;
-            else if (name.Equals("Obama"))
+            else if (name.Equals("alien3"))
                 score = 1 * difficulty;
             killCount += score;
             kills.Text = Convert.ToString(killCount);
@@ -640,7 +640,7 @@ namespace SpaceInvaders
             // List hold all the info needed to save
             List<String> state = new List<String>();
             // File to save the game info
-            String fileName = "gameState.txt";
+            String fileName = @"Files/gameState.txt";
             state.Add("count:" + enemies.Count);
             // Adds each enemies health, coordinates, dimensions and name to the list
             for (int i = 0; i < enemies.Count; i++)
@@ -699,9 +699,9 @@ namespace SpaceInvaders
                 }
                 loadEnemies = loadState[0].Split(':');
                 int size = int.Parse(loadEnemies[1]);
-                String hPath = "Resources/hilaryclintonface.png",
-                       bPath = "Resources/billclinton.png",
-                       oPath = "Resources/obama.png";
+                String hPath = "Resources/alien1.png",
+                       bPath = "Resources/alien2.png",
+                       oPath = "Resources/alien3.png";
                 for (int i = 1; i < index; i++)
                 {
                     // split the line by a delimiter 
@@ -716,9 +716,9 @@ namespace SpaceInvaders
                     foe.Health = double.Parse(loadEnemies[5]);
                     // depending on the name of the enemy, a different picture will be used
                     foe.Name = loadEnemies[6];
-                    if (foe.Name.Equals("Hilary"))
+                    if (foe.Name.Equals("alien1"))
                         foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(hPath, UriKind.Relative)));
-                    else if (foe.Name.Equals("Bill"))
+                    else if (foe.Name.Equals("alien2"))
                         foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(bPath, UriKind.Relative)));
                     else
                         foe.shape.Fill = new ImageBrush(new BitmapImage(new Uri(oPath, UriKind.Relative)));

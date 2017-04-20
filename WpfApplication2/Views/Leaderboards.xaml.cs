@@ -31,7 +31,7 @@ namespace WpfApplication2.Views
         {
             InitializeComponent();
             var top15 = 15;
-            using (StreamReader inputfile = new StreamReader("leaderboards.txt"))
+            using (StreamReader inputfile = new StreamReader(filename))
             {
                 while (inputfile.Peek() >= 0)
                 {
